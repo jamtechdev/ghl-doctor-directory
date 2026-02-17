@@ -38,5 +38,13 @@
     "role": "user",
     "id": "1771307393137npl8nqzjk",
     "createdAt": "2026-02-17T05:49:53.137Z"
+  },
+  {
+    "name": "Quinn Smith",
+    "email": "hiqosodiju@mailinator.com",
+    "password": "$2b$10$wS7PUuU7vj1OoTK0ntud6uleJcJapo6MsuHZZwN00OUdSYFm1S/ha",
+    "role": "user",
+    "id": "1771308612878yol60tme2",
+    "createdAt": "2026-02-17T06:10:12.878Z"
   }
 ]

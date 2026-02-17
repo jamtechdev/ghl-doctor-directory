@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Esse laboris volupt",
+    "email": "fosenupoca@mailinator.com",
+    "phone": "+1 (982) 985-8354",
+    "dateOfBirth": "2023-10-19",
+    "gender": "female",
+    "address": "Unde unde laborum so",
+    "city": "Voluptate aliquip ut",
+    "state": "Quo possimus quis i",
+    "zipCode": "In totam cillum ut a",
+    "medicalHistory": "Qui quia labore eu i",
+    "allergies": [
+      "Debitis doloremque t"
+    ],
+    "medications": [
+      "Non est sed omnis an"
+    ],
+    "emergencyContact": {
+      "name": "Commodo ipsa commod",
+      "relationship": "Irure atque quis per",
+      "phone": "+1 (839) 609-5355"
+    },
+    "doctorId": "1771308624450fxbcyipr2",
+    "userId": "1771308612878yol60tme2",
+    "id": "1771308642970vgxjd5sp6",
+    "createdAt": "2026-02-17T06:10:42.970Z",
+    "updatedAt": "2026-02-17T06:10:42.970Z"
+  }
+]

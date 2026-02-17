@@ -56,3 +56,136 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+
+
+.hero-section {
+  position: relative;
+  background-image: url(../public/images/bg.png);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  z-index: 1;
+}
+
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+.text-primary{
+  color: #7c58d4 !important;
+}
+
+.bg-primary{
+  background:#7c58d4 !important;
+}
+
+.primary-btn{
+  padding:10px 35px;
+
+}
+
+
+.doctors-slider{
+  /* height: 400px; */
+  position: relative;
+  /* background:gray; */
+  width:100%;;
+  background-image: url('../public/images/bg.png');
+  background-repeat: no-repeat;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.doctors-slider:after{
+    content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  z-index:1;
+}
+
+.doctors-slider .content{
+  position: relative;
+  z-index: 10000;
+}
+
+.swiper-box{
+  position: relative;
+  max-height: 400px;;
+  min-height: 300px;;
+  overflow: hidden;
+  height: 300px;
+}
+
+.swiper-box img{
+  height: 100%;
+  object-fit: cover;
+}
+
+.doctor-name{
+    background: #ffffff;
+    width: 85%;
+    position: absolute;
+    padding:8px 0px;
+    bottom: 5%;
+    left: 5%;
+    border-top: 1px solid #b9b9b9;
+    border-radius: 0px 20px 0px 0px;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, 8px);
+    /* top: 95%; */
+    width: 100%;
+    left: 0;
+    bottom: 0% !important;
+}
+
+.swiper-wrapper{
+  padding-bottom: 58px !important;;;
+  padding-top: 10px;;
+}
+
+.swiper-pagination-clickable .swiper-pagination-bullet {
+    cursor: pointer;
+    width: 43px !important;
+    height: 10px !important;
+    border-radius: 4px !important;
+}
+
+.swiper-pagination-bullet-active{
+  background-color: white !important;
+}
+
+
+
+/* Testimonial */
+.swiper2 .swiper-pagination-bullet-active{
+  background-color:#7c58d4 !important;
+}
+
+
+.clarity{
+  background-image: url('../public/images/bg.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.clarity:after{
+    content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  z-index:1;
+}

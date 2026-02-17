@@ -528,5 +528,33 @@
     "userId": null,
     "createdAt": "2026-02-16T10:54:56.700Z",
     "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "slug": "dr-iure-deleniti-dolore",
+    "name": "Iure deleniti dolore",
+    "specialty": "Dolores nihil velit ",
+    "specialties": [
+      "Blanditiis quae dolo"
+    ],
+    "location": {
+      "city": "Nulla dolorem nulla ",
+      "state": "Rerum qui veniam et",
+      "address": "Aute amet ab soluta",
+      "zipCode": "Sunt saepe labore es"
+    },
+    "conditions": [
+      "Quibusdam labore opt"
+    ],
+    "bio": "Adipisci consectetur",
+    "brandColor": "#6836a2",
+    "contact": {
+      "phone": "+1 (656) 312-7985",
+      "email": "tigakubon@mailinator.com",
+      "website": "https://www.byxumahahepidu.ca"
+    },
+    "userId": "1771308612878yol60tme2",
+    "id": "1771308624450fxbcyipr2",
+    "createdAt": "2026-02-17T06:10:24.450Z",
+    "updatedAt": "2026-02-17T06:10:24.450Z"
   }
 ]
