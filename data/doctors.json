@@ -1,0 +1,532 @@
+[
+  {
+    "id": "1",
+    "slug": "dr-sarah-johnson",
+    "name": "Dr. Sarah Johnson",
+    "specialty": "Orthopedic Surgery",
+    "specialties": [
+      "Orthopedic Surgery",
+      "Sports Medicine",
+      "Joint Replacement"
+    ],
+    "brandColor": "#3B82F6",
+    "location": {
+      "city": "New York",
+      "state": "NY",
+      "address": "123 Medical Center Dr",
+      "zipCode": "10001"
+    },
+    "conditions": [
+      "ACL reconstruction",
+      "meniscus tear",
+      "knee injury",
+      "shoulder surgery",
+      "hip replacement",
+      "knee replacement",
+      "sports injury",
+      "fracture"
+    ],
+    "bio": "Dr. Sarah Johnson is a board-certified orthopedic surgeon with over 15 years of experience specializing in sports medicine and joint replacement surgery. She completed her medical degree at Johns Hopkins University and her residency at the Hospital for Special Surgery. Dr. Johnson is renowned for her expertise in ACL reconstruction and minimally invasive joint replacement procedures. She has helped hundreds of athletes return to peak performance and has published numerous research papers on advanced surgical techniques.",
+    "image": "/images/dr-sarah-johnson.jpg",
+    "contact": {
+      "phone": "(555) 123-4567",
+      "email": "sarah.johnson@medicalcenter.com",
+      "website": "https://www.drsarahjohnson.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Johns Hopkins University School of Medicine",
+        "year": 2005
+      },
+      {
+        "degree": "BS in Biology",
+        "institution": "Harvard University",
+        "year": 2001
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2010
+      },
+      {
+        "name": "Sports Medicine Fellowship",
+        "issuingOrganization": "Hospital for Special Surgery",
+        "year": 2009
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.699Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "2",
+    "slug": "dr-michael-chen",
+    "name": "Dr. Michael Chen",
+    "specialty": "Cardiology",
+    "specialties": [
+      "Cardiology",
+      "Interventional Cardiology",
+      "Heart Failure"
+    ],
+    "brandColor": "#EF4444",
+    "location": {
+      "city": "Los Angeles",
+      "state": "CA",
+      "address": "456 Health Plaza",
+      "zipCode": "90001"
+    },
+    "conditions": [
+      "heart disease",
+      "heart attack",
+      "arrhythmia",
+      "heart failure",
+      "coronary artery disease",
+      "hypertension",
+      "chest pain",
+      "cardiac catheterization"
+    ],
+    "bio": "Dr. Michael Chen is a leading cardiologist with expertise in interventional cardiology and heart failure management. He received his medical degree from Stanford University and completed his cardiology fellowship at the Cleveland Clinic. With over 20 years of experience, Dr. Chen has performed thousands of cardiac catheterizations and angioplasties. He is dedicated to providing personalized care and staying at the forefront of cardiovascular medicine.",
+    "image": "/images/dr-michael-chen.jpg",
+    "contact": {
+      "phone": "(555) 234-5678",
+      "email": "michael.chen@healthplaza.com",
+      "website": "https://www.drmichaelchen.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Stanford University School of Medicine",
+        "year": 2000
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Cardiovascular Disease",
+        "issuingOrganization": "American Board of Internal Medicine",
+        "year": 2006
+      },
+      {
+        "name": "Board Certified - Interventional Cardiology",
+        "issuingOrganization": "American Board of Internal Medicine",
+        "year": 2007
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "3",
+    "slug": "dr-emily-rodriguez",
+    "name": "Dr. Emily Rodriguez",
+    "specialty": "Dermatology",
+    "specialties": [
+      "Dermatology",
+      "Cosmetic Dermatology",
+      "Skin Cancer"
+    ],
+    "brandColor": "#10B981",
+    "location": {
+      "city": "Miami",
+      "state": "FL",
+      "address": "789 Beachside Medical",
+      "zipCode": "33101"
+    },
+    "conditions": [
+      "skin cancer",
+      "melanoma",
+      "acne",
+      "psoriasis",
+      "eczema",
+      "dermatitis",
+      "mole removal",
+      "skin lesion"
+    ],
+    "bio": "Dr. Emily Rodriguez is a board-certified dermatologist specializing in medical and cosmetic dermatology. She completed her dermatology residency at the University of Miami and has been practicing for over 12 years. Dr. Rodriguez is particularly skilled in skin cancer detection and treatment, as well as advanced cosmetic procedures. She is committed to helping patients achieve healthy, beautiful skin through evidence-based treatments.",
+    "image": "/images/dr-emily-rodriguez.jpg",
+    "contact": {
+      "phone": "(555) 345-6789",
+      "email": "emily.rodriguez@beachsidemedical.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "University of Miami Miller School of Medicine",
+        "year": 2008
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Dermatology",
+        "issuingOrganization": "American Board of Dermatology",
+        "year": 2012
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "4",
+    "slug": "dr-james-wilson",
+    "name": "Dr. James Wilson",
+    "specialty": "Neurology",
+    "specialties": [
+      "Neurology",
+      "Stroke Medicine",
+      "Epilepsy"
+    ],
+    "location": {
+      "city": "Chicago",
+      "state": "IL",
+      "address": "321 Neuro Center",
+      "zipCode": "60601"
+    },
+    "conditions": [
+      "stroke",
+      "epilepsy",
+      "migraine",
+      "seizure",
+      "Alzheimer's",
+      "Parkinson's",
+      "multiple sclerosis",
+      "headache"
+    ],
+    "bio": "Dr. James Wilson is a distinguished neurologist with expertise in stroke medicine and epilepsy. He earned his medical degree from Northwestern University and completed his neurology residency at the Mayo Clinic. Dr. Wilson has been instrumental in developing stroke protocols that have significantly improved patient outcomes. He is passionate about advancing neurological care and has been recognized for his contributions to stroke research.",
+    "image": "/images/dr-james-wilson.jpg",
+    "contact": {
+      "phone": "(555) 456-7890",
+      "email": "james.wilson@neurocenter.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Northwestern University Feinberg School of Medicine",
+        "year": 2003
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Neurology",
+        "issuingOrganization": "American Board of Psychiatry and Neurology",
+        "year": 2009
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "5",
+    "slug": "dr-lisa-anderson",
+    "name": "Dr. Lisa Anderson",
+    "specialty": "Pediatrics",
+    "specialties": [
+      "Pediatrics",
+      "Pediatric Emergency Medicine",
+      "Child Development"
+    ],
+    "location": {
+      "city": "Boston",
+      "state": "MA",
+      "address": "654 Children's Hospital Way",
+      "zipCode": "02101"
+    },
+    "conditions": [
+      "childhood illness",
+      "fever",
+      "asthma",
+      "allergies",
+      "vaccination",
+      "developmental delay",
+      "ADHD",
+      "autism"
+    ],
+    "bio": "Dr. Lisa Anderson is a compassionate pediatrician with over 18 years of experience caring for children from infancy through adolescence. She completed her pediatric residency at Boston Children's Hospital and has a special interest in child development and pediatric emergency medicine. Dr. Anderson is known for her gentle approach and ability to make children feel comfortable during medical visits. She is dedicated to supporting families and promoting healthy child development.",
+    "image": "/images/dr-lisa-anderson.jpg",
+    "contact": {
+      "phone": "(555) 567-8901",
+      "email": "lisa.anderson@childrenshospital.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Harvard Medical School",
+        "year": 2002
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Pediatrics",
+        "issuingOrganization": "American Board of Pediatrics",
+        "year": 2006
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "6",
+    "slug": "dr-robert-taylor",
+    "name": "Dr. Robert Taylor",
+    "specialty": "Orthopedic Surgery",
+    "specialties": [
+      "Orthopedic Surgery",
+      "Spine Surgery",
+      "Back Pain"
+    ],
+    "location": {
+      "city": "Houston",
+      "state": "TX",
+      "address": "987 Spine Institute",
+      "zipCode": "77001"
+    },
+    "conditions": [
+      "back pain",
+      "herniated disc",
+      "spinal stenosis",
+      "scoliosis",
+      "neck pain",
+      "spine surgery",
+      "disc replacement",
+      "spinal fusion"
+    ],
+    "bio": "Dr. Robert Taylor is a board-certified orthopedic spine surgeon with extensive experience in treating complex spinal conditions. He received his medical degree from Baylor College of Medicine and completed his spine surgery fellowship at the Texas Back Institute. Dr. Taylor specializes in minimally invasive spine surgery and has helped thousands of patients find relief from chronic back and neck pain. He is committed to using the latest surgical techniques to achieve optimal outcomes.",
+    "image": "/images/dr-robert-taylor.jpg",
+    "contact": {
+      "phone": "(555) 678-9012",
+      "email": "robert.taylor@spineinstitute.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Baylor College of Medicine",
+        "year": 2004
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2011
+      },
+      {
+        "name": "Spine Surgery Fellowship",
+        "issuingOrganization": "Texas Back Institute",
+        "year": 2010
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "7",
+    "slug": "dr-patricia-martinez",
+    "name": "Dr. Patricia Martinez",
+    "specialty": "Oncology",
+    "specialties": [
+      "Oncology",
+      "Medical Oncology",
+      "Breast Cancer"
+    ],
+    "location": {
+      "city": "San Francisco",
+      "state": "CA",
+      "address": "147 Cancer Care Center",
+      "zipCode": "94101"
+    },
+    "conditions": [
+      "cancer",
+      "breast cancer",
+      "chemotherapy",
+      "tumor",
+      "oncology",
+      "cancer treatment",
+      "radiation",
+      "immunotherapy"
+    ],
+    "bio": "Dr. Patricia Martinez is a compassionate medical oncologist specializing in breast cancer treatment. She completed her medical degree at UCSF and her oncology fellowship at MD Anderson Cancer Center. With over 16 years of experience, Dr. Martinez has been at the forefront of personalized cancer treatment, using targeted therapies and immunotherapy to improve patient outcomes. She is known for her holistic approach to cancer care, addressing both the medical and emotional needs of her patients.",
+    "image": "/images/dr-patricia-martinez.jpg",
+    "contact": {
+      "phone": "(555) 789-0123",
+      "email": "patricia.martinez@cancercare.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "UCSF School of Medicine",
+        "year": 2006
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Medical Oncology",
+        "issuingOrganization": "American Board of Internal Medicine",
+        "year": 2012
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "8",
+    "slug": "dr-david-kim",
+    "name": "Dr. David Kim",
+    "specialty": "Orthopedic Surgery",
+    "specialties": [
+      "Orthopedic Surgery",
+      "Hand Surgery",
+      "Wrist Surgery"
+    ],
+    "location": {
+      "city": "Seattle",
+      "state": "WA",
+      "address": "258 Hand & Wrist Clinic",
+      "zipCode": "98101"
+    },
+    "conditions": [
+      "carpal tunnel",
+      "wrist injury",
+      "hand surgery",
+      "finger injury",
+      "tendon repair",
+      "fracture",
+      "arthritis",
+      "trigger finger"
+    ],
+    "bio": "Dr. David Kim is a highly skilled hand and wrist surgeon with expertise in treating complex hand and upper extremity conditions. He completed his medical degree at the University of Washington and his hand surgery fellowship at the Mayo Clinic. Dr. Kim specializes in minimally invasive techniques and has helped restore function to thousands of patients with hand and wrist injuries. He is committed to providing personalized care and achieving the best possible outcomes for his patients.",
+    "image": "/images/dr-david-kim.jpg",
+    "contact": {
+      "phone": "(555) 890-1234",
+      "email": "david.kim@handwristclinic.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "University of Washington School of Medicine",
+        "year": 2007
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2013
+      },
+      {
+        "name": "Hand Surgery Fellowship",
+        "issuingOrganization": "Mayo Clinic",
+        "year": 2012
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "9",
+    "slug": "dr-jennifer-white",
+    "name": "Dr. Jennifer White",
+    "specialty": "Orthopedic Surgery",
+    "specialties": [
+      "Orthopedic Surgery",
+      "Foot & Ankle Surgery",
+      "Sports Medicine"
+    ],
+    "location": {
+      "city": "Denver",
+      "state": "CO",
+      "address": "369 Foot & Ankle Specialists",
+      "zipCode": "80201"
+    },
+    "conditions": [
+      "ankle injury",
+      "foot pain",
+      "Achilles tendon",
+      "plantar fasciitis",
+      "bunion",
+      "ankle fracture",
+      "foot surgery",
+      "sports injury"
+    ],
+    "bio": "Dr. Jennifer White is a board-certified orthopedic surgeon specializing in foot and ankle surgery. She completed her medical degree at the University of Colorado and her foot and ankle fellowship at the Hospital for Special Surgery. Dr. White has extensive experience treating athletes and active individuals with foot and ankle conditions. She is known for her expertise in both surgical and non-surgical treatments, always exploring conservative options first when appropriate.",
+    "image": "/images/dr-jennifer-white.jpg",
+    "contact": {
+      "phone": "(555) 901-2345",
+      "email": "jennifer.white@footanklespecialists.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "University of Colorado School of Medicine",
+        "year": 2009
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2015
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  },
+  {
+    "id": "10",
+    "slug": "dr-mark-thompson",
+    "name": "Dr. Mark Thompson",
+    "specialty": "Orthopedic Surgery",
+    "specialties": [
+      "Orthopedic Surgery",
+      "Shoulder Surgery",
+      "Elbow Surgery"
+    ],
+    "location": {
+      "city": "Phoenix",
+      "state": "AZ",
+      "address": "741 Shoulder & Elbow Center",
+      "zipCode": "85001"
+    },
+    "conditions": [
+      "shoulder injury",
+      "rotator cuff",
+      "shoulder surgery",
+      "elbow injury",
+      "tennis elbow",
+      "shoulder replacement",
+      "dislocation",
+      "fracture"
+    ],
+    "bio": "Dr. Mark Thompson is a renowned shoulder and elbow surgeon with over 14 years of experience. He received his medical degree from the University of Arizona and completed his shoulder and elbow fellowship at the Mayo Clinic. Dr. Thompson specializes in arthroscopic shoulder surgery and shoulder replacement procedures. He has helped numerous athletes and patients return to their active lifestyles through advanced surgical techniques and comprehensive rehabilitation programs.",
+    "image": "/images/dr-mark-thompson.jpg",
+    "contact": {
+      "phone": "(555) 012-3456",
+      "email": "mark.thompson@shoulderelbowcenter.com"
+    },
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "University of Arizona College of Medicine",
+        "year": 2008
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Board Certified - Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2014
+      }
+    ],
+    "userId": null,
+    "createdAt": "2026-02-16T10:54:56.700Z",
+    "updatedAt": "2026-02-16T10:54:56.700Z"
+  }
+]

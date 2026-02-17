@@ -1,0 +1,33 @@
+{
+  "directory": {
+    "title": "Doctor Directory - Find the Right Doctor for Your Needs",
+    "description": "Search and filter through our comprehensive directory of qualified doctors. Find specialists by name, specialty, condition, or location.",
+    "keywords": [
+      "doctor directory",
+      "find doctor",
+      "medical professionals",
+      "specialists",
+      "healthcare",
+      "physician search"
+    ],
+    "organization": {
+      "name": "Doctor Directory",
+      "description": "Find qualified doctors and specialists by specialty, location, and condition.",
+      "url": "https://example.com"
+    },
+    "openGraph": {
+      "title": "Doctor Directory - Find the Right Doctor",
+      "description": "Search and filter through our comprehensive directory of qualified doctors.",
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "Doctor Directory",
+      "description": "Find the right doctor for your needs."
+    },
+    "robots": {
+      "index": true,
+      "follow": true
+    }
+  }
+}

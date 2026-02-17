@@ -1,0 +1,42 @@
+[
+  {
+    "email": "durezus@mailinator.com",
+    "password": "$2b$10$HaUK/uV2cXTAI7ReuxlfbuRX3RyROou.ejcU5BszeTw9kDHLRLl/q",
+    "name": "Jasmine Barnett",
+    "id": "1771237508909ph70in6dk",
+    "createdAt": "2026-02-16T10:25:08.909Z",
+    "role": "user"
+  },
+  {
+    "email": "duxesoz@mailinator.com",
+    "password": "$2b$10$IZr4zblXRyXCBoOs/nwCHeqyquVFO3aSk/gTESIYgiYT1/gB21ENe",
+    "name": "Jeremy Carrillo",
+    "id": "1771238446592pul57gjxn",
+    "createdAt": "2026-02-16T10:40:46.592Z",
+    "role": "user"
+  },
+  {
+    "email": "niwu@mailinator.com",
+    "password": "$2b$10$vNFDqAe56F.9isU7n6PXIOXAIl6EQ0lOzqCDvusDdPiZHf8zOtOSa",
+    "name": "Ursula Maynard",
+    "id": "1771248887439wsq7qbsgg",
+    "createdAt": "2026-02-16T13:34:47.439Z",
+    "role": "user"
+  },
+  {
+    "email": "admin@example.com",
+    "password": "$2b$10$W4rVYDHJQ6XGXsiAtpP/gOEEAJKEENwpSOrrdehaJ/jGPjdAca.mC",
+    "name": "Admin User",
+    "role": "admin",
+    "id": "admin_1771248964615",
+    "createdAt": "2026-02-16T13:36:04.615Z"
+  },
+  {
+    "name": "Casey Moody",
+    "email": "woryqexa@mailinator.com",
+    "password": "$2b$10$YbMTSHL9fWf4FzG8QhlxUenyrpqnDYENn41QVyVBdQlndkJ6U2XaW",
+    "role": "user",
+    "id": "1771307393137npl8nqzjk",
+    "createdAt": "2026-02-17T05:49:53.137Z"
+  }
+]

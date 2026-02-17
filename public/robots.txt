@@ -1,0 +1,8 @@
+# robots.txt for Doctor Directory
+# This file allows all search engines to crawl the directory
+
+User-agent: *
+Allow: /
+
+# Sitemap (update with your actual domain when deployed)
+# Sitemap: https://yourdomain.com/sitemap.xml
