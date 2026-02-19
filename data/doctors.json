@@ -556,5 +556,33 @@
     "id": "1771308624450fxbcyipr2",
     "createdAt": "2026-02-17T06:10:24.450Z",
     "updatedAt": "2026-02-17T06:10:24.450Z"
+  },
+  {
+    "slug": "dr-ipsum-dicta-maxime",
+    "name": "Ipsum dicta maxime ",
+    "specialty": "Consequatur ullamco ",
+    "specialties": [
+      "Fugiat similique qu"
+    ],
+    "location": {
+      "city": "Labore recusandae C",
+      "state": "Suscipit eius ut aut",
+      "address": "Sit exercitationem ",
+      "zipCode": "Suscipit non esse sa"
+    },
+    "conditions": [
+      "Possimus dolor veli"
+    ],
+    "bio": "Amet molestiae labo",
+    "brandColor": "#9feeb7",
+    "contact": {
+      "phone": "+1 (633) 917-4228",
+      "email": "cakugiba@mailinator.com",
+      "website": "https://www.wupygagarozeqik.net"
+    },
+    "userId": "1771337408120jil7sd9wy",
+    "id": "1771337424747wui3mc98d",
+    "createdAt": "2026-02-17T14:10:24.747Z",
+    "updatedAt": "2026-02-17T14:10:24.747Z"
   }
 ]

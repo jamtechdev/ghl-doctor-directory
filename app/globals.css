@@ -1,15 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,7 +56,7 @@ body {
 
 .hero-section {
   position: relative;
-  background-image: url(../public/images/bg.png);
+  background-image: url(/images/bg.png);
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -98,8 +93,8 @@ body {
   /* height: 400px; */
   position: relative;
   /* background:gray; */
-  width:100%;;
-  background-image: url('../public/images/bg.png');
+  width:100%;
+  background-image: url('/images/bg.png');
   background-repeat: no-repeat;
 
   background-size: cover;
@@ -121,8 +116,8 @@ body {
 
 .swiper-box{
   position: relative;
-  max-height: 400px;;
-  min-height: 300px;;
+  max-height: 400px;
+  min-height: 300px;
   overflow: hidden;
   height: 300px;
 }
@@ -152,8 +147,8 @@ body {
 }
 
 .swiper-wrapper{
-  padding-bottom: 58px !important;;;
-  padding-top: 10px;;
+  padding-bottom: 58px !important;
+  padding-top: 10px;
 }
 
 .swiper-pagination-clickable .swiper-pagination-bullet {
@@ -176,7 +171,7 @@ body {
 
 
 .clarity{
-  background-image: url('../public/images/bg.png');
+  background-image: url('/images/bg.png');
   background-size: cover;
   background-position: center;
   position: relative;

@@ -4,7 +4,7 @@ import { getPatientById, updatePatient, deletePatient } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
@@ -18,7 +18,8 @@ export async function GET(
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const patient = getPatientById(params.id);
+    const resolvedParams = await Promise.resolve(params);
+    const patient = getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -38,7 +39,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
@@ -52,7 +53,8 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const patient = getPatientById(params.id);
+    const resolvedParams = await Promise.resolve(params);
+    const patient = getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -62,7 +64,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const updated = updatePatient(params.id, body);
+    const updated = updatePatient(resolvedParams.id, body);
 
     if (!updated) {
       return NextResponse.json({ error: 'Failed to update patient' }, { status: 500 });
@@ -79,7 +81,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
@@ -93,7 +95,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const patient = getPatientById(params.id);
+    const resolvedParams = await Promise.resolve(params);
+    const patient = getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -102,7 +105,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const deleted = deletePatient(params.id);
+    const deleted = deletePatient(resolvedParams.id);
     if (!deleted) {
       return NextResponse.json({ error: 'Failed to delete patient' }, { status: 500 });
     }
