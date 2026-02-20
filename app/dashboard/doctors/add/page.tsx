@@ -148,7 +148,7 @@ export default function AddDoctorPage() {
     });
   };
 
-  const updateEducation = (index: number, field: 'degree' | 'institution' | 'year', value: string | number) => {
+  const updateEducation = (index: number, field: 'degree' | 'institution' | 'year', value: string | number | undefined) => {
     const updated = [...formData.education];
     updated[index] = { ...updated[index], [field]: value };
     setFormData({ ...formData, education: updated });
@@ -168,7 +168,7 @@ export default function AddDoctorPage() {
     });
   };
 
-  const updateCertification = (index: number, field: 'name' | 'issuingOrganization' | 'year', value: string | number) => {
+  const updateCertification = (index: number, field: 'name' | 'issuingOrganization' | 'year', value: string | number | undefined) => {
     const updated = [...formData.certifications];
     updated[index] = { ...updated[index], [field]: value };
     setFormData({ ...formData, certifications: updated });
@@ -203,7 +203,7 @@ export default function AddDoctorPage() {
           name: formData.name,
           specialty: formData.specialty,
           specialties: formData.specialties.length > 0
-            ? [formData.specialty, ...formData.specialties.filter(s => s !== formData.specialty)]
+            ? [formData.specialty, ...formData.specialties.filter((s: string) => s !== formData.specialty)]
             : [formData.specialty],
           location: {
             city: formData.city,

@@ -36,7 +36,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/auth');
+      router.replace('/auth/login');
     }
   }, [user, authLoading, router]);
 
@@ -240,7 +240,22 @@ export default function DashboardPage() {
     ],
   };
 
-  if (authLoading || loading) {
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  // Redirect immediately if not authenticated (don't render anything)
+  if (!user) {
+    return null;
+  }
+
+  // Show loading while fetching data
+  if (loading) {
     return (
       <AppLayout>
         <div className="flex items-center justify-center h-64">
@@ -248,10 +263,6 @@ export default function DashboardPage() {
         </div>
       </AppLayout>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   return (

@@ -184,7 +184,7 @@ export default function DoctorsPage() {
                         {specialty}
                         <button
                           onClick={() => {
-                            const newSpecialties = activeFilters.specialties.filter(s => s !== specialty);
+                            const newSpecialties = activeFilters.specialties.filter((s: string) => s !== specialty);
                             setActiveFilters({ ...activeFilters, specialties: newSpecialties });
                           }}
                           className="ml-2 hover:bg-blue-200 rounded-full p-0.5"
@@ -203,7 +203,7 @@ export default function DoctorsPage() {
                         {state}
                         <button
                           onClick={() => {
-                            const newStates = activeFilters.states.filter(s => s !== state);
+                            const newStates = activeFilters.states.filter((s: string) => s !== state);
                             setActiveFilters({ ...activeFilters, states: newStates });
                           }}
                           className="ml-2 hover:bg-teal-200 rounded-full p-0.5"

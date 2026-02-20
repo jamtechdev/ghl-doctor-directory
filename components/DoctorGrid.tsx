@@ -18,7 +18,7 @@ interface DoctorGridProps {
   embedMode?: boolean;
 }
 
-export default function DoctorGrid({ doctors }: DoctorGridProps) {
+export default function DoctorGrid({ doctors, embedMode = false }: DoctorGridProps) {
   if (doctors.length === 0) {
     return (
       <div className="text-center py-12 px-4">

@@ -9,18 +9,18 @@
     "updatedAt": "2026-02-20T06:13:56.270Z"
   },
   {
-    "id": "2",
-    "email": "dr.sarah.chen@medicalcenter.com",
+    "id": "1",
+    "email": "dr.anthony.romeo@orthocare.com",
     "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. Sarah Chen",
+    "name": "Dr. Anthony Romeo, MD",
     "role": "doctor",
-    "slug": "dr-sarah-chen",
-    "specialty": "Cardiology",
+    "slug": "dr-anthony-romeo",
+    "specialty": "Orthopedic Surgery",
     "specialties": [
-      "Cardiology",
-      "Interventional Cardiology",
-      "Heart Failure",
-      "Preventive Cardiology"
+      "Orthopedic Surgery",
+      "Shoulder Surgery",
+      "Sports Medicine",
+      "Arthroscopic Surgery"
     ],
     "location": {
       "city": "New York",
@@ -29,67 +29,62 @@
       "zipCode": "10001"
     },
     "conditions": [
-      "Heart Disease",
-      "High Blood Pressure",
-      "Arrhythmia",
-      "Heart Failure",
-      "Coronary Artery Disease",
-      "Chest Pain",
-      "Shortness of Breath"
+      "Shoulder Injuries",
+      "Rotator Cuff Tears",
+      "ACL Reconstruction",
+      "Knee Injuries",
+      "Sports Injuries",
+      "Joint Replacement",
+      "Arthritis"
     ],
-    "bio": "Dr. Sarah Chen is a board-certified cardiologist with over 15 years of experience in diagnosing and treating cardiovascular diseases. She completed her medical degree at Johns Hopkins University School of Medicine and her cardiology fellowship at the Cleveland Clinic. Dr. Chen specializes in interventional cardiology and has performed thousands of cardiac catheterizations and angioplasties. She is dedicated to providing personalized, evidence-based care to her patients and is actively involved in cardiovascular research.",
-    "image": "",
+    "bio": "Dr. Anthony Romeo is a board-certified orthopedic surgeon with over 20 years of experience specializing in shoulder and sports medicine. He completed his medical degree at Johns Hopkins University School of Medicine and his orthopedic residency at the Hospital for Special Surgery. Dr. Romeo has extensive expertise in arthroscopic shoulder surgery and has helped thousands of patients return to their active lifestyles. He is a recognized leader in orthopedic research and has published over 200 peer-reviewed articles.",
+    "image": "/images/doctors/doctor-img.jpg",
     "contact": {
       "phone": "(212) 555-0123",
-      "email": "sarah.chen@medicalcenter.com",
-      "website": "https://www.medicalcenter.com/dr-chen"
+      "email": "anthony.romeo@orthocare.com",
+      "website": "https://www.orthocare.com/dr-romeo"
     },
     "education": [
       {
         "degree": "MD",
         "institution": "Johns Hopkins University School of Medicine",
-        "year": 2005
+        "year": 2000
       },
       {
         "degree": "BS in Biology",
         "institution": "Harvard University",
-        "year": 2001
+        "year": 1996
       }
     ],
     "certifications": [
       {
-        "name": "Board Certified in Cardiovascular Disease",
-        "issuingOrganization": "American Board of Internal Medicine",
-        "year": 2010
+        "name": "Board Certified in Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
+        "year": 2005
       },
       {
-        "name": "Board Certified in Interventional Cardiology",
-        "issuingOrganization": "American Board of Internal Medicine",
-        "year": 2012
-      },
-      {
-        "name": "Advanced Cardiac Life Support (ACLS)",
-        "issuingOrganization": "American Heart Association",
-        "year": 2015
+        "name": "Fellowship in Shoulder and Elbow Surgery",
+        "issuingOrganization": "American Shoulder and Elbow Surgeons",
+        "year": 2006
       }
     ],
-    "brandColor": "#E63946",
+    "brandColor": "#7C3AED",
     "createdAt": "2024-01-15T10:30:00.000Z",
     "updatedAt": "2024-01-15T10:30:00.000Z"
   },
   {
-    "id": "3",
-    "email": "dr.michael.rodriguez@orthocare.com",
+    "id": "2",
+    "email": "dr.michael.house@orthocare.com",
     "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. Michael Rodriguez",
+    "name": "Dr. Michael House, MD, PhD, MBA",
     "role": "doctor",
-    "slug": "dr-michael-rodriguez",
+    "slug": "dr-michael-house",
     "specialty": "Orthopedic Surgery",
     "specialties": [
       "Orthopedic Surgery",
-      "Sports Medicine",
+      "Knee Surgery",
       "Joint Replacement",
-      "Arthroscopic Surgery"
+      "Sports Medicine"
     ],
     "location": {
       "city": "Los Angeles",
@@ -99,303 +94,115 @@
     },
     "conditions": [
       "Knee Injuries",
+      "ACL Reconstruction",
+      "Meniscus Tears",
       "Hip Pain",
-      "Shoulder Injuries",
-      "Sports Injuries",
+      "Joint Replacement",
       "Arthritis",
-      "Fractures",
-      "Joint Replacement"
+      "Sports Injuries"
     ],
-    "bio": "Dr. Michael Rodriguez is a fellowship-trained orthopedic surgeon specializing in sports medicine and joint replacement. He received his medical degree from Stanford University School of Medicine and completed his orthopedic residency at the Hospital for Special Surgery in New York. Dr. Rodriguez has extensive experience in minimally invasive arthroscopic procedures and has helped thousands of athletes return to their peak performance. He serves as a team physician for several professional sports teams and is committed to providing the highest quality orthopedic care.",
-    "image": "",
+    "bio": "Dr. Michael House is a fellowship-trained orthopedic surgeon with a unique combination of medical expertise, research background, and business acumen. He holds a PhD in Biomedical Engineering and an MBA, bringing a comprehensive approach to patient care. Dr. House specializes in knee surgery and joint replacement, with particular expertise in minimally invasive techniques. He has performed over 5,000 successful joint replacement surgeries and is known for his innovative approaches to complex orthopedic conditions.",
+    "image": "/images/doctors/doctor-img2.jpg",
     "contact": {
       "phone": "(310) 555-0456",
-      "email": "m.rodriguez@orthocare.com",
-      "website": "https://www.orthocare.com/dr-rodriguez"
+      "email": "michael.house@orthocare.com",
+      "website": "https://www.orthocare.com/dr-house"
     },
     "education": [
       {
         "degree": "MD",
         "institution": "Stanford University School of Medicine",
-        "year": 2008
+        "year": 2005
       },
       {
-        "degree": "BS in Biomedical Engineering",
-        "institution": "UC Berkeley",
-        "year": 2004
+        "degree": "PhD in Biomedical Engineering",
+        "institution": "MIT",
+        "year": 2003
+      },
+      {
+        "degree": "MBA",
+        "institution": "Harvard Business School",
+        "year": 2010
       }
     ],
     "certifications": [
       {
         "name": "Board Certified in Orthopedic Surgery",
         "issuingOrganization": "American Board of Orthopedic Surgery",
-        "year": 2014
+        "year": 2010
       },
       {
-        "name": "Fellowship in Sports Medicine",
-        "issuingOrganization": "American Orthopedic Society for Sports Medicine",
-        "year": 2015
+        "name": "Fellowship in Joint Replacement",
+        "issuingOrganization": "American Association of Hip and Knee Surgeons",
+        "year": 2011
       }
     ],
-    "brandColor": "#457B9D",
+    "brandColor": "#6366F1",
     "createdAt": "2024-02-10T14:20:00.000Z",
     "updatedAt": "2024-02-10T14:20:00.000Z"
   },
   {
-    "id": "4",
-    "email": "dr.emily.johnson@pediatriccare.com",
+    "id": "3",
+    "email": "dr.david.lee@orthocare.com",
     "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. Emily Johnson",
+    "name": "Dr. T. David Lee, MD, PhD",
     "role": "doctor",
-    "slug": "dr-emily-johnson",
-    "specialty": "Pediatrics",
+    "slug": "dr-david-lee",
+    "specialty": "Orthopedic Surgery",
     "specialties": [
-      "Pediatrics",
-      "Adolescent Medicine",
-      "Child Development",
-      "Preventive Care"
+      "Orthopedic Surgery",
+      "Spine Surgery",
+      "Complex Orthopedic Conditions",
+      "Minimally Invasive Surgery"
     ],
     "location": {
       "city": "Chicago",
       "state": "IL",
-      "address": "789 Children's Medical Center, Suite 200",
+      "address": "789 Medical Center, Suite 200",
       "zipCode": "60611"
     },
     "conditions": [
-      "Childhood Illnesses",
-      "Vaccinations",
-      "Developmental Delays",
-      "Asthma",
-      "Allergies",
-      "ADHD",
-      "Newborn Care"
+      "Back Pain",
+      "Spine Injuries",
+      "Scoliosis",
+      "Herniated Disc",
+      "Spinal Stenosis",
+      "Complex Fractures",
+      "Orthopedic Trauma"
     ],
-    "bio": "Dr. Emily Johnson is a compassionate pediatrician with over 12 years of experience caring for children from infancy through adolescence. She earned her medical degree from Northwestern University Feinberg School of Medicine and completed her pediatric residency at Children's Hospital of Philadelphia. Dr. Johnson is passionate about preventive medicine and child development. She believes in building strong relationships with families and providing comprehensive, family-centered care. She is fluent in English and Spanish and is committed to serving diverse communities.",
-    "image": "",
+    "bio": "Dr. T. David Lee is a board-certified orthopedic surgeon with dual expertise in spine surgery and complex orthopedic conditions. He holds both an MD and PhD, with his research focusing on spinal biomechanics and innovative surgical techniques. Dr. Lee has extensive experience treating rare and complex orthopedic conditions, making him a sought-after specialist for second opinions. He is known for his conservative approach, always exploring non-surgical options first, and his commitment to patient education and shared decision-making.",
+    "image": "/images/doctors/doctor-img3.jpg",
     "contact": {
       "phone": "(312) 555-0789",
-      "email": "e.johnson@pediatriccare.com",
-      "website": "https://www.pediatriccare.com/dr-johnson"
+      "email": "david.lee@orthocare.com",
+      "website": "https://www.orthocare.com/dr-lee"
     },
     "education": [
       {
         "degree": "MD",
         "institution": "Northwestern University Feinberg School of Medicine",
-        "year": 2010
+        "year": 2004
       },
       {
-        "degree": "BS in Child Development",
-        "institution": "University of Chicago",
-        "year": 2006
+        "degree": "PhD in Biomedical Sciences",
+        "institution": "Northwestern University",
+        "year": 2002
       }
     ],
     "certifications": [
       {
-        "name": "Board Certified in Pediatrics",
-        "issuingOrganization": "American Board of Pediatrics",
-        "year": 2013
-      },
-      {
-        "name": "Pediatric Advanced Life Support (PALS)",
-        "issuingOrganization": "American Heart Association",
-        "year": 2013
-      }
-    ],
-    "brandColor": "#F77F00",
-    "createdAt": "2024-03-05T09:15:00.000Z",
-    "updatedAt": "2024-03-05T09:15:00.000Z"
-  },
-  {
-    "id": "5",
-    "email": "dr.james.anderson@dermatology.com",
-    "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. James Anderson",
-    "role": "doctor",
-    "slug": "dr-james-anderson",
-    "specialty": "Dermatology",
-    "specialties": [
-      "Dermatology",
-      "Medical Dermatology",
-      "Cosmetic Dermatology",
-      "Skin Cancer Surgery"
-    ],
-    "location": {
-      "city": "Miami",
-      "state": "FL",
-      "address": "321 Beach Medical Center, Suite 150",
-      "zipCode": "33139"
-    },
-    "conditions": [
-      "Acne",
-      "Eczema",
-      "Psoriasis",
-      "Skin Cancer",
-      "Melanoma",
-      "Rosacea",
-      "Hair Loss",
-      "Moles"
-    ],
-    "bio": "Dr. James Anderson is a board-certified dermatologist with expertise in both medical and cosmetic dermatology. He received his medical degree from the University of Miami Miller School of Medicine and completed his dermatology residency at the Mayo Clinic. Dr. Anderson specializes in the diagnosis and treatment of skin cancer, including Mohs micrographic surgery. He is also skilled in various cosmetic procedures including Botox, fillers, and laser treatments. With a focus on patient education and prevention, Dr. Anderson helps patients achieve healthy, beautiful skin.",
-    "image": "",
-    "contact": {
-      "phone": "(305) 555-0321",
-      "email": "j.anderson@dermatology.com",
-      "website": "https://www.dermatology.com/dr-anderson"
-    },
-    "education": [
-      {
-        "degree": "MD",
-        "institution": "University of Miami Miller School of Medicine",
-        "year": 2007
-      },
-      {
-        "degree": "BS in Chemistry",
-        "institution": "Florida State University",
-        "year": 2003
-      }
-    ],
-    "certifications": [
-      {
-        "name": "Board Certified in Dermatology",
-        "issuingOrganization": "American Board of Dermatology",
-        "year": 2011
-      },
-      {
-        "name": "Mohs Micrographic Surgery Fellowship",
-        "issuingOrganization": "American College of Mohs Surgery",
-        "year": 2012
-      }
-    ],
-    "brandColor": "#FCBF49",
-    "createdAt": "2024-04-12T11:45:00.000Z",
-    "updatedAt": "2024-04-12T11:45:00.000Z"
-  },
-  {
-    "id": "6",
-    "email": "dr.priya.patel@neurology.com",
-    "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. Priya Patel",
-    "role": "doctor",
-    "slug": "dr-priya-patel",
-    "specialty": "Neurology",
-    "specialties": [
-      "Neurology",
-      "Headache Medicine",
-      "Epilepsy",
-      "Movement Disorders"
-    ],
-    "location": {
-      "city": "Boston",
-      "state": "MA",
-      "address": "555 Neurological Institute, 4th Floor",
-      "zipCode": "02115"
-    },
-    "conditions": [
-      "Migraines",
-      "Epilepsy",
-      "Parkinson's Disease",
-      "Multiple Sclerosis",
-      "Stroke",
-      "Alzheimer's Disease",
-      "Headaches"
-    ],
-    "bio": "Dr. Priya Patel is a board-certified neurologist specializing in headache medicine and movement disorders. She completed her medical education at Harvard Medical School and her neurology residency at Massachusetts General Hospital. Dr. Patel has extensive experience in treating complex neurological conditions and is known for her compassionate, patient-centered approach. She is actively involved in clinical research and has published numerous papers on headache disorders and movement disorders. Dr. Patel is committed to improving the quality of life for her patients through comprehensive neurological care.",
-    "image": "",
-    "contact": {
-      "phone": "(617) 555-0567",
-      "email": "p.patel@neurology.com",
-      "website": "https://www.neurology.com/dr-patel"
-    },
-    "education": [
-      {
-        "degree": "MD",
-        "institution": "Harvard Medical School",
+        "name": "Board Certified in Orthopedic Surgery",
+        "issuingOrganization": "American Board of Orthopedic Surgery",
         "year": 2009
       },
       {
-        "degree": "BS in Neuroscience",
-        "institution": "MIT",
-        "year": 2005
+        "name": "Fellowship in Spine Surgery",
+        "issuingOrganization": "North American Spine Society",
+        "year": 2010
       }
     ],
-    "certifications": [
-      {
-        "name": "Board Certified in Neurology",
-        "issuingOrganization": "American Board of Psychiatry and Neurology",
-        "year": 2013
-      },
-      {
-        "name": "Headache Medicine Certification",
-        "issuingOrganization": "United Council for Neurologic Subspecialties",
-        "year": 2015
-      }
-    ],
-    "brandColor": "#7209B7",
-    "createdAt": "2024-05-20T13:30:00.000Z",
-    "updatedAt": "2024-05-20T13:30:00.000Z"
-  },
-  {
-    "id": "7",
-    "email": "dr.robert.williams@oncology.com",
-    "password": "$2b$10$jF98xkfBWFXBDd0xMv4SYOtjnHGmsxY4F1y5yCubSGneCzA/RiM/y",
-    "name": "Dr. Robert Williams",
-    "role": "doctor",
-    "slug": "dr-robert-williams",
-    "specialty": "Oncology",
-    "specialties": [
-      "Medical Oncology",
-      "Hematology",
-      "Breast Cancer",
-      "Lung Cancer"
-    ],
-    "location": {
-      "city": "Houston",
-      "state": "TX",
-      "address": "888 Cancer Treatment Center, Suite 300",
-      "zipCode": "77030"
-    },
-    "conditions": [
-      "Breast Cancer",
-      "Lung Cancer",
-      "Colon Cancer",
-      "Leukemia",
-      "Lymphoma",
-      "Prostate Cancer",
-      "Chemotherapy"
-    ],
-    "bio": "Dr. Robert Williams is a highly experienced medical oncologist and hematologist with over 20 years of expertise in cancer treatment. He received his medical degree from Baylor College of Medicine and completed his fellowship in medical oncology at MD Anderson Cancer Center. Dr. Williams specializes in breast and lung cancers and is at the forefront of precision medicine and immunotherapy. He is committed to providing compassionate, cutting-edge cancer care and has been involved in numerous clinical trials. Dr. Williams believes in a multidisciplinary approach to cancer treatment, working closely with surgeons, radiation oncologists, and other specialists.",
-    "image": "",
-    "contact": {
-      "phone": "(713) 555-0890",
-      "email": "r.williams@oncology.com",
-      "website": "https://www.oncology.com/dr-williams"
-    },
-    "education": [
-      {
-        "degree": "MD",
-        "institution": "Baylor College of Medicine",
-        "year": 2000
-      },
-      {
-        "degree": "BS in Biochemistry",
-        "institution": "Rice University",
-        "year": 1996
-      }
-    ],
-    "certifications": [
-      {
-        "name": "Board Certified in Medical Oncology",
-        "issuingOrganization": "American Board of Internal Medicine",
-        "year": 2005
-      },
-      {
-        "name": "Board Certified in Hematology",
-        "issuingOrganization": "American Board of Internal Medicine",
-        "year": 2005
-      }
-    ],
-    "brandColor": "#D62828",
-    "createdAt": "2024-06-08T08:00:00.000Z",
-    "updatedAt": "2024-06-08T08:00:00.000Z"
+    "brandColor": "#8B5CF6",
+    "createdAt": "2024-03-05T09:15:00.000Z",
+    "updatedAt": "2024-03-05T09:15:00.000Z"
   }
 ]

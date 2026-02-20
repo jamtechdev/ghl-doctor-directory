@@ -151,7 +151,7 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
           {/* Back Link and Action Buttons */}
           <div className="mb-6 flex items-center justify-between">
             <Link
-              href="/directory"
+              href="/dashboard"
               className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
             >
               <svg

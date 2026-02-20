@@ -8,12 +8,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**',
       },
-      {
+          {
         protocol: 'http',
         hostname: '**',
+          },
+        ],
       },
-    ],
-  },
   // Headers are handled via middleware for better control
   // See middleware.ts for X-Frame-Options configuration
 };

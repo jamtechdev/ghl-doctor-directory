@@ -39,18 +39,28 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Login Form */}
-      <div className="w-full lg:w-1/2 bg-white flex flex-col justify-between p-8 lg:p-12">
-        <div className="max-w-md mx-auto w-full">
-          {/* Brand Name */}
-          <div className="mb-12">
-            <h1 className="text-2xl font-bold text-black">XPRT2ND</h1>
-          </div>
+      <div className="w-full lg:w-1/2 bg-gray-50 flex items-center justify-center p-8 lg:p-12">
+        <div className="max-w-md w-full">
+          {/* Login Form Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-10">
+            {/* Brand Name and Back to Home */}
+            <div className="mb-8 flex items-center justify-between">
+              <h1 className="text-2xl font-bold text-black">Doctor Directory</h1>
+              <Link
+                href="/"
+                className="text-sm text-gray-600 hover:text-gray-900 font-medium inline-flex items-center gap-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home
+              </Link>
+            </div>
 
-          {/* Login Form */}
-          <div className="flex-1 flex flex-col justify-center">
-            <div className="mb-8">
-              <h2 className="text-4xl font-bold text-gray-900 mb-2">Login</h2>
-              <p className="text-gray-600">Welcome back! Please enter your details.</p>
+            {/* Login Form */}
+            <div className="mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Login</h2>
+              <p className="text-gray-600">Welcome back! Please enter your details to access your dashboard.</p>
             </div>
 
             {error && (
@@ -167,16 +177,16 @@ export default function LoginPage() {
           </div>
 
           {/* Footer */}
-          <div className="mt-12 flex justify-between items-center text-sm text-gray-500">
-            <p>© XPRT2ND 2025</p>
+          <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between items-center text-sm text-gray-500">
+            <p>© Doctor Directory 2025</p>
             <p>info@xprt2nd.com</p>
           </div>
         </div>
       </div>
 
-      {/* Right Panel - Promotional Content */}
+      {/* Right Panel - Functionality Content */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col justify-center items-center p-12 text-white relative overflow-hidden">
-        <div className="max-w-md z-10">
+        <div className="max-w-lg z-10">
           {/* Star Icon */}
           <div className="mb-8">
             <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -194,19 +204,43 @@ export default function LoginPage() {
             A trusted second opinion from top specialists—giving you confidence in your diagnosis and treatment. Get started in 2 minutes.
           </p>
 
-          {/* Social Proof */}
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-white flex items-center justify-center text-white font-semibold text-sm"
-                >
-                  {String.fromCharCode(64 + i)}
-                </div>
-              ))}
+          {/* GHL Integration Section */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+            <div className="flex items-center gap-3 mb-3">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+              <h3 className="text-xl font-semibold text-white">GoHighLevel (GHL) Integration</h3>
             </div>
-            <p className="text-gray-300 font-medium">Join many satisfied users</p>
+            <p className="text-white/90 text-sm leading-relaxed mb-4">
+              This platform is optimized for seamless integration with GoHighLevel. Embed the doctor directory in your GHL funnels using iframe widgets. All doctor profiles, search functionality, and directory features work perfectly within GHL pages.
+            </p>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="flex items-center gap-2 text-white/80">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>iframe Embedding</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Responsive Design</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>SEO Optimized</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Fast Loading</span>
+              </div>
+            </div>
           </div>
         </div>
 

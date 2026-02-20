@@ -19,10 +19,7 @@ export default function AppLayout({ children, showSidebar = true }: AppLayoutPro
   // Check if current route is active
   const isActive = (path: string) => {
     if (path === '/dashboard') {
-      return pathname === '/dashboard';
-    }
-    if (path === '/directory') {
-      return pathname === '/directory' || pathname?.startsWith('/doctors/');
+      return pathname === '/dashboard' || pathname?.startsWith('/doctors/');
     }
     return pathname === path;
   };
@@ -48,7 +45,7 @@ export default function AppLayout({ children, showSidebar = true }: AppLayoutPro
         <div className="h-full flex flex-col">
           {/* Logo */}
           <div className="p-6 border-b border-gray-200">
-            <Link href="/directory">
+            <Link href="/dashboard">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer">
                 HealthCare Pro
               </h1>

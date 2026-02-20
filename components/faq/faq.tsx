@@ -11,7 +11,7 @@ const faqs = [
   {
     question: "Do you take insurance?",
     answer:
-      "No. XPRT2ND is cash-based so we can move quickly and connect you with the top orthopedic specialists from across the country, without waiting weeks for insurance approval. Most reviews are completed within 24–48 hours.",
+      "No. Doctor Directory is cash-based so we can move quickly and connect you with the top orthopedic specialists from across the country, without waiting weeks for insurance approval. Most reviews are completed within 24–48 hours.",
   },
   {
     question: "What do I need to submit?",

@@ -136,7 +136,7 @@ function doctorUserToDoctor(doctorUser: DoctorUser): Doctor {
 }
 
 // Helper function to convert Doctor to DoctorUser format
-function doctorToDoctorUser(doctor: Omit<Doctor, 'userId'>, email: string, password: string): Omit<DoctorUser, 'id' | 'createdAt' | 'updatedAt'> {
+function doctorToDoctorUser(doctor: Omit<Doctor, 'userId' | 'id' | 'createdAt' | 'updatedAt'>, email: string, password: string): Omit<DoctorUser, 'id' | 'createdAt' | 'updatedAt'> {
   return {
     email,
     password,
