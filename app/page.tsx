@@ -90,19 +90,13 @@ export default function LandingPage() {
               Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
             </p>
 
-            {/* Buttons - Rounded & Distinctive */}
+            {/* Button - Single Login Button */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/get-started"
+                href="/auth/login"
                 className="px-10 py-3 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center transition-all shadow-lg duration-300 transition hover:-translate-y-[8px]"
               >
                 Login
-              </Link>
-              <Link
-                href="/start-case"
-                className="px-10 py-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black rounded-full font-bold text-center transition-all duration-300 transition hover:-translate-y-[8px]"
-              >
-                Get Started
               </Link>
             </div>
 
@@ -281,12 +275,12 @@ export default function LandingPage() {
           )}
 
           <div className="text-center mt-8">
-            <ProtectedLink
-              href="/dashboard"
+            <Link
+              href="/auth/login"
               className="w-full bg-white text-primary px-8 py-4 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px] mt-8"
             >
-              View All Specialists
-            </ProtectedLink>
+              Login
+            </Link>
           </div>
         </div>
       </section>
@@ -330,10 +324,10 @@ export default function LandingPage() {
             </Swiper>
             <div className="mt-12">
               <Link
-                href="/get-started"
+                href="/auth/login"
                 className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto mt-5  duration-300 hover:-translate-y-[8px]"
               >
-                Get A Second Opinion
+                Login
               </Link>
             </div>
 
@@ -403,12 +397,12 @@ export default function LandingPage() {
             </ul>
           </div>
             <div className="flex justify-center mt-12">
-            <ProtectedLink
-              href="/dashboard"
+            <Link
+              href="/auth/login"
               className=" bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
             >
-              Get a Second Opinion
-            </ProtectedLink>
+              Login
+            </Link>
           </div>
         </div>
       </section>
@@ -428,12 +422,12 @@ export default function LandingPage() {
             Clarity changes everything.
           </h2>
           <div className="flex justify-center mb-8">
-            <ProtectedLink
-              href="/dashboard"
+            <Link
+              href="/auth/login"
               className=" bg-white text-primary px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
             >
-              Get a Second Opinion
-            </ProtectedLink>
+              Login
+            </Link>
           </div>
           <p className="text-xl text-white text-center  max-w-3xl mx-auto">
             Copyright {new Date().getFullYear()} Doctor Directory. All rights reserved.
