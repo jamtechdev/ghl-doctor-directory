@@ -184,3 +184,11 @@ body {
   background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
   z-index:1;
 }
+
+.line-height-6{
+  line-height: 60px !important;
+}
+
+.line-height-5{
+  line-height: 50px !important;
+}

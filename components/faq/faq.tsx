@@ -46,7 +46,7 @@ export default function FAQ() {
     <section className="bg-gray-50 py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-5">     Frequently Asked Questions        </h2>
-        <p className="text-black text-center mb-12">When you have a question, chances are someone else has too. Here are the answers to the most common questions about our platform.
+        <p className="text-xl text-gray-600 text-center  max-w-3xl mx-auto mb-12">When you have a question, chances are someone else has too. Here are the answers to the most common questions about our platform.
 
 </p>
 

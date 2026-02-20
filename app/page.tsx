@@ -3,9 +3,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Doctor } from '@/types/doctor';
+import Navbar from '@/components/navbar/Navbar';
 import FAQ from '@/components/faq/faq';
 import ProtectedLink from '@/components/ProtectedLink';
 
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+
+import 'swiper/css/pagination';
+// import required modules
+import { FreeMode, Pagination } from 'swiper/modules';
+import Footer from '@/components/footer/Footer';
 export default function LandingPage() {
   const [featuredDoctors, setFeaturedDoctors] = useState<Doctor[]>([]);
 
@@ -25,158 +37,232 @@ export default function LandingPage() {
     fetchFeaturedDoctors();
   }, []);
 
-    return (
+   const testimonials = [
+    {
+      name: 'Joseph A. Rosenbaum, MD',
+      image: 'images/review1.png',
+      rating: 5,
+      text: 'Patients deserve an opportunity for a second opinion because surgeons differ in training, experience, and how aggressively or conservatively they approach treatment. Often there is more than one reasonable option, and the best choice depends on both the medical details and patients goals. I believe in clearly explaining those options and helping patients choose a thoughtful evidence-based plan tailored to them.',
+    },
+    {
+      name: 'David Luo, MD',
+      image: 'images/review2.png',
+      rating: 4,
+      text: 'Second opinions ensure informed decisions, personalized care, and the best possible outcome for each patient. XPRT2ND provides a never-before-seen platform that empowers patients to seek the care they deserve.',
+    },
+    {
+      name: 'Bo Nasmyth Loy, MD, FAAOS',
+      image: 'images/review3.png',
+      rating: 5,
+      text: 'I believe patients make better decisions when they truly understand their options. As a board-certified, fellowship-trained orthopaedic surgeon with experience caring for professional athletes, I take the time to explain those choices in a way that’s straightforward and personalized. My goal is for patients to feel confident and comfortable with their decisions, so they can move forward with clarity and peace of mind. ',
+    },
+  ];
+
+
+  return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        {/* Background Image Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20"
+      <Navbar />
+
+      <div className="relative min-h-[100vh] flex items-center overflow-hidden mt-24">
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"100\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cdefs%3E%3Cpattern id=\"grid\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\"%3E%3Cpath d=\"M 100 0 L 0 0 0 100\" fill=\"none\" stroke=\"%23ffffff\" stroke-width=\"1\" opacity=\"0.1\"/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=\"100\" height=\"100\" fill=\"url(%23grid)\" /%3E%3C/svg%3E')"
+            backgroundImage: 'url("/images/bg.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
           }}
-        ></div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Thinking About Surgery but Need Clarity?
-          </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get a trusted second opinion from a board-certified specialist so you understand your options before making a decision.
-          </p>
-          <div className="flex justify-center items-center">
-            <ProtectedLink
-              href="/dashboard"
-              className="px-10 py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              Get a Second Opinion
-            </ProtectedLink>
-          </div>
-          <p className="mt-6 text-sm text-white/80">
-            100% confidential. HIPAA compliant.
-          </p>
+        >
+          {/* Dark Gradient Overlay to make text pop */}
+          <div className="absolute inset-0 bg-black/50 lg:bg-gradient-to-r lg:from-black/70 lg:to-transparent"></div>
         </div>
-      </section>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+          <div className="max-w-2xl">
+            {/* Heading - Increased weight and line-height */}
+            <h1 className="text-3xl md:text-5xl font-semibold text-white leading-snug md:leading-relaxed mb-6 line-height-6">
+              Thinking About Surgery but Need
+              Clarity?
+            </h1>
+
+            {/* Description - Added a slight opacity for that premium feel */}
+            <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed">
+              Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
+            </p>
+
+            {/* Buttons - Rounded & Distinctive */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/get-started"
+                className="px-10 py-3 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center transition-all shadow-lg duration-300 transition hover:-translate-y-[8px]"
+              >
+                Login
+              </Link>
+              <Link
+                href="/start-case"
+                className="px-10 py-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black rounded-full font-bold text-center transition-all duration-300 transition hover:-translate-y-[8px]"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Trust Badges / Small Text */}
+            <div className="mt-8 flex flex-col gap-1">
+              <p className="text-sm text-gray-300 flex items-center gap-2">
+                ✓ Board certified orthopedic specialists.
+              </p>
+              <p className="text-sm text-gray-300 flex items-center gap-2">
+                ✓ Secure case review. Clear recommendations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       {/* Clarity Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
-            Here's the clarity you'll have after your second opinion.
-          </h2>
+          <h1 className="text-3xl  font-semibold text-black leading-tight mb-2 text-center text-[40px] line-height-5">
+            Here’s the clarity you’ll have after your<br /> second <span className='text-primary'>opinion.</span>
+          </h1>
           <p className="text-xl text-gray-600 text-center mb-12">
             You will walk away with one of these three answers.
           </p>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* YES Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 mt-12">
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl  duration-300 hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center ">
+                  <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900">YES</h3>
               </div>
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">YES</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Surgery is the right next step. Now you can move forward confidently, understanding why and when.
-              </p>
+
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">Surgery is the right next step</h3>
+              <p className="text-gray-600">And you can move forward confidently, understanding why and when.</p>
             </div>
 
-            {/* NO Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl  duration-300 hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center ">
+                  <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900">NO</h3>
               </div>
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">NO</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Surgery isn't necessarily right now. You'll learn about conservative options that may help you avoid or delay surgery.
-              </p>
+
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">Surgery isn’t necessary right now</h3>
+              <p className="text-gray-600">You’ll learn about conservative options that may help you avoid or delay surgery.</p>
             </div>
 
-            {/* WHAT ELSE Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl  duration-300 hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center ">
+                  <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+
+                <h3 className="text-xl font-semibold text-gray-900 ">WHAT ELSE?</h3>
               </div>
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">WHAT ELSE?</h3>
-              <p className="text-gray-700 leading-relaxed">
-                You're not ready yet, but now you're informed. You'll have better questions to ask your doctor, or you can explore one of the specialists who reviewed your case.
-              </p>
+
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">You’re not ready yet, but now you’re informed</h3>
+              <p className="text-gray-600">You’ll have better questions to ask your doctor, or you can continue care with the specialist who reviewed your case.</p>
             </div>
           </div>
+
         </div>
       </section>
 
       {/* Board-Certified Specialists Section */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
+          <h2 className="text-4xl text-[40px] font-bold text-black text-center mb-4">
             Reviewed by Board-Certified Specialists
           </h2>
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
             Our platform uses an AI/MD team to provide a prompt, unbiased, accurate, and comprehensive healthcare opinion. There are important reasons to choose our specialists.
           </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            <div className="bg-white rounded-xl p-6  transition shadow-lg  cursor-pointer border duration-300 hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-20 border h-20  rounded full mx-auto rounded-lg flex items-center justify-center p-2">
+                  <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
               </div>
-              <p className="text-gray-700 font-medium">Board-certified specialists</p>
+
+              <h3 className="text-lg font-normal text-gray-900 mb-2 text-gray-200 text-center">Board-certified
+                orthopedic surgeons</h3>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
-                </svg>
+            <div className="bg-white rounded-xl p-6  transition shadow-lg duration-300 cursor-pointer border   hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-20 border h-20  rounded full mx-auto rounded-lg flex items-center justify-center p-2">
+                  <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
+                  </svg>
+                </div>
               </div>
-              <p className="text-gray-700 font-medium">Certified in 10+ conditions</p>
+
+              <h3 className="text-lg font-normal text-gray-900 mb-2 text-gray-200 text-center">Specialists experienced in
+                110+ orthopedic conditions</h3>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
+            <div className="bg-white rounded-xl p-6  transition shadow-lg duration-300 cursor-pointer border   hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-20 border h-20  rounded full mx-auto rounded-lg flex items-center justify-center  p-2">
+                  <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
               </div>
-              <p className="text-gray-700 font-medium">Academics & private practice experience</p>
+
+              <h3 className="text-lg font-normal text-gray-900 mb-2 text-gray-200 text-center">Academic + private
+                practice experience</h3>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="bg-white rounded-xl p-6  transition shadow-lg duration-300 cursor-pointer border   hover:shadow-xl hover:-translate-y-[12px]">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-20 border h-20  rounded full mx-auto rounded-lg flex items-center justify-center  p-2">
+                  <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
               </div>
-              <p className="text-gray-700 font-medium">Reviews completed in 24-48 hours</p>
+
+              <h3 className="text-lg font-normal text-gray-900 mb-2 text-gray-200 text-center">Reviews completed in
+                24–48 hours</h3>
             </div>
           </div>
         </div>
       </section>
 
+      
+
       {/* Meet the Surgeons Section */}
       <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-primary"></div>
         <div className="relative z-10 max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-8">
-            Meet the Specialists Behind Your Second Opinion
+          <h2 className="text-4xl  font-bold text-white text-center mb-8 text-[40px] line-height-5">
+            Meet the Specialists Behind Your <br/> Second Opinion
           </h2>
-          
+
           {featuredDoctors.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
               {featuredDoctors.map((doctor) => (
                 <Link
                   key={doctor.id}
                   href={`/doctors/${doctor.slug}`}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all transform hover:-translate-y-2"
+                  className="bg-white/10 border shadow backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all transform hover:-translate-y-2"
                 >
                   <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
                     {doctor.image ? (
@@ -187,17 +273,17 @@ export default function LandingPage() {
                       </svg>
                     )}
                   </div>
-                  <h3 className="text-white font-semibold text-lg mb-1">{doctor.name}</h3>
-                  <p className="text-white/80 text-sm">{doctor.specialty}</p>
+                  <h3 className=" font-semibold text-lg mb-1 text-white">{doctor.name}</h3>
+                  <p className="text-white text-sm">{doctor.specialty}</p>
                 </Link>
               ))}
             </div>
           )}
-          
-          <div className="text-center">
+
+          <div className="text-center mt-8">
             <ProtectedLink
               href="/dashboard"
-              className="inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="w-full bg-white text-primary px-8 py-4 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px] mt-8"
             >
               View All Specialists
             </ProtectedLink>
@@ -205,53 +291,74 @@ export default function LandingPage() {
         </div>
       </section>
 
+
       {/* Why Specialists Believe Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
-            Why Our Specialists Believe Every Patient Deserves a Second Opinion
+       <section className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto text-center">
+            
+             <h2 className="text-4xl  font-bold text-black text-center mb-4 text-[40px] line-height-5">
+            Why Our Specialists Believe Every Patient<br/> Deserves a <span className='text-primary'>Second Opinion</span> 
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
+                <p className="text-xl text-gray-600 text-center mb-12">
             Because nobody has the right to make a life-altering decision without understanding all of their options.
           </p>
-          
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg">
-            <div className="flex flex-col md:flex-row items-start gap-6">
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-purple-900 mb-2">Featured Specialist</h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  "Patients deserve an opportunity to consider all their surgical options (if any), treatment, and have appropriate or conservative treatment approach. I also have a belief that one should always seek the least invasive approach to care. The current healthcare system, unfortunately, is geared towards invasive options and surgery, which is not always the best option for patients."
-                </p>
-                <ProtectedLink href="/dashboard" className="text-purple-600 font-semibold hover:underline">
-                  Learn More →
-                </ProtectedLink>
-              </div>
+
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={30}
+              pagination={{ clickable: true }}
+              modules={[Pagination]}
+              className='swiper2'
+            >
+              {testimonials.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className="bg-white p-8 rounded-xl shadow-md">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                    />
+                    <h3 className="text-xl font-semibold mb-2 text-black">{item.name}</h3>
+                    <p className="text-gray-600 mb-4">{item.text}</p>
+
+                    <div className="text-yellow-500 font-semibold">
+                      {item.rating} ★★★★★
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="mt-12">
+              <Link
+                href="/get-started"
+                className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto mt-5  duration-300 hover:-translate-y-[8px]"
+              >
+                Get A Second Opinion
+              </Link>
             </div>
+
           </div>
-        </div>
-      </section>
+
+        </section>
+
+      
 
       {/* Platform Functionality Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6 ">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
+          <h2 className="text-4xl  font-bold text-black text-center mb-4 text-[40px] line-height-5">
             Platform Functionality
           </h2>
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
             Comprehensive features to manage your doctor directory and optimize your online presence.
           </p>
-          
+
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-200">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Platform Functionality:</h3>
             <ul className="space-y-4">
-              <li className="flex items-start">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <li className="flex items-start items-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -260,9 +367,9 @@ export default function LandingPage() {
                   <p className="text-gray-700 leading-relaxed mt-1">Add, edit, and manage comprehensive doctor profiles with specialties, locations, education, certifications, and contact information.</p>
                 </div>
               </li>
-              <li className="flex items-start">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <li className="flex items-start items-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -271,9 +378,9 @@ export default function LandingPage() {
                   <p className="text-gray-700 leading-relaxed mt-1">Complete control over meta tags, Open Graph, Twitter Cards, structured data, analytics integration, and sitemap settings for maximum search visibility.</p>
                 </div>
               </li>
-              <li className="flex items-start">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <li className="flex items-start items-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -282,9 +389,9 @@ export default function LandingPage() {
                   <p className="text-gray-700 leading-relaxed mt-1">Real-time insights with interactive charts showing doctor distribution by specialty, state-wise analytics, and comprehensive reporting tools.</p>
                 </div>
               </li>
-              <li className="flex items-start">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+              <li className="flex items-start items-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -295,16 +402,10 @@ export default function LandingPage() {
               </li>
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center">
+            <div className="flex justify-center mt-12">
             <ProtectedLink
               href="/dashboard"
-              className="px-10 py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              className=" bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
             >
               Get a Second Opinion
             </ProtectedLink>
@@ -312,34 +413,40 @@ export default function LandingPage() {
         </div>
       </section>
 
+
+
       {/* FAQ Section */}
       <FAQ />
 
+      
+
       {/* Footer CTA */}
-      <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40"></div>
+      <section className="relative py-12 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
+        <div className="absolute inset-0 bg-primary"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+          <h2 className="text-4xl  font-bold text-[40px] text-white mb-8">
             Clarity changes everything.
           </h2>
           <div className="flex justify-center mb-8">
             <ProtectedLink
               href="/dashboard"
-              className="px-10 py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              className=" bg-white text-primary px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
             >
               Get a Second Opinion
             </ProtectedLink>
           </div>
-          <p className="text-white/80 text-sm">
+          <p className="text-xl text-white text-center  max-w-3xl mx-auto">
             Copyright {new Date().getFullYear()} Doctor Directory. All rights reserved.
           </p>
-          <div className="flex justify-center gap-4 mt-4 text-white/80 text-sm">
+          <div className="flex justify-center gap-4 mt-4 text-white text-sm text-xl text-[18px] text-white text-center  max-w-3xl mx-auto">
             <Link href="#" className="hover:text-white">Terms of Service</Link>
             <span>|</span>
             <Link href="#" className="hover:text-white">Privacy Policy</Link>
           </div>
         </div>
       </section>
-      </div>
-    );
+
+      {/* <Footer/> */}
+    </div>
+  );
 }
