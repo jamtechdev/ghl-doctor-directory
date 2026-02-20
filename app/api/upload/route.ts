@@ -60,28 +60,47 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
     const filepath = join(uploadDir, filename);
 
-    await writeFile(filepath, buffer);
-
-    // Get the origin from request URL to generate full URL
-    const origin = request.headers.get('origin') || request.headers.get('host');
-    let fullUrl: string;
-    
-    if (origin) {
-      // If origin is already a full URL, use it
-      if (origin.startsWith('http://') || origin.startsWith('https://')) {
-        fullUrl = `${origin}/images/doctors/${filename}`;
-      } else {
-        // If it's just a host, determine protocol
-        const protocol = origin.includes('localhost') || origin.includes('127.0.0.1') ? 'http' : 'https';
-        fullUrl = `${protocol}://${origin}/images/doctors/${filename}`;
-      }
-    } else {
-      // Fallback to localhost if no origin
-      fullUrl = `http://localhost:3000/images/doctors/${filename}`;
+    try {
+      await writeFile(filepath, buffer);
+      console.log(`Image saved successfully: ${filepath}`);
+    } catch (writeError: any) {
+      console.error('Error writing file:', writeError);
+      // On Render and similar platforms, the filesystem is ephemeral
+      // Files will be lost on restart/redeploy. Consider using cloud storage.
+      throw new Error(`Failed to save image: ${writeError.message}. Note: On cloud platforms like Render, filesystem is ephemeral. Consider using cloud storage (AWS S3, Cloudinary, etc.) for persistent image storage.`);
     }
 
+    // Generate URL - prefer relative URL for Next.js, but also provide absolute URL
+    // Use environment variable if available, otherwise construct from request
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    let fullUrl: string;
+    const relativeUrl = `/images/doctors/${filename}`;
+    
+    try {
+      const requestUrl = new URL(request.url);
+      const protocol = requestUrl.protocol;
+      const host = requestUrl.host;
+
+      if (siteUrl) {
+        // Use environment variable if set (recommended for production)
+        fullUrl = `${siteUrl.replace(/\/$/, '')}${relativeUrl}`;
+      } else if (host) {
+        // Construct from request URL
+        fullUrl = `${protocol}//${host}${relativeUrl}`;
+      } else {
+        // Fallback to relative URL (Next.js will resolve it)
+        fullUrl = relativeUrl;
+      }
+    } catch (urlError) {
+      // If URL parsing fails, use relative URL
+      console.warn('Failed to parse request URL, using relative URL:', urlError);
+      fullUrl = relativeUrl;
+    }
+
+    console.log(`Image upload successful. URL: ${fullUrl}, Relative: ${relativeUrl}`);
+
     return NextResponse.json(
-      { url: fullUrl, filename },
+      { url: fullUrl, relativeUrl, filename },
       { status: 200 }
     );
   } catch (error: any) {

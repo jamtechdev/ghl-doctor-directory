@@ -204,5 +204,36 @@
     "brandColor": "#8B5CF6",
     "createdAt": "2024-03-05T09:15:00.000Z",
     "updatedAt": "2024-03-05T09:15:00.000Z"
+  },
+  {
+    "email": "mytumaguv@mailinator.com",
+    "password": "$2b$10$l9BaEw5P30TOpnaL.ADGgOO/xF3Cl4PJDE32u56n/wXhAWwkyi9OK",
+    "name": "Praesentium esse doloremque voluptatem eu voluptatem tempore enim et quibusdam sit commodo illo tempor officiis",
+    "role": "doctor",
+    "slug": "dr-praesentium-esse-doloremque-voluptatem-eu-voluptatem-tempore-enim-et-quibusdam-sit-commodo-illo-tempor-officiis",
+    "specialty": "Voluptas commodo hic odio iure maiores laborum",
+    "specialties": [
+      "Voluptas commodo hic odio iure maiores laborum"
+    ],
+    "location": {
+      "city": "Voluptatem Dolorem nihil dolorem error perspiciatis",
+      "state": "Esse lorem et consequatur Iste tempore voluptatum molestiae atque voluptatem nulla ut temporibus",
+      "address": "Aut ad et quam voluptatum sit non qui et Nam incidunt quia repudiandae aute labore similique porro corporis",
+      "zipCode": "Cum quos voluptatibus dicta mollitia maiores voluptatem non sint"
+    },
+    "conditions": [],
+    "bio": "Quod et rerum eos porro iste qui vitae illo",
+    "image": "http://localhost:3000/images/doctors/doctor-1771596603356-y3b1x80u9pq.png",
+    "contact": {
+      "phone": "+1 (654) 641-3474",
+      "email": "febag@mailinator.com",
+      "website": "https://www.zykunopyho.co.uk"
+    },
+    "education": [],
+    "certifications": [],
+    "brandColor": "Voluptatum libero illum rerum ad consectetur proident",
+    "id": "4",
+    "createdAt": "2026-02-20T14:10:05.653Z",
+    "updatedAt": "2026-02-20T14:10:05.653Z"
   }
 ]
