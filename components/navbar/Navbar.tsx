@@ -5,11 +5,6 @@ const Navbar = () => {
 
     return (
         <div className="fixed top-0 z-[100] w-full">
-            <nav className='bg-primary border-b border-gray-100 font-sans py-4'>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <p className='text-gray-600  text-center text-white'>Because making the right decision starts with understanding all your options.</p>
-                </div>
-            </nav>
             <header className='bg-white border-b border-gray-100 font-sans'>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-24">
@@ -35,9 +30,9 @@ const Navbar = () => {
                             </a>
 
                             {/* Purple Button */}
-                            <button className="bg-primary cursor-pointer hover:bg-[#7c3aed] text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-sm">
-                                Start Your Case
-                            </button>
+                            <a href="/auth/login" className="bg-primary cursor-pointer hover:bg-[#7c3aed] text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-sm">
+                                Login
+                            </a>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -63,9 +58,9 @@ const Navbar = () => {
                     <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-4">
                         <a href="#" className="block text-gray-700 font-medium py-2">About Us</a>
                         <a href="#" className="block text-gray-700 font-medium py-2">Meet Your Surgeons</a>
-                        <button className="w-full bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]">
-                            Start Your Case
-                        </button>
+                        <a href="/auth/login" className="w-full bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px] text-center block">
+                            Login
+                        </a>
                     </div>
                 )}
             </header>

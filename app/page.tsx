@@ -48,7 +48,7 @@ export default function LandingPage() {
       name: 'David Luo, MD',
       image: 'images/review2.png',
       rating: 4,
-      text: 'Second opinions ensure informed decisions, personalized care, and the best possible outcome for each patient. XPRT2ND provides a never-before-seen platform that empowers patients to seek the care they deserve.',
+      text: 'Second opinions ensure informed decisions, personalized care, and the best possible outcome for each patient. Doctor Directory provides a never-before-seen platform that empowers patients to seek the care they deserve.',
     },
     {
       name: 'Bo Nasmyth Loy, MD, FAAOS',
@@ -89,16 +89,6 @@ export default function LandingPage() {
             <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed">
               Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
             </p>
-
-            {/* Button - Single Login Button */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/auth/login"
-                className="px-10 py-3 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center transition-all shadow-lg duration-300 transition hover:-translate-y-[8px]"
-              >
-                Login
-              </Link>
-            </div>
 
             {/* Trust Badges / Small Text */}
             <div className="mt-8 flex flex-col gap-1">
