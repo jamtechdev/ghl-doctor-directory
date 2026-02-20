@@ -13,21 +13,70 @@
     "organization": {
       "name": "Doctor Directory",
       "description": "Find qualified doctors and specialists by specialty, location, and condition.",
-      "url": "https://example.com"
+      "url": "https://example.com",
+      "logo": "",
+      "phone": "",
+      "email": "",
+      "address": {
+        "street": "",
+        "city": "",
+        "state": "",
+        "zipCode": "",
+        "country": "USA"
+      }
     },
     "openGraph": {
+      "enabled": true,
       "title": "Doctor Directory - Find the Right Doctor",
       "description": "Search and filter through our comprehensive directory of qualified doctors.",
-      "type": "website"
+      "type": "website",
+      "image": "",
+      "siteName": "Doctor Directory"
     },
     "twitter": {
+      "enabled": true,
       "card": "summary_large_image",
       "title": "Doctor Directory",
-      "description": "Find the right doctor for your needs."
+      "description": "Find the right doctor for your needs.",
+      "image": "",
+      "site": "",
+      "creator": ""
     },
     "robots": {
       "index": true,
-      "follow": true
+      "follow": true,
+      "noarchive": false,
+      "nosnippet": false,
+      "noimageindex": false,
+      "maxSnippet": -1,
+      "maxImagePreview": "large",
+      "maxVideoPreview": -1
+    },
+    "canonicalUrl": "",
+    "alternateLanguages": [],
+    "analytics": {
+      "googleAnalyticsId": "",
+      "googleTagManagerId": "",
+      "facebookPixelId": "",
+      "microsoftClarityId": ""
+    },
+    "socialMedia": {
+      "facebook": "",
+      "twitter": "",
+      "linkedin": "",
+      "instagram": "",
+      "youtube": ""
+    },
+    "structuredData": {
+      "enabled": true,
+      "organizationSchema": true,
+      "breadcrumbSchema": true,
+      "websiteSchema": true
+    },
+    "sitemap": {
+      "enabled": true,
+      "changefreq": "weekly",
+      "priority": 0.8
     }
   }
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Doctor } from '@/types/doctor';
 import AppLayout from './AppLayout';
@@ -197,6 +198,31 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
           <article className="bg-white rounded-lg shadow-md border border-gray-200 p-6 md:p-8">
             {/* Doctor Header */}
             <header className="mb-6 pb-6 border-b border-gray-200">
+              {/* Profile Image */}
+              {doctor.image ? (
+                <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0">
+                  <Image
+                    src={doctor.image}
+                    alt={doctor.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 320px"
+                    priority
+                  />
+                </div>
+              ) : (
+                <div className="w-full max-w-xs h-64 mb-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto md:mx-0">
+                  <svg
+                    className="w-24 h-24 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+              )}
+
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 {doctor.name}
               </h1>

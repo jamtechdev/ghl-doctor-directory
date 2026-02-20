@@ -137,7 +137,7 @@ export default function EmbedDirectoryPage() {
             </div>
 
             {/* Doctor Grid */}
-            <DoctorGrid doctors={filteredDoctors} />
+            <DoctorGrid doctors={filteredDoctors} embedMode={true} />
           </div>
         </div>
       </main>

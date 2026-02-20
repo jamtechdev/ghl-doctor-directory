@@ -164,14 +164,6 @@ export default function LoginPage() {
               </button>
             </div>
 
-            <div className="mt-6 text-center">
-              <p className="text-gray-600">
-                Don't have an account?{' '}
-                <Link href="/auth/register" className="text-purple-600 hover:text-purple-700 font-semibold">
-                  Register
-                </Link>
-              </p>
-            </div>
           </div>
 
           {/* Footer */}

@@ -51,8 +51,8 @@ export async function PUT(
       );
     }
 
-    // Check if user owns this doctor or is admin
-    if (doctor.userId !== decoded.userId && decoded.role !== 'admin') {
+    // Only admin can edit doctors
+    if (decoded.role !== 'admin') {
       return NextResponse.json(
         { error: 'Forbidden' },
         { status: 403 }
@@ -124,8 +124,8 @@ export async function DELETE(
       );
     }
 
-    // Check if user owns this doctor or is admin
-    if (doctor.userId !== decoded.userId && decoded.role !== 'admin') {
+    // Only admin can delete doctors
+    if (decoded.role !== 'admin') {
       return NextResponse.json(
         { error: 'Forbidden' },
         { status: 403 }

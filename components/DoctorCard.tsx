@@ -12,21 +12,28 @@
  * - Responsive and accessible
  */
 
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
 import { Doctor } from '@/types/doctor';
 
 interface DoctorCardProps {
   doctor: Doctor;
+  embedMode?: boolean;
 }
 
-export default function DoctorCard({ doctor }: DoctorCardProps) {
+export default function DoctorCard({ doctor, embedMode = false }: DoctorCardProps) {
   // Use brand color if provided, otherwise default to blue
   const accentColor = doctor.brandColor || '#3B82F6';
   const accentColorLight = doctor.brandColor ? `${accentColor}15` : '#EFF6FF';
+  
+  // Determine profile URL based on embed mode
+  const profileUrl = embedMode ? `/embed/doctors/${doctor.slug}` : `/doctors/${doctor.slug}`;
 
   return (
     <Link
-      href={`/doctors/${doctor.slug}`}
+      href={profileUrl}
       className="group block bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 relative overflow-hidden transform hover:-translate-y-1"
       style={{
         borderColor: doctor.brandColor ? `${accentColor}30` : undefined,
@@ -40,6 +47,30 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
       />
 
       <div className="flex flex-col h-full p-6">
+        {/* Profile Image */}
+        {doctor.image ? (
+          <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-100">
+            <Image
+              src={doctor.image}
+              alt={doctor.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        ) : (
+          <div className="w-full h-48 mb-4 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+            <svg
+              className="w-16 h-16 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+        )}
+
         {/* Header Section */}
         <div className="mb-4">
           {/* Doctor Name */}

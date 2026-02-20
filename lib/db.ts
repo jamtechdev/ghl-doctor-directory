@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { Doctor } from '@/types/doctor';
+import bcrypt from 'bcryptjs';
+import { Doctor, Location, Contact, Education, Certification } from '@/types/doctor';
 import { Patient } from '@/types/patient';
 
 const dataDir = path.join(process.cwd(), 'data');
@@ -10,14 +11,40 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-export interface User {
+// Base User interface
+export interface BaseUser {
   id: string;
   email: string;
   password: string; // hashed
   name: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'doctor';
   createdAt: string;
+  updatedAt?: string;
 }
+
+// Admin User (no additional fields)
+export interface AdminUser extends BaseUser {
+  role: 'admin';
+}
+
+// Doctor User (includes all doctor profile fields)
+export interface DoctorUser extends BaseUser {
+  role: 'doctor';
+  slug: string;
+  specialty: string;
+  specialties: string[];
+  location: Location;
+  conditions: string[];
+  bio: string;
+  image?: string;
+  contact?: Contact;
+  education?: Education[];
+  certifications?: Certification[];
+  brandColor?: string;
+}
+
+// Union type for User
+export type User = AdminUser | DoctorUser;
 
 // Users database functions
 export function getUsers(): User[] {
@@ -44,90 +71,150 @@ export function getUserById(id: string): User | undefined {
   return users.find(user => user.id === id);
 }
 
-export function createUser(user: Omit<User, 'id' | 'createdAt' | 'role'> & { role?: 'admin' | 'user' }): User {
+export function createUser(user: Omit<BaseUser, 'id' | 'createdAt'> & Partial<Omit<DoctorUser, keyof BaseUser>>): User {
   const users = getUsers();
   const newUser: User = {
     ...user,
-    role: user.role || 'user',
+    role: user.role || 'admin',
     id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
     createdAt: new Date().toISOString(),
-  };
+    updatedAt: new Date().toISOString(),
+  } as User;
   users.push(newUser);
   saveUsers(users);
   return newUser;
 }
 
-// Doctors database functions (using doctors.json)
+// Doctors database functions (using users.json with role='doctor')
 export function getAllDoctors(): Doctor[] {
-  const filePath = path.join(dataDir, 'doctors.json');
-  if (!fs.existsSync(filePath)) {
-    return [];
-  }
-  const data = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(data);
-}
-
-export function saveDoctors(doctors: Doctor[]): void {
-  const filePath = path.join(dataDir, 'doctors.json');
-  fs.writeFileSync(filePath, JSON.stringify(doctors, null, 2));
+  const users = getUsers();
+  return users.filter((user): user is DoctorUser => user.role === 'doctor').map(doctorUserToDoctor);
 }
 
 export function getDoctorsByUserId(userId: string): Doctor[] {
-  const doctors = getAllDoctors();
-  return doctors.filter(doctor => doctor.userId === userId);
+  const users = getUsers();
+  return users.filter((user): user is DoctorUser => user.role === 'doctor' && user.id === userId).map(doctorUserToDoctor);
 }
 
 export function getPublicDoctors(): Doctor[] {
-  const doctors = getAllDoctors();
-  return doctors.filter(doctor => !doctor.userId || doctor.userId === null);
+  // All doctors are public now (no userId filtering)
+  return getAllDoctors();
 }
 
 export function getDoctorById(id: string): Doctor | undefined {
-  const doctors = getAllDoctors();
-  return doctors.find(doctor => doctor.id === id);
+  const users = getUsers();
+  const doctorUser = users.find((user): user is DoctorUser => user.role === 'doctor' && user.id === id);
+  return doctorUser ? doctorUserToDoctor(doctorUser) : undefined;
 }
 
 export function getDoctorBySlug(slug: string): Doctor | undefined {
-  const doctors = getAllDoctors();
-  return doctors.find(doctor => doctor.slug === slug);
+  const users = getUsers();
+  const doctorUser = users.find((user): user is DoctorUser => user.role === 'doctor' && user.slug === slug);
+  return doctorUser ? doctorUserToDoctor(doctorUser) : undefined;
 }
 
-export function createDoctor(doctor: Omit<Doctor, 'id' | 'createdAt' | 'updatedAt'>): Doctor {
-  const doctors = getAllDoctors();
-  const newDoctor: Doctor = {
-    ...doctor,
-    id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+// Helper function to convert DoctorUser to Doctor format
+function doctorUserToDoctor(doctorUser: DoctorUser): Doctor {
+  return {
+    id: doctorUser.id,
+    slug: doctorUser.slug,
+    name: doctorUser.name,
+    specialty: doctorUser.specialty,
+    specialties: doctorUser.specialties,
+    location: doctorUser.location,
+    conditions: doctorUser.conditions,
+    bio: doctorUser.bio,
+    image: doctorUser.image,
+    contact: doctorUser.contact,
+    education: doctorUser.education,
+    certifications: doctorUser.certifications,
+    brandColor: doctorUser.brandColor,
+    userId: null, // Not used anymore, but kept for compatibility
+    createdAt: doctorUser.createdAt,
+    updatedAt: doctorUser.updatedAt,
+  };
+}
+
+// Helper function to convert Doctor to DoctorUser format
+function doctorToDoctorUser(doctor: Omit<Doctor, 'userId'>, email: string, password: string): Omit<DoctorUser, 'id' | 'createdAt' | 'updatedAt'> {
+  return {
+    email,
+    password,
+    name: doctor.name,
+    role: 'doctor',
+    slug: doctor.slug,
+    specialty: doctor.specialty,
+    specialties: doctor.specialties,
+    location: doctor.location,
+    conditions: doctor.conditions,
+    bio: doctor.bio,
+    image: doctor.image,
+    contact: doctor.contact,
+    education: doctor.education,
+    certifications: doctor.certifications,
+    brandColor: doctor.brandColor,
+  };
+}
+
+export function createDoctor(doctor: Omit<Doctor, 'id' | 'createdAt' | 'updatedAt' | 'userId'> & { email: string; password: string }): Doctor {
+  const users = getUsers();
+  const slug = doctor.slug || `dr-${doctor.name.toLowerCase().replace(/dr\.?\s*/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+  
+  // Hash the password
+  const hashedPassword = bcrypt.hashSync(doctor.password, 10);
+  
+  // Auto-increment ID: Find the highest numeric ID among doctors
+  const doctorIds = users
+    .filter((u): u is DoctorUser => u.role === 'doctor')
+    .map(u => {
+      const numId = parseInt(u.id);
+      return isNaN(numId) ? 0 : numId;
+    });
+  const maxId = doctorIds.length > 0 ? Math.max(...doctorIds) : 0;
+  const newId = (maxId + 1).toString();
+  
+  const doctorUser: DoctorUser = {
+    ...doctorToDoctorUser({ ...doctor, slug }, doctor.email, hashedPassword),
+    id: newId,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
-  doctors.push(newDoctor);
-  saveDoctors(doctors);
-  return newDoctor;
+  
+  users.push(doctorUser);
+  saveUsers(users);
+  return doctorUserToDoctor(doctorUser);
 }
 
 export function updateDoctor(id: string, updates: Partial<Omit<Doctor, 'id' | 'createdAt' | 'userId'>>): Doctor | null {
-  const doctors = getAllDoctors();
-  const index = doctors.findIndex(doctor => doctor.id === id);
+  const users = getUsers();
+  const index = users.findIndex((user): user is DoctorUser => user.role === 'doctor' && user.id === id);
+  
   if (index === -1) {
     return null;
   }
-  doctors[index] = {
-    ...doctors[index],
+  
+  const doctorUser = users[index] as DoctorUser;
+  const updatedDoctorUser: DoctorUser = {
+    ...doctorUser,
     ...updates,
     updatedAt: new Date().toISOString(),
   };
-  saveDoctors(doctors);
-  return doctors[index];
+  
+  users[index] = updatedDoctorUser;
+  saveUsers(users);
+  return doctorUserToDoctor(updatedDoctorUser);
 }
 
 export function deleteDoctor(id: string): boolean {
-  const doctors = getAllDoctors();
-  const index = doctors.findIndex(doctor => doctor.id === id);
+  const users = getUsers();
+  const index = users.findIndex((user): user is DoctorUser => user.role === 'doctor' && user.id === id);
+  
   if (index === -1) {
     return false;
   }
-  doctors.splice(index, 1);
-  saveDoctors(doctors);
+  
+  users.splice(index, 1);
+  saveUsers(users);
   return true;
 }
 

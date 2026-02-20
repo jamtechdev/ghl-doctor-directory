@@ -6,11 +6,13 @@ export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '');
 
-    // If user is logged in, return their doctors; otherwise return public doctors
+    // If user is logged in
     if (token) {
       const decoded = verifyToken(token);
       if (decoded) {
-        const doctors = getDoctorsByUserId(decoded.userId);
+        // Admin can see all doctors, doctors can see all doctors too
+        const { getAllDoctors } = await import('@/lib/db');
+        const doctors = getAllDoctors();
         return NextResponse.json({ doctors }, { status: 200 });
       }
     }
@@ -39,13 +41,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
+    // Only admin can create doctors
+    if (decoded.role !== 'admin') {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const body = await request.json();
-    const { name, specialty, specialties, location, conditions, bio, image, brandColor, contact, education, certifications } = body;
+    const { name, specialty, specialties, location, conditions, bio, image, brandColor, contact, education, certifications, email, password } = body;
 
     // Validation
-    if (!name || !specialty || !location || !bio) {
+    if (!name || !specialty || !location || !bio || !email || !password) {
       return NextResponse.json(
-        { error: 'Name, specialty, location, and bio are required' },
+        { error: 'Name, specialty, location, bio, email, and password are required' },
         { status: 400 }
       );
     }
@@ -57,7 +64,6 @@ export async function POST(request: NextRequest) {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-    // Create doctor with userId - user-specific doctors
     const doctor = createDoctor({
       slug: `dr-${slug}`,
       name,
@@ -71,7 +77,8 @@ export async function POST(request: NextRequest) {
       contact,
       education,
       certifications,
-      userId: decoded.userId, // User-specific doctors
+      email,
+      password,
     });
 
     return NextResponse.json({ doctor }, { status: 201 });

@@ -2,19 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  async headers() {
-    return [
+  images: {
+    remotePatterns: [
       {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-        ],
+        protocol: 'https',
+        hostname: '**',
       },
-    ];
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+    ],
   },
+  // Headers are handled via middleware for better control
+  // See middleware.ts for X-Frame-Options configuration
 };
 
 export default nextConfig;
