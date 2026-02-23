@@ -192,12 +192,12 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
             <header className="mb-6 pb-6 border-b border-gray-200">
               {/* Profile Image */}
               {doctor.image ? (
-                <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0">
+                <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0 flex items-center justify-center">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover"
+                    className="object-contain object-top"
                     sizes="(max-width: 768px) 100vw, 320px"
                     priority
                   />

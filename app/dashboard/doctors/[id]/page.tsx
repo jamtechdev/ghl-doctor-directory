@@ -101,11 +101,11 @@ export default function DoctorDetailPage() {
               {/* Image/Avatar */}
               <div className="flex-shrink-0">
                 {doctor.image && !imageError ? (
-                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg border-4 border-white ring-2 ring-gray-100">
+                  <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg border-4 border-white ring-2 ring-gray-100 flex items-center justify-center bg-gray-50">
                     <img
                       src={doctor.image}
                       alt={doctor.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      className="w-full h-full object-contain object-top transition-transform duration-300 hover:scale-105"
                       onError={() => setImageError(true)}
                     />
                   </div>
