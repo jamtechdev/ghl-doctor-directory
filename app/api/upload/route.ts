@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
+import { existsSync } from 'fs';
 import { join } from 'path';
 import { verifyToken } from '@/lib/auth';
 
@@ -63,11 +64,25 @@ export async function POST(request: NextRequest) {
     try {
       await writeFile(filepath, buffer);
       console.log(`Image saved successfully: ${filepath}`);
+      
+      // Check if file actually exists (important for Render)
+      if (!existsSync(filepath)) {
+        throw new Error('File was not saved. This may be due to ephemeral filesystem on Render. Please use external image URLs instead.');
+      }
     } catch (writeError: any) {
       console.error('Error writing file:', writeError);
       // On Render and similar platforms, the filesystem is ephemeral
       // Files will be lost on restart/redeploy. Consider using cloud storage.
-      throw new Error(`Failed to save image: ${writeError.message}. Note: On cloud platforms like Render, filesystem is ephemeral. Consider using cloud storage (AWS S3, Cloudinary, etc.) for persistent image storage.`);
+      const errorMessage = writeError.message || 'Unknown error';
+      return NextResponse.json(
+        { 
+          error: 'Failed to save image to server',
+          details: errorMessage,
+          recommendation: 'On Render, the filesystem is ephemeral. Images uploaded to the server will be lost on restart. Please use external image URLs from services like Cloudinary, Imgur, or AWS S3 instead. You can paste the image URL directly in the "Image URL" field.',
+          useExternalUrl: true
+        },
+        { status: 500 }
+      );
     }
 
     // Generate URL - prefer relative URL for Next.js, but also provide absolute URL

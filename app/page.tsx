@@ -59,7 +59,7 @@ export default function LandingPage() {
   ];
 
 
-    return (
+  return (
     <div className="min-h-screen bg-white">
       <Navbar />
 
@@ -250,7 +250,7 @@ export default function LandingPage() {
                 >
                   <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
                     {doctor.image ? (
-                      <img src={doctor.image} alt={doctor.name} className="w-full h-full object-contain object-top" />
+                      <img src={doctor.image} alt={doctor.name} className="w-full h-full object-cover" />
                     ) : (
                       <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -431,6 +431,6 @@ export default function LandingPage() {
       </section>
 
       {/* <Footer/> */}
-      </div>
-    );
+    </div>
+  );
 }
