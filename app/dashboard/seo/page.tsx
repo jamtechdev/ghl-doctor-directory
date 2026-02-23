@@ -270,7 +270,7 @@ export default function SEOSettingsPage() {
                     ...settings,
                     directory: { ...settings.directory, title: e.target.value },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="Doctor Directory - Find the Right Doctor"
                   required
                 />
@@ -289,7 +289,7 @@ export default function SEOSettingsPage() {
                     ...settings,
                     directory: { ...settings.directory, description: e.target.value },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black resize-none"
                   rows={4}
                   placeholder="Search and filter through our comprehensive directory of qualified doctors..."
                   required
@@ -305,7 +305,7 @@ export default function SEOSettingsPage() {
                   Keywords / Tags
                 </label>
                 <div className="space-y-3">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <input
                       type="text"
                       value={newKeyword}
@@ -372,7 +372,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, name: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   required
                 />
               </div>
@@ -390,7 +390,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, description: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black resize-none"
                   rows={3}
                   required
                 />
@@ -410,7 +410,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, url: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://example.com"
                   required
                 />
@@ -430,7 +430,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, logo: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://example.com/logo.png"
                 />
               </div>
@@ -449,7 +449,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, phone: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
@@ -468,7 +468,7 @@ export default function SEOSettingsPage() {
                       organization: { ...settings.directory.organization, email: e.target.value },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="contact@example.com"
                 />
               </div>
@@ -495,7 +495,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div>
@@ -516,7 +516,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div>
@@ -537,7 +537,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div>
@@ -558,7 +558,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div>
@@ -579,7 +579,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                 </div>
@@ -631,7 +631,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -648,7 +648,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black resize-none"
                       rows={3}
                     />
                   </div>
@@ -666,7 +666,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     >
                       <option value="website">Website</option>
                       <option value="article">Article</option>
@@ -688,7 +688,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -706,7 +706,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                       placeholder="https://example.com/image.jpg"
                     />
                   </div>
@@ -758,7 +758,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     >
                       <option value="summary">Summary</option>
                       <option value="summary_large_image">Summary Large Image</option>
@@ -779,7 +779,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                       placeholder="@username"
                     />
                   </div>
@@ -798,7 +798,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                       placeholder="@username"
                     />
                   </div>
@@ -817,7 +817,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                       placeholder="https://example.com/image.jpg"
                     />
                   </div>
@@ -938,7 +938,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="G-XXXXXXXXXX"
                 />
               </div>
@@ -957,7 +957,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="GTM-XXXXXXX"
                 />
               </div>
@@ -976,7 +976,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="123456789012345"
                 />
               </div>
@@ -995,7 +995,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="xxxxxxxxxx"
                 />
               </div>
@@ -1022,7 +1022,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://facebook.com/yourpage"
                 />
               </div>
@@ -1041,7 +1041,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://twitter.com/yourhandle"
                 />
               </div>
@@ -1060,7 +1060,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://linkedin.com/company/yourcompany"
                 />
               </div>
@@ -1079,7 +1079,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://instagram.com/yourhandle"
                 />
               </div>
@@ -1098,7 +1098,7 @@ export default function SEOSettingsPage() {
                       },
                     },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://youtube.com/yourchannel"
                 />
               </div>
@@ -1216,7 +1216,7 @@ export default function SEOSettingsPage() {
                     ...settings,
                     directory: { ...settings.directory, canonicalUrl: e.target.value },
                   })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   placeholder="https://example.com"
                 />
               </div>
@@ -1225,7 +1225,7 @@ export default function SEOSettingsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Alternate Languages</label>
                 <div className="space-y-3">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <input
                       type="text"
                       value={newLanguage}
@@ -1236,7 +1236,7 @@ export default function SEOSettingsPage() {
                           addLanguage();
                         }
                       }}
-                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                       placeholder="Enter language code (e.g., es, fr, de)"
                     />
                     <button
@@ -1310,7 +1310,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     >
                       <option value="always">Always</option>
                       <option value="hourly">Hourly</option>
@@ -1339,7 +1339,7 @@ export default function SEOSettingsPage() {
                           },
                         },
                       })}
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                     />
                   </div>
                 </div>
@@ -1348,17 +1348,17 @@ export default function SEOSettingsPage() {
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex gap-4 pt-4 flex-wrap">
             <Link
               href="/dashboard"
-              className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold text-center"
+              className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold text-center sm-w-full"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed sm-w-full"
             >
               {saving ? 'Saving...' : 'Save All SEO Settings'}
             </button>

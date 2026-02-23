@@ -293,7 +293,7 @@ export default function AddDoctorPage() {
                       accept="image/jpeg,image/jpg,image/png,image/webp"
                       onChange={handleImageUpload}
                       disabled={uploadingImage}
-                      className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:border-gray-400"
+                      className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:border-gray-400 text-black"
                     />
                     <div className="mt-2 flex items-center justify-between">
                       <p className="text-xs text-gray-500">
@@ -320,7 +320,7 @@ export default function AddDoctorPage() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                   placeholder="Enter doctor's full name"
                   required
                 />
@@ -334,7 +334,7 @@ export default function AddDoctorPage() {
                   type="email"
                   value={formData.doctorEmail}
                   onChange={(e) => setFormData({ ...formData, doctorEmail: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                   placeholder="doctor@example.com"
                   required
                 />
@@ -348,7 +348,7 @@ export default function AddDoctorPage() {
                   type="password"
                   value={formData.doctorPassword}
                   onChange={(e) => setFormData({ ...formData, doctorPassword: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                   placeholder="Minimum 6 characters"
                   required
                   minLength={6}
@@ -374,7 +374,7 @@ export default function AddDoctorPage() {
                   type="text"
                   value={formData.specialty}
                   onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                   placeholder="e.g., Orthopedic Surgery"
                   required
                 />
@@ -397,7 +397,7 @@ export default function AddDoctorPage() {
                   </button>
                 </div>
                 <div className="space-y-3">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <input
                       type="text"
                       value={newSpecialty}
@@ -408,7 +408,7 @@ export default function AddDoctorPage() {
                           addSpecialty();
                         }
                       }}
-                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                       placeholder="Enter specialty and press Enter or click Add"
                     />
                     <button
@@ -459,7 +459,7 @@ export default function AddDoctorPage() {
                         type="text"
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors text-black"
                         placeholder="Enter city"
                         required
                       />
@@ -470,7 +470,7 @@ export default function AddDoctorPage() {
                         type="text"
                         value={formData.state}
                         onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors text-black"
                         placeholder="Enter state"
                         required
                       />
@@ -481,7 +481,7 @@ export default function AddDoctorPage() {
                         type="text"
                         value={formData.address}
                         onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors text-black"
                         placeholder="Street address"
                       />
                     </div>
@@ -491,7 +491,7 @@ export default function AddDoctorPage() {
                         type="text"
                         value={formData.zipCode}
                         onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none bg-white transition-colors text-black"
                         placeholder="12345"
                       />
                     </div>
@@ -504,7 +504,7 @@ export default function AddDoctorPage() {
                   Conditions & Keywords
                 </label>
                 <div className="space-y-3">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <input
                       type="text"
                       value={newCondition}
@@ -515,7 +515,7 @@ export default function AddDoctorPage() {
                           addCondition();
                         }
                       }}
-                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                       placeholder="Enter condition and press Enter or click Add"
                     />
                     <button
@@ -566,7 +566,7 @@ export default function AddDoctorPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors text-black"
                         placeholder="(555) 123-4567"
                       />
                     </div>
@@ -576,7 +576,7 @@ export default function AddDoctorPage() {
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors text-black"
                         placeholder="doctor@example.com"
                       />
                     </div>
@@ -586,7 +586,7 @@ export default function AddDoctorPage() {
                         type="url"
                         value={formData.website}
                         onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors"
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white transition-colors text-black"
                         placeholder="https://www.example.com"
                       />
                     </div>
@@ -608,7 +608,7 @@ export default function AddDoctorPage() {
                 <textarea
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none transition-colors text-black"
                   rows={6}
                   placeholder="Enter doctor's biography and professional background..."
                   required
@@ -630,7 +630,7 @@ export default function AddDoctorPage() {
                     type="text"
                     value={formData.brandColor}
                     onChange={(e) => setFormData({ ...formData, brandColor: e.target.value })}
-                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-black"
                     placeholder="#3B82F6"
                   />
                 </div>

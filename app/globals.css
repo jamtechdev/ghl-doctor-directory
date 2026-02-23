@@ -66,34 +66,35 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  background: rgba(0, 0, 0, 0.5);
+  /* adjust opacity here */
   z-index: 1;
 }
 
-.hero-section > * {
+.hero-section>* {
   position: relative;
   z-index: 2;
 }
 
-.text-primary{
+.text-primary {
   color: #7c58d4 !important;
 }
 
-.bg-primary{
-  background:#7c58d4 !important;
+.bg-primary {
+  background: #7c58d4 !important;
 }
 
-.primary-btn{
-  padding:10px 35px;
+.primary-btn {
+  padding: 10px 35px;
 
 }
 
 
-.doctors-slider{
+.doctors-slider {
   /* height: 400px; */
   position: relative;
   /* background:gray; */
-  width:100%;
+  width: 100%;
   background-image: url('/images/bg.png');
   background-repeat: no-repeat;
 
@@ -101,20 +102,21 @@ body {
   background-position: center;
 }
 
-.doctors-slider:after{
-    content: "";
+.doctors-slider:after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
-  z-index:1;
+  background: rgba(0, 0, 0, 0.5);
+  /* adjust opacity here */
+  z-index: 1;
 }
 
-.doctors-slider .content{
+.doctors-slider .content {
   position: relative;
   z-index: 10000;
 }
 
-.swiper-box{
+.swiper-box {
   position: relative;
   max-height: 400px;
   min-height: 300px;
@@ -122,73 +124,117 @@ body {
   height: 300px;
 }
 
-.swiper-box img{
+.swiper-box img {
   height: 100%;
   object-fit: cover;
 }
 
-.doctor-name{
-    background: #ffffff;
-    width: 85%;
-    position: absolute;
-    padding:8px 0px;
-    bottom: 5%;
-    left: 5%;
-    border-top: 1px solid #b9b9b9;
-    border-radius: 0px 20px 0px 0px;
+.doctor-name {
+  background: #ffffff;
+  width: 85%;
+  position: absolute;
+  padding: 8px 0px;
+  bottom: 5%;
+  left: 5%;
+  border-top: 1px solid #b9b9b9;
+  border-radius: 0px 20px 0px 0px;
 }
 
-.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
-    bottom: var(--swiper-pagination-bottom, 8px);
-    /* top: 95%; */
-    width: 100%;
-    left: 0;
-    bottom: 0% !important;
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: var(--swiper-pagination-bottom, 8px);
+  /* top: 95%; */
+  width: 100%;
+  left: 0;
+  bottom: 0% !important;
 }
 
-.swiper-wrapper{
+.swiper-wrapper {
   padding-bottom: 58px !important;
   padding-top: 10px;
 }
 
 .swiper-pagination-clickable .swiper-pagination-bullet {
-    cursor: pointer;
-    width: 43px !important;
-    height: 10px !important;
-    border-radius: 4px !important;
+  cursor: pointer;
+  width: 43px !important;
+  height: 10px !important;
+  border-radius: 4px !important;
 }
 
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background-color: white !important;
 }
 
 
 
 /* Testimonial */
-.swiper2 .swiper-pagination-bullet-active{
-  background-color:#7c58d4 !important;
+.swiper2 .swiper-pagination-bullet-active {
+  background-color: #7c58d4 !important;
 }
 
 
-.clarity{
+.clarity {
   background-image: url('/images/bg.png');
   background-size: cover;
   background-position: center;
   position: relative;
 }
 
-.clarity:after{
-    content: "";
+.clarity:after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /* adjust opacity here */
-  z-index:1;
+  background: rgba(0, 0, 0, 0.5);
+  /* adjust opacity here */
+  z-index: 1;
 }
 
-.line-height-6{
+.line-height-6 {
   line-height: 60px !important;
 }
 
-.line-height-5{
+.line-height-5 {
   line-height: 50px !important;
+}
+
+.sub-heading {
+  font-size: 40px;
+  ;
+}
+
+
+@media (max-width:548px) {
+  .close-icon {
+    background: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    position: absolute;
+    top: 13px;
+    right: 7px;
+    z-index: 100000;
+  }
+
+  .sub-heading {
+    font-size: 1.875rem;
+  }
+
+  .line-height-5 {
+    line-height: 40px !important;
+    ;
+  }
+
+  .line-height-6 {
+    line-height: 45px !important;
+  }
+
+  .sm-w-full{
+    width: 100%;;
+  }
 }

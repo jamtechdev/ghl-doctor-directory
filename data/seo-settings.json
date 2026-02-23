@@ -45,8 +45,8 @@
     "robots": {
       "index": true,
       "follow": true,
-      "noarchive": false,
-      "nosnippet": false,
+      "noarchive": true,
+      "nosnippet": true,
       "noimageindex": false,
       "maxSnippet": -1,
       "maxImagePreview": "large",

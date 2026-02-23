@@ -105,7 +105,7 @@ export default function DoctorDetailPage() {
                     <img
                       src={doctor.image}
                       alt={doctor.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 object-top"
                       onError={() => setImageError(true)}
                     />
                   </div>

@@ -267,7 +267,7 @@ export default function DashboardPage() {
 
   return (
     <AppLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>

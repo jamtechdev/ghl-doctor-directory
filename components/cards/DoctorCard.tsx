@@ -40,7 +40,7 @@ export default function DoctorCard({ doctor, onEdit, onDelete, showActions = fal
           <img
             src={doctor.image}
             alt={doctor.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 object-top"
             onError={() => setImageError(true)}
           />
         ) : (

@@ -16,7 +16,7 @@ import 'swiper/css/free-mode';
 
 import 'swiper/css/pagination';
 // import required modules
-import { FreeMode, Pagination } from 'swiper/modules';
+import { FreeMode, Pagination, Autoplay } from 'swiper/modules';
 import Footer from '@/components/footer/Footer';
 export default function LandingPage() {
   const [featuredDoctors, setFeaturedDoctors] = useState<Doctor[]>([]);
@@ -37,7 +37,7 @@ export default function LandingPage() {
     fetchFeaturedDoctors();
   }, []);
 
-   const testimonials = [
+  const testimonials = [
     {
       name: 'Joseph A. Rosenbaum, MD',
       image: 'images/review1.png',
@@ -74,7 +74,7 @@ export default function LandingPage() {
           }}
         >
           {/* Dark Gradient Overlay to make text pop */}
-          <div className="absolute inset-0 bg-black/50 lg:bg-gradient-to-r lg:from-black/70 lg:to-transparent"></div>
+          <div className="absolute inset-0 bg-black/50  lg:from-black/70 lg:to-transparent"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
@@ -91,7 +91,7 @@ export default function LandingPage() {
             </p>
 
             {/* Buttons - Rounded & Distinctive */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/get-started"
                 className="px-10 py-3 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center transition-all shadow-lg duration-300 transition hover:-translate-y-[8px]"
@@ -104,7 +104,7 @@ export default function LandingPage() {
               >
                 Get Started
               </Link>
-            </div>
+            </div> */}
 
             {/* Trust Badges / Small Text */}
             <div className="mt-8 flex flex-col gap-1">
@@ -123,7 +123,7 @@ export default function LandingPage() {
       {/* Clarity Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl  font-semibold text-black leading-tight mb-2 text-center text-[40px] line-height-5">
+          <h1 className="text-3xl  font-semibold text-black leading-tight mb-2 text-center sub-heading line-height-5">
             Here’s the clarity you’ll have after your<br /> second <span className='text-primary'>opinion.</span>
           </h1>
           <p className="text-xl text-gray-600 text-center mb-12">
@@ -142,7 +142,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-semibold text-gray-900">YES</h3>
               </div>
 
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">Surgery is the right next step</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 ">Surgery is the right next step</h3>
               <p className="text-gray-600">And you can move forward confidently, understanding why and when.</p>
             </div>
 
@@ -157,7 +157,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-semibold text-gray-900">NO</h3>
               </div>
 
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">Surgery isn’t necessary right now</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 ">Surgery isn’t necessary right now</h3>
               <p className="text-gray-600">You’ll learn about conservative options that may help you avoid or delay surgery.</p>
             </div>
 
@@ -172,7 +172,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-semibold text-gray-900 ">WHAT ELSE?</h3>
               </div>
 
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-primary">You’re not ready yet, but now you’re informed</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 ">You’re not ready yet, but now you’re informed</h3>
               <p className="text-gray-600">You’ll have better questions to ask your doctor, or you can continue care with the specialist who reviewed your case.</p>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function LandingPage() {
       {/* Board-Certified Specialists Section */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl text-[40px] font-bold text-black text-center mb-4">
+          <h2 className="text-4xl sub-heading font-bold text-black text-center mb-4">
             Reviewed by Board-Certified Specialists
           </h2>
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
@@ -246,39 +246,107 @@ export default function LandingPage() {
         </div>
       </section>
 
-      
+
 
       {/* Meet the Surgeons Section */}
       <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
         <div className="absolute inset-0 bg-primary"></div>
         <div className="relative z-10 max-w-6xl mx-auto">
-          <h2 className="text-4xl  font-bold text-white text-center mb-8 text-[40px] line-height-5">
-            Meet the Specialists Behind Your <br/> Second Opinion
+          <h2 className="text-4xl  font-bold text-white text-center mb-8 sub-heading line-height-5">
+            Medsasdfasdet the Specialists Behind Your <br /> Second Opinion
           </h2>
 
-          {featuredDoctors.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-              {featuredDoctors.map((doctor) => (
-                <Link
-                  key={doctor.id}
-                  href={`/doctors/${doctor.slug}`}
-                  className="bg-white/10 border shadow backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all transform hover:-translate-y-2"
-                >
-                  <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                    {doctor.image ? (
-                      <img src={doctor.image} alt={doctor.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                    )}
+          <div className="z-100 relative mt-12">
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={10}
+               autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+              pagination={{
+                clickable: true,
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                 548: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+              }}
+            modules={[Autoplay, Pagination]}
+              className="mySwiper"
+            >
+              <SwiperSlide>
+                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
+                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover object-top' />
+                  <div className="doctor-name">
+                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
+                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
                   </div>
-                  <h3 className=" font-semibold text-lg mb-1 text-white">{doctor.name}</h3>
-                  <p className="text-white text-sm">{doctor.specialty}</p>
-                </Link>
-              ))}
-            </div>
-          )}
+
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
+                  <img src="/images/doctor-img2.jpg" alt="" className='w-full cover object-top' />
+                  <div className="doctor-name">
+                    <h3 className='text-md font-normal text-gray-900  text-center'>Samuel Rosas, MD, PhD, MBA</h3>
+                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
+                  </div>
+
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
+                  <img src="/images/doctor-img3.jpg" alt="" className='w-full cover object-top' />
+                  <div className="doctor-name">
+                    <h3 className='text-md font-normal text-gray-900  text-center'>T. David Luo, MD PhD</h3>
+                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
+                  </div>
+
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
+                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover object-top' />
+                  <div className="doctor-name">
+                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
+                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
+                  </div>
+
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
+                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover' />
+                  <div className="doctor-name">
+                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
+                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
+                  </div>
+
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
+
+
 
           <div className="text-center mt-8">
             <ProtectedLink
@@ -293,60 +361,60 @@ export default function LandingPage() {
 
 
       {/* Why Specialists Believe Section */}
-       <section className="py-20 bg-gray-50">
-          <div className="max-w-4xl mx-auto text-center">
-            
-             <h2 className="text-4xl  font-bold text-black text-center mb-4 text-[40px] line-height-5">
-            Why Our Specialists Believe Every Patient<br/> Deserves a <span className='text-primary'>Second Opinion</span> 
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto text-center">
+
+          <h2 className="text-4xl  font-bold text-black text-center mb-4 sub-heading line-height-5">
+            Why Our Specialists Believe Every Patient<br /> Deserves a <span className='text-primary'>Second Opinion</span>
           </h2>
-                <p className="text-xl text-gray-600 text-center mb-12">
+          <p className="text-xl text-gray-600 text-center mb-12">
             Because nobody has the right to make a life-altering decision without understanding all of their options.
           </p>
 
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={30}
-              pagination={{ clickable: true }}
-              modules={[Pagination]}
-              className='swiper2'
-            >
-              {testimonials.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="bg-white p-8 rounded-xl shadow-md">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                    />
-                    <h3 className="text-xl font-semibold mb-2 text-black">{item.name}</h3>
-                    <p className="text-gray-600 mb-4">{item.text}</p>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            pagination={{ clickable: true }}
+            modules={[Pagination]}
+            className='swiper2'
+          >
+            {testimonials.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className="bg-white p-8 rounded-xl shadow-md">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  />
+                  <h3 className="text-xl font-semibold mb-2 text-black">{item.name}</h3>
+                  <p className="text-gray-600 mb-4">{item.text}</p>
 
-                    <div className="text-yellow-500 font-semibold">
-                      {item.rating} ★★★★★
-                    </div>
+                  <div className="text-yellow-500 font-semibold">
+                    {item.rating} ★★★★★
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className="mt-12">
-              <Link
-                href="/get-started"
-                className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto mt-5  duration-300 hover:-translate-y-[8px]"
-              >
-                Get A Second Opinion
-              </Link>
-            </div>
-
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className="mt-12">
+            <Link
+              href="/get-started"
+              className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto mt-5  duration-300 hover:-translate-y-[8px]"
+            >
+              Get A Second Opinion
+            </Link>
           </div>
 
-        </section>
+        </div>
 
-      
+      </section>
+
+
 
       {/* Platform Functionality Section */}
       <section className="py-20 px-6 ">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl  font-bold text-black text-center mb-4 text-[40px] line-height-5">
+          <h2 className="text-4xl  font-bold text-black text-center mb-4 sub-heading line-height-5">
             Platform Functionality
           </h2>
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
@@ -356,19 +424,33 @@ export default function LandingPage() {
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-200">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Platform Functionality:</h3>
             <ul className="space-y-4">
-              <li className="flex items-start items-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <li className="flex flex-col items-start sm:flex-row sm:items-start">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
+                  <svg
+                    className="w-7 h-7 text-purple-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
+
                 <div>
-                  <strong className="text-gray-900 text-lg">Doctor Directory Management:</strong>
-                  <p className="text-gray-700 leading-relaxed mt-1">Add, edit, and manage comprehensive doctor profiles with specialties, locations, education, certifications, and contact information.</p>
+                  <strong className="text-gray-900 text-lg">
+                    Doctor Directory Management:
+                  </strong>
+                  <p className="text-gray-700 leading-relaxed mt-1">
+                    Add, edit, and manage comprehensive doctor profiles with specialties,
+                    locations, education, certifications, and contact information.
+                  </p>
                 </div>
               </li>
-              <li className="flex items-start items-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <li className="flex flex-col items-start sm:flex-row sm:items-start">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
                   <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
@@ -378,8 +460,8 @@ export default function LandingPage() {
                   <p className="text-gray-700 leading-relaxed mt-1">Complete control over meta tags, Open Graph, Twitter Cards, structured data, analytics integration, and sitemap settings for maximum search visibility.</p>
                 </div>
               </li>
-              <li className="flex items-start items-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <li className="flex flex-col items-start sm:flex-row sm:items-start">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
                   <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
@@ -389,8 +471,8 @@ export default function LandingPage() {
                   <p className="text-gray-700 leading-relaxed mt-1">Real-time insights with interactive charts showing doctor distribution by specialty, state-wise analytics, and comprehensive reporting tools.</p>
                 </div>
               </li>
-              <li className="flex items-start items-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+              <li className="flex flex-col items-start sm:flex-row sm:items-start">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
                   <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
@@ -402,7 +484,7 @@ export default function LandingPage() {
               </li>
             </ul>
           </div>
-            <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-12">
             <ProtectedLink
               href="/dashboard"
               className=" bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
@@ -418,13 +500,13 @@ export default function LandingPage() {
       {/* FAQ Section */}
       <FAQ />
 
-      
+
 
       {/* Footer CTA */}
       <section className="relative py-12 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
         <div className="absolute inset-0 bg-primary"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl  font-bold text-[40px] text-white mb-8">
+          <h2 className="text-4xl  font-bold sub-heading text-white mb-8">
             Clarity changes everything.
           </h2>
           <div className="flex justify-center mb-8">
