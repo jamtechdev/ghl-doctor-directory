@@ -82,29 +82,30 @@ export default function EmbedDirectoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" style={{ minHeight: '100vh' }}>
-      {/* Enhanced Header */}
-      <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" style={{ minHeight: '100vh', isolation: 'isolate' }}>
+      {/* Enhanced Header - Optimized for GHL */}
+      <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50" style={{ position: 'sticky', top: 0 }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Find Your Doctor
               </h1>
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-xs sm:text-sm text-gray-600">
                 Search by name, specialty, or medical condition
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               {/* Mobile Filter Toggle */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
+                className="lg:hidden px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2 text-sm"
+                aria-label="Toggle filters"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                 </svg>
-                Filters
+                <span className="hidden sm:inline">Filters</span>
                 {(activeFilters.specialties.length > 0 || activeFilters.states.length > 0) && (
                   <span className="bg-white text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                     {activeFilters.specialties.length + activeFilters.states.length}
@@ -125,12 +126,12 @@ export default function EmbedDirectoryPage() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      {/* Main Content - Optimized Layout */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Left Sidebar - Filters (Desktop) */}
           <aside className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden'} lg:block`}>
-            <div className="sticky top-24">
+            <div className="sticky top-20 sm:top-24" style={{ position: 'sticky', top: '5rem' }}>
               <FilterPanel
                 filterOptions={filterOptions}
                 activeFilters={activeFilters}
@@ -140,11 +141,11 @@ export default function EmbedDirectoryPage() {
           </aside>
 
           {/* Right Content - Search and Results */}
-          <div className="lg:col-span-3">
-            {/* Results Header */}
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div>
-                <p className="text-lg font-semibold text-gray-900">
+          <div className="lg:col-span-3 min-w-0">
+            {/* Results Header - Optimized */}
+            <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-base sm:text-lg font-semibold text-gray-900">
                   {filteredDoctors.length === 0 ? (
                     <span className="text-gray-500">No doctors found</span>
                   ) : filteredDoctors.length === 1 ? (
@@ -153,8 +154,8 @@ export default function EmbedDirectoryPage() {
                     <span className="text-blue-600">{filteredDoctors.length} doctors found</span>
                   )}
                 </p>
-                {allDoctors.length > 0 && (
-                  <p className="text-sm text-gray-500 mt-1">
+                {allDoctors.length > 0 && filteredDoctors.length !== allDoctors.length && (
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     Showing {filteredDoctors.length} of {allDoctors.length} doctors
                   </p>
                 )}
@@ -165,24 +166,25 @@ export default function EmbedDirectoryPage() {
                     setSearchQuery('');
                     setActiveFilters(resetFilters());
                   }}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium flex items-center gap-2 text-sm"
+                  className="px-3 sm:px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium flex items-center gap-2 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
-                  Clear all filters
+                  <span className="hidden sm:inline">Clear all filters</span>
+                  <span className="sm:hidden">Clear</span>
                 </button>
               )}
             </div>
 
-            {/* Empty State */}
-            {filteredDoctors.length === 0 && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-                <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Empty State - Optimized */}
+            {filteredDoctors.length === 0 && allDoctors.length > 0 && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
+                <svg className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No doctors found</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No doctors found</h3>
+                <p className="text-sm sm:text-base text-gray-600 mb-6 max-w-md mx-auto">
                   Try adjusting your search or filters to find more results.
                 </p>
                 <button
@@ -190,10 +192,23 @@ export default function EmbedDirectoryPage() {
                     setSearchQuery('');
                     setActiveFilters(resetFilters());
                   }}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="px-5 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm sm:text-base"
                 >
                   Clear all filters
                 </button>
+              </div>
+            )}
+
+            {/* No Doctors at All State */}
+            {allDoctors.length === 0 && (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
+                <svg className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No doctors available</h3>
+                <p className="text-sm sm:text-base text-gray-600">
+                  The doctor directory is currently being updated. Please check back soon.
+                </p>
               </div>
             )}
 
@@ -205,21 +220,24 @@ export default function EmbedDirectoryPage() {
         </div>
       </main>
 
-      {/* Mobile Filter Overlay */}
+      {/* Mobile Filter Overlay - Optimized */}
       {showFilters && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50"
           onClick={() => setShowFilters(false)}
+          style={{ position: 'fixed', zIndex: 50 }}
         >
           <div 
-            className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl overflow-y-auto"
+            className="absolute right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
+            style={{ maxHeight: '100vh' }}
           >
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10 shadow-sm">
               <h2 className="text-lg font-bold text-gray-900">Filters</h2>
               <button
                 onClick={() => setShowFilters(false)}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label="Close filters"
               >
                 <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -25,12 +25,30 @@ html,
 body {
   width: 100%;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* Ensure responsive design works within iframe constraints */
 #__next {
   width: 100%;
   min-height: 100vh;
+}
+
+/* GHL Embed Container - Isolated styling */
+.embed-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  /* Prevent style conflicts with parent page */
+  box-sizing: border-box;
+}
+
+/* Ensure iframe content doesn't overflow */
+.embed-container * {
+  box-sizing: border-box;
 }
 
 /* Custom Scrollbar Styles */
