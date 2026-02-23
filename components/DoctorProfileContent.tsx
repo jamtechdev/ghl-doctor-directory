@@ -138,37 +138,29 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
     }
   };
 
-  return (
-    <>
-      {/* Schema.org JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(doctorSchema) }}
-      />
-
-      <AppLayout>
-        <div className="max-w-4xl mx-auto">
-          {/* Back Link and Action Buttons */}
-          <div className="mb-6 flex items-center justify-between">
-            <Link
-              href="/dashboard"
-              className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
-            >
-              <svg
-                className="h-5 w-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              Back to Directory
-            </Link>
+  const content = (
+    <div className="max-w-4xl mx-auto">
+      {/* Back Link and Action Buttons */}
+      <div className="mb-6 flex items-center justify-between">
+        <Link
+          href={user ? "/dashboard" : "/"}
+          className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center"
+        >
+          <svg
+            className="h-5 w-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          {user ? "Back to Directory" : "Back to Home"}
+        </Link>
             
             {isAdmin && (
               <div className="flex items-center space-x-2">
@@ -200,12 +192,12 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
             <header className="mb-6 pb-6 border-b border-gray-200">
               {/* Profile Image */}
               {doctor.image ? (
-                <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0">
+                <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0 flex items-center justify-center">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover"
+                    className="object-contain object-top"
                     sizes="(max-width: 768px) 100vw, 320px"
                     priority
                   />
@@ -597,7 +589,25 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
             </div>
           )}
         </div>
-      </AppLayout>
+  );
+
+  return (
+    <>
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(doctorSchema) }}
+      />
+
+      {user ? (
+        <AppLayout>
+          {content}
+        </AppLayout>
+      ) : (
+        <div className="min-h-screen bg-gray-50 px-4 py-8">
+          {content}
+        </div>
+      )}
     </>
   );
 }

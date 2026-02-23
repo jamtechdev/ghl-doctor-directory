@@ -35,12 +35,12 @@ export default function DoctorCard({ doctor, onEdit, onDelete, showActions = fal
       )}
       
       {/* Image Section - Fixed Height */}
-      <div className="relative w-full h-48 bg-gray-100 overflow-hidden flex-shrink-0">
+      <div className="relative w-full h-48 bg-gray-100 overflow-hidden flex-shrink-0 flex items-center justify-center">
         {doctor.image && !imageError ? (
           <img
             src={doctor.image}
             alt={doctor.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 object-top"
+            className="w-full h-full object-contain object-top group-hover:scale-110 transition-transform duration-500"
             onError={() => setImageError(true)}
           />
         ) : (

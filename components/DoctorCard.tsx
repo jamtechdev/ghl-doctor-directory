@@ -49,12 +49,12 @@ export default function DoctorCard({ doctor, embedMode = false }: DoctorCardProp
       <div className="flex flex-col h-full p-6">
         {/* Profile Image */}
         {doctor.image ? (
-          <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-100">
+          <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
             <Image
               src={doctor.image}
               alt={doctor.name}
               fill
-              className="object-cover"
+              className="object-contain object-top"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>

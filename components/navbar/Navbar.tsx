@@ -35,10 +35,9 @@ const Navbar = () => {
                             </a>
 
                             {/* Purple Button */}
-                            <button className="bg-primary cursor-pointer hover:bg-[#7c3aed] text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-sm">
-                                                           <a href="auth/login">Login</a>
-
-                            </button>
+                            <a href="/auth/login" className="bg-primary cursor-pointer hover:bg-[#7c3aed] text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-sm">
+                                Login
+                            </a>
                         </div>
 
                         {/* Mobile Menu Button */}

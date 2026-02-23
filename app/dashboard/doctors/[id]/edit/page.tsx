@@ -140,13 +140,26 @@ export default function EditDoctorPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to upload image');
+        // Show detailed error message
+        let errorMsg = data.error || 'Failed to upload image';
+        if (data.recommendation) {
+          errorMsg += `. ${data.recommendation}`;
+        }
+        throw new Error(errorMsg);
       }
 
       setImageUrl(data.url);
     } catch (err: any) {
-      setError(err.message || 'Failed to upload image');
+      const errorMessage = err.message || 'Failed to upload image';
+      setError(errorMessage);
       setImagePreview(null);
+      
+      // If upload fails, suggest using external URL
+      if (err.message?.includes('ephemeral') || err.message?.includes('Render')) {
+        setTimeout(() => {
+          setError('Please use the "Image URL" field above to enter an external image URL instead.');
+        }, 3000);
+      }
     } finally {
       setUploadingImage(false);
     }
@@ -332,17 +345,59 @@ export default function EditDoctorPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Profile Image
                 </label>
+                
+                {/* Render Warning */}
+                <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-xs text-yellow-800">
+                    <strong>Note:</strong> On Render, uploaded images may not persist. For production, use external image URLs (Cloudinary, Imgur, etc.) or cloud storage.
+                  </p>
+                </div>
+
                 <div className="space-y-4">
-                  {/* Image Preview */}
-                  {imagePreview && (
-                    <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-gray-300">
+                  {/* Current Image or Preview */}
+                  {(imagePreview || imageUrl || doctor.image) && (
+                    <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-gray-200 shadow-sm">
                       <img
-                        src={imagePreview}
+                        src={imagePreview || imageUrl || doctor.image}
                         alt="Preview"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain object-top"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
                       />
                     </div>
                   )}
+
+                  {/* Manual URL Input */}
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">
+                      Or Enter Image URL (Recommended for Render)
+                    </label>
+                    <input
+                      type="url"
+                      value={imageUrl || doctor.image || ''}
+                      onChange={(e) => {
+                        setImageUrl(e.target.value);
+                        setImagePreview(e.target.value);
+                      }}
+                      placeholder="https://example.com/image.jpg or https://res.cloudinary.com/..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                    />
+                    <p className="mt-1 text-xs text-gray-500">
+                      Use external image URLs from Cloudinary, Imgur, or other image hosting services
+                    </p>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-white px-2 text-gray-500">Or Upload File</span>
+                    </div>
+                  </div>
 
                   {/* File Upload */}
                   <div>
