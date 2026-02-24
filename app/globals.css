@@ -221,7 +221,10 @@ body {
   font-size: 40px;
   ;
 }
-
+.surgery-radius-box {
+    border-radius: 0 0 267px 237px;
+    height: 62%;
+}
 
 @media (max-width:548px) {
   .close-icon {

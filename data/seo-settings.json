@@ -34,7 +34,7 @@
       "siteName": "Doctor Directory"
     },
     "twitter": {
-      "enabled": true,
+      "enabled": false,
       "card": "summary_large_image",
       "title": "Doctor Directory",
       "description": "Find the right doctor for your needs.",
@@ -43,10 +43,10 @@
       "creator": ""
     },
     "robots": {
-      "index": true,
-      "follow": true,
-      "noarchive": true,
-      "nosnippet": true,
+      "index": false,
+      "follow": false,
+      "noarchive": false,
+      "nosnippet": false,
       "noimageindex": false,
       "maxSnippet": -1,
       "maxImagePreview": "large",
@@ -74,9 +74,9 @@
       "websiteSchema": true
     },
     "sitemap": {
-      "enabled": true,
-      "changefreq": "weekly",
-      "priority": 0.8
+      "enabled": false,
+      "changefreq": "yearly",
+      "priority": 0
     }
   }
 }

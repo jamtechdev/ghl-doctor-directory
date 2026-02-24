@@ -80,6 +80,8 @@ export default function DoctorCard({ doctor, onEdit, onDelete, showActions = fal
             </svg>
             {doctor.location.city}, {doctor.location.state}
           </p>
+
+          
         </div>
 
         {/* Bio */}
@@ -117,6 +119,8 @@ export default function DoctorCard({ doctor, onEdit, onDelete, showActions = fal
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
+
+          
 
           {showActions && onEdit && onDelete && (
             <div className="flex gap-1.5">

@@ -253,7 +253,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-primary"></div>
         <div className="relative z-10 max-w-6xl mx-auto">
           <h2 className="text-4xl  font-bold text-white text-center mb-8 sub-heading line-height-5">
-            Medsasdfasdet the Specialists Behind Your <br /> Second Opinion
+            Meet the Specialists Behind Your <br /> Second Opinion
           </h2>
 
           <div className="z-100 relative mt-12">

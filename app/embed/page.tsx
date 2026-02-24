@@ -137,16 +137,18 @@ export default function EmbedDirectoryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" style={{ minHeight: '100vh', isolation: 'isolate' }}>
       {/* Enhanced Header - Optimized for GHL */}
-      <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50" style={{ position: 'sticky', top: 0 }}>
+      <header className="bg-white   border-gray-200 sticky top-0 z-50" style={{ position: 'sticky', top: 0 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl sm:text-3xl font-bold" style={{ color: '#3a2f68' }}>
+
+
+              <h1 className="text-4xl md:text-5xl font-bold text-[#4A3E7F] mb-4 text-center mt-12"  >
                 Search by Diagnosis, not Just by Name
               </h1>
-              <p className="mt-1 text-xs sm:text-sm text-gray-600">
-                Search our network of board-certified orthopedic specialists
-              </p>
+
+
+              <p className="text-gray-600 text-lg text-center"> Search our network of board-certified orthopedic specialists</p>
             </div>
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               {/* Mobile Filter Toggle */}
@@ -178,18 +180,23 @@ export default function EmbedDirectoryPage() {
             <label className="block text-sm font-medium text-gray-700 mb-3">
               Q Search by Diagnosis, Not Just Name
             </label>
-            
-            {/* Search Bar */}
-            <div className="mb-4">
-              <SearchBar
-                value={searchQuery}
-                onChange={setSearchQuery}
+            <div className="flex gap-2">
+              <input
+                type="text"
                 placeholder='Try "ACL reconstruction" or "Knee arthritis"'
+                className="flex-1 p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5CFC]"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
+              <button className="bg-[#8B6EED] text-white px-8 py-4 rounded-lg font-bold hover:bg-[#7659D8] transition-colors">
+                Search
+              </button>
             </div>
+            {/* Search Bar */}
+
 
             {/* Suggestion Tags */}
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4 mt-4 justify-center items-center">
               {['ACL reconstruction', 'Rotator cuff tear', 'Cardiology'].map((suggestion) => (
                 <button
                   key={suggestion}
@@ -202,7 +209,7 @@ export default function EmbedDirectoryPage() {
             </div>
 
             {/* Feature Badges */}
-            <div className="flex flex-wrap gap-4 items-center">
+            <div className="flex flex-wrap gap-4 items-center justify-center">
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -228,10 +235,10 @@ export default function EmbedDirectoryPage() {
 
       {/* Main Content - Optimized Layout */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
           {/* Left Sidebar - Filters (Desktop) */}
-          <aside className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden'} lg:block`}>
-            <div className="sticky top-20 sm:top-24" style={{ position: 'sticky', top: '5rem' }}>
+          <aside className={`lg:col-span-3 ${showFilters ? 'block' : 'hidden'} lg:block`}>
+            <div className="sticky top-20 sm:top-24">
               <FilterPanel
                 filterOptions={filterOptions}
                 activeFilters={activeFilters}
@@ -241,7 +248,8 @@ export default function EmbedDirectoryPage() {
           </aside>
 
           {/* Right Content - Search and Results */}
-          <div className="lg:col-span-3 min-w-0">
+          <div className="lg:col-span-9 min-w-0">
+            
             {/* Results Header - Optimized */}
             <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3">
               <div className="flex-1 min-w-0">
@@ -260,6 +268,7 @@ export default function EmbedDirectoryPage() {
                   </p>
                 )}
               </div>
+
               {(searchQuery || activeFilters.specialties.length > 0 || activeFilters.states.length > 0) && (
                 <button
                   onClick={() => {
@@ -303,7 +312,7 @@ export default function EmbedDirectoryPage() {
             {allDoctors.length === 0 && (
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
                 <svg className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 0 014 0z" />
                 </svg>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No doctors available</h3>
                 <p className="text-sm sm:text-base text-gray-600">
@@ -322,12 +331,12 @@ export default function EmbedDirectoryPage() {
 
       {/* Mobile Filter Overlay - Optimized */}
       {showFilters && (
-        <div 
+        <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50"
           onClick={() => setShowFilters(false)}
           style={{ position: 'fixed', zIndex: 50 }}
         >
-          <div 
+          <div
             className="absolute right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             style={{ maxHeight: '100vh' }}

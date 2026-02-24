@@ -105,57 +105,78 @@ export default function DoctorsPage() {
 
   return (
     <AppLayout>
-      <div className="max-w-6xl mx-auto">
+      <div className="absolute inset-0 bg-[#F3EFFF] w-full surgery-radius-box "></div>
+
+      <div className="max-w-6xl mx-auto relative">
         {/* Header Section */}
-        <div className="mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div className="mb-6 bg">
+          <div className="">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-1">{user?.role === 'admin' ? 'All Doctors' : 'My Doctors'}</h1>
-              <p className="text-gray-600 text-sm">{user?.role === 'admin' ? 'Manage all doctor profiles' : 'Manage your doctor profiles'}</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-[#4A3E7F] mb-4 text-center mt-12"  >
+                Before You Commit to Surgery, <br /> Get Expert Confirmation
+              </h1>
+              <p className="text-gray-600 text-lg text-center"> Search our network of board-certified orthopedic specialists who provide <br />
+                independent second opinions across 110+ conditions.</p>
             </div>
-            <Link
-              href="/dashboard/doctors/add"
-              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 text-sm"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              Add Doctor
-            </Link>
+
           </div>
 
           {/* Search and Filter Bar */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <div className="flex flex-col lg:flex-row gap-4">
-              {/* Search Bar - Takes full width on mobile, flex on desktop */}
-              <div className="flex-1">
-                <SearchBar
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mt-12">
+            <div className="max-w-7xl mx-auto bg-white p-6 ">
+              <p className="text-sm font-semibold text-gray-500 mb-4 flex items-center justify-center gap-2 flex-wrap">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                Search by <span className="text-[#7C5CFC]">Diagnosis,</span> Not Just Name
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <input
+                  type="text"
+                  placeholder='Try "ACL reconstruction" or "Knee arthritis"'
+                  className="flex-1 p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5CFC] text-black sm-w-full"
                   value={searchQuery}
-                  onChange={setSearchQuery}
-                  placeholder="Search by name, specialty, or condition..."
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                <button className="sm-w-full bg-[#8B6EED] text-white px-8 py-4 rounded-lg font-bold hover:bg-[#7659D8] transition-colors">
+                  Search
+                </button>
               </div>
-
-              {/* Filter Toggle Button */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`px-4 py-2.5 rounded-lg font-medium text-sm transition-all flex items-center justify-center gap-2 ${
-                  showFilters || activeFilters.specialties.length > 0 || activeFilters.states.length > 0
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-                Filters
-                {(activeFilters.specialties.length > 0 || activeFilters.states.length > 0) && (
-                  <span className="bg-white text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
-                    {activeFilters.specialties.length + activeFilters.states.length}
-                  </span>
-                )}
-              </button>
+              <div className="flex flex-wrap justify-center gap-6 mt-4 text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 text-green-500">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  ACL reconstruction</span>
+                <span className="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 text-green-500">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Rotator cuff tear</span>
+                <span className="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 text-green-500">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Cardiology</span>
+              </div>
             </div>
+
 
             {/* Filter Panel - Expandable */}
             {showFilters && (
@@ -235,8 +256,39 @@ export default function DoctorsPage() {
             </div>
           </div>
         </div>
+        <div className="flex flex-wrap justify-center gap-8 mt-8 text-sm font-medium text-gray-600 mb-8">
+          <span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-5 h-5 text-green-500">
+            <path d="M20 6L9 17l-5-5" />
+          </svg> Vetted Surgeons</span>
+          <span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-5 h-5 text-green-500">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>Independent Reviews</span>
+          <span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-5 h-5 text-green-500">
+            <path d="M20 6L9 17l-5-5" />
+          </svg> No Referral Required</span>
+        </div>
+      </div>
+      {/* Doctor Grid */}
 
-        {/* Doctor Grid */}
+      <div className='bg-[#f5f5f5]'>
         {allDoctors.length === 0 ? (
           <div className="bg-white rounded-xl p-12 text-center border border-gray-200 shadow-sm">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -279,20 +331,51 @@ export default function DoctorsPage() {
               Clear All Filters
             </button>
           </div>
+
+
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {filteredDoctors.map((doctor) => (
-              <DoctorCard
-                key={doctor.id}
-                doctor={doctor}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                showActions={true}
-              />
-            ))}
+
+          <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-12 gap-6">
+
+            {/* Sidebar */}
+            <aside className={`md:col-span-3 ${showFilters ? 'block' : 'hidden'} lg:block`}>
+              <div className="sticky top-20">
+                <FilterPanel
+                  filterOptions={filterOptions}
+                  activeFilters={activeFilters}
+                  onFilterChange={setActiveFilters}
+                />
+              </div>
+            </aside>
+
+
+            {/* Main Content */}
+            <div className="md:col-span-9 space-y-6">
+
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
+                <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {filteredDoctors.map((doctor) => (
+                  <DoctorCard
+                    key={doctor.id}
+                    doctor={doctor}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    showActions={true}
+                  />
+                ))}
+              </div>
+
+            </div>
+
           </div>
         )}
+
       </div>
+
     </AppLayout>
   );
 }
