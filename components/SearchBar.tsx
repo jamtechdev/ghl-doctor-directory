@@ -25,7 +25,7 @@ interface SearchBarProps {
 export default function SearchBar({
   value,
   onChange,
-  placeholder = 'Search by name, specialty, or condition...',
+  placeholder = 'Try "ACL reconstruction" or "Knee arthritis"',
 }: SearchBarProps) {
   const [localValue, setLocalValue] = useState(value);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -91,7 +91,7 @@ export default function SearchBar({
           value={localValue}
           onChange={handleChange}
           placeholder={placeholder}
-          className="block w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400 bg-white shadow-sm transition-all duration-200 text-base"
+          className="block w-full pl-12 pr-12 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3a2f68] focus:border-[#3a2f68] text-gray-900 placeholder-gray-400 bg-white shadow-sm transition-all duration-200 text-base"
           aria-label="Search doctors"
         />
 
@@ -133,7 +133,7 @@ export default function SearchBar({
             <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            "rotator cuff"
+            "Rotator cuff tear"
           </span>
           <span className="flex items-center">
             <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
