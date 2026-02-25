@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createDoctor, getPublicDoctors, getDoctorsByUserId } from '@/lib/db';
+import { createDoctor, getPublicDoctors, getDoctorsByUserId, getUserByEmail } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
+import { syncDoctorToGHL } from '@/lib/ghl';
 
 export async function GET(request: NextRequest) {
   try {
@@ -57,6 +58,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if doctor with this email already exists
+    const existingUser = getUserByEmail(email);
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'A doctor with this email already exists' },
+        { status: 409 }
+      );
+    }
+
     // Generate slug from name
     const slug = name
       .toLowerCase()
@@ -79,6 +89,11 @@ export async function POST(request: NextRequest) {
       certifications,
       email,
       password,
+    });
+
+    // Sync to GoHighLevel (non-blocking)
+    syncDoctorToGHL({ ...doctor, email }).catch(error => {
+      console.error('Failed to sync doctor to GHL:', error);
     });
 
     return NextResponse.json({ doctor }, { status: 201 });

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDoctorById, updateDoctor, deleteDoctor } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
+import { syncDoctorToGHL, deleteDoctorFromGHL } from '@/lib/ghl';
 
 export async function GET(
   request: NextRequest,
@@ -90,6 +91,11 @@ export async function PUT(
       );
     }
 
+    // Sync to GoHighLevel (non-blocking)
+    syncDoctorToGHL(updatedDoctor).catch(error => {
+      console.error('Failed to sync doctor to GHL:', error);
+    });
+
     return NextResponse.json({ doctor: updatedDoctor }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -131,6 +137,11 @@ export async function DELETE(
         { status: 403 }
       );
     }
+
+    // Sync deletion to GoHighLevel (non-blocking)
+    deleteDoctorFromGHL(doctor).catch(error => {
+      console.error('Failed to delete doctor from GHL:', error);
+    });
 
     const success = deleteDoctor(resolvedParams.id);
     if (!success) {

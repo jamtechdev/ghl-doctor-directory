@@ -352,9 +352,22 @@ export default function DoctorsPage() {
             {/* Main Content */}
             <div className="md:col-span-9 space-y-6">
 
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
-                <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
+                  <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
+                </div>
+                {user?.role === 'admin' && (
+                  <Link
+                    href="/dashboard/doctors/add"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Add New Doctor
+                  </Link>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
