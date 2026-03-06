@@ -43,7 +43,7 @@ export default function LandingPage() {
           // Filter only doctors with role='doctor' (in case there are admins mixed in)
           const doctorRoleUsers = doctors.filter((doctor: Doctor) => {
             // Check if doctor has required fields
-            const isValid = doctor && (doctor.id || doctor.email) && doctor.name;
+            const isValid = doctor && (doctor.id || doctor.contact?.email) && doctor.name;
             if (!isValid) {
               console.warn('Invalid doctor entry:', doctor);
             }
@@ -56,13 +56,13 @@ export default function LandingPage() {
           const uniqueDoctors = doctorRoleUsers.filter((doctor: Doctor, index: number, self: Doctor[]) => 
             index === self.findIndex((d: Doctor) => 
               (d.id && doctor.id && d.id === doctor.id) || 
-              (d.email && doctor.email && d.email === doctor.email)
+              (d.contact?.email && doctor.contact?.email && d.contact.email === doctor.contact.email)
             )
           );
           
           console.log('Unique doctors after deduplication:', uniqueDoctors.length);
-          console.log('Doctor names:', uniqueDoctors.map(d => d.name));
-          console.log('Doctor IDs:', uniqueDoctors.map(d => ({ id: d.id, email: d.email })));
+          console.log('Doctor names:', uniqueDoctors.map((d: Doctor) => d.name));
+          console.log('Doctor IDs:', uniqueDoctors.map((d: Doctor) => ({ id: d.id, email: d.contact?.email })));
           console.log('=== END DEBUG ===');
           
           setFeaturedDoctors(uniqueDoctors);
@@ -334,7 +334,7 @@ export default function LandingPage() {
                   'md:grid-cols-2 lg:grid-cols-3'
                 }`}>
                   {featuredDoctors.map((doctor, index) => {
-                    const uniqueKey = doctor.id || doctor.email || `doctor-${index}`;
+                    const uniqueKey = doctor.id || doctor.contact?.email || `doctor-${index}`;
                     return (
                       <Link 
                         key={uniqueKey}
@@ -400,7 +400,7 @@ export default function LandingPage() {
                     className="mySwiper"
                   >
                     {featuredDoctors.map((doctor, index) => {
-                      const uniqueKey = doctor.id || doctor.email || `doctor-${index}`;
+                      const uniqueKey = doctor.id || doctor.contact?.email || `doctor-${index}`;
                       return (
                         <SwiperSlide key={uniqueKey}>
                           <Link href={doctor.slug ? `/doctors/${doctor.slug}` : `/doctors/${doctor.id}`}>

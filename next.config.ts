@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-  // Headers are handled via middleware for better control
+  // Headers are handled via middleware for conditional logic
   // See middleware.ts for X-Frame-Options configuration
 };
 

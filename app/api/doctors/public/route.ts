@@ -10,7 +10,7 @@ export async function GET() {
     console.log('=== PUBLIC DOCTORS API ===');
     console.log('Total doctors found:', doctors.length);
     console.log('Doctor names:', doctors.map(d => d.name));
-    console.log('Doctor IDs:', doctors.map(d => ({ id: d.id, email: d.email, role: 'doctor' })));
+    console.log('Doctor IDs:', doctors.map(d => ({ id: d.id, email: d.contact?.email, role: 'doctor' })));
     
     // Ensure we return all doctors - no filtering or limiting
     return NextResponse.json(

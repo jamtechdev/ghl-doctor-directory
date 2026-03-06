@@ -4,9 +4,8 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  // Allow iframe embedding for /embed routes
+  // Allow iframe embedding for /embed routes - don't set X-Frame-Options
   if (request.nextUrl.pathname.startsWith('/embed')) {
-    // Don't set X-Frame-Options for embed routes (allows iframe embedding)
     return response;
   }
 
