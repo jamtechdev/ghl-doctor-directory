@@ -70,6 +70,10 @@ export async function PUT(
       );
     }
 
+    // Keep full URL as-is when editing (don't convert to relative path)
+    // If image is provided, use it; otherwise keep existing image
+    const imageUrl = image || doctor.image;
+
     const updatedDoctor = updateDoctor(resolvedParams.id, {
       name,
       specialty,
@@ -77,7 +81,7 @@ export async function PUT(
       location,
       conditions: Array.isArray(conditions) ? conditions : [],
       bio,
-      image,
+      image: imageUrl,
       brandColor,
       contact,
       education,
