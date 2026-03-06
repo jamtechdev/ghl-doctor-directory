@@ -3,10 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Doctor } from '@/types/doctor';
-import Navbar from '@/components/navbar/Navbar';
+import PublicLayout from '@/components/PublicLayout';
 import FAQ from '@/components/faq/faq';
 import ProtectedLink from '@/components/ProtectedLink';
-
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,21 +16,65 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 // import required modules
 import { FreeMode, Pagination, Autoplay } from 'swiper/modules';
-import Footer from '@/components/footer/Footer';
+
 export default function LandingPage() {
   const [featuredDoctors, setFeaturedDoctors] = useState<Doctor[]>([]);
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
 
   useEffect(() => {
     async function fetchFeaturedDoctors() {
       try {
-        const response = await fetch('/api/doctors/public');
+        // Add cache busting to ensure fresh data
+        const response = await fetch('/api/doctors/public', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
+        
         if (response.ok) {
           const data = await response.json();
-          // Get all doctors (should be 3) for featured section
-          setFeaturedDoctors(data.doctors || []);
+          const doctors = data.doctors || [];
+          
+          console.log('=== DOCTORS FETCH DEBUG ===');
+          console.log('Total doctors fetched:', doctors.length);
+          console.log('Raw doctors data:', doctors);
+          
+          // Filter only doctors with role='doctor' (in case there are admins mixed in)
+          const doctorRoleUsers = doctors.filter((doctor: Doctor) => {
+            // Check if doctor has required fields
+            const isValid = doctor && (doctor.id || doctor.email) && doctor.name;
+            if (!isValid) {
+              console.warn('Invalid doctor entry:', doctor);
+            }
+            return isValid;
+          });
+          
+          console.log('Valid doctors:', doctorRoleUsers.length);
+          
+          // Remove duplicates based on doctor ID or email
+          const uniqueDoctors = doctorRoleUsers.filter((doctor: Doctor, index: number, self: Doctor[]) => 
+            index === self.findIndex((d: Doctor) => 
+              (d.id && doctor.id && d.id === doctor.id) || 
+              (d.email && doctor.email && d.email === doctor.email)
+            )
+          );
+          
+          console.log('Unique doctors after deduplication:', uniqueDoctors.length);
+          console.log('Doctor names:', uniqueDoctors.map(d => d.name));
+          console.log('Doctor IDs:', uniqueDoctors.map(d => ({ id: d.id, email: d.email })));
+          console.log('=== END DEBUG ===');
+          
+          setFeaturedDoctors(uniqueDoctors);
+        } else {
+          console.error('Failed to fetch doctors. Status:', response.status);
+          const errorData = await response.text();
+          console.error('Error response:', errorData);
         }
       } catch (error) {
         console.error('Error fetching doctors:', error);
+      } finally {
+        setLoadingDoctors(false);
       }
     }
     fetchFeaturedDoctors();
@@ -60,10 +103,9 @@ export default function LandingPage() {
 
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
+    <PublicLayout>
 
-      <div className="relative min-h-[100vh] flex items-center overflow-hidden mt-24">
+      <div className="relative min-h-[85vh] flex items-center overflow-hidden mt-14 md:mt-16">
         {/* Background Image with Overlay */}
         <div
           className="absolute inset-0 z-0"
@@ -77,16 +119,16 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-black/50  lg:from-black/70 lg:to-transparent"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
           <div className="max-w-2xl">
             {/* Heading - Increased weight and line-height */}
-            <h1 className="text-3xl md:text-5xl font-semibold text-white leading-snug md:leading-relaxed mb-6 line-height-6">
-              Thinking About Surgery but Need
-              Clarity?
-            </h1>
+          <h1 className="text-3xl md:text-5xl font-semibold text-white leading-snug md:leading-relaxed mb-4 md:mb-6 line-height-6">
+            Thinking About Surgery but Need
+            Clarity?
+          </h1>
 
             {/* Description - Added a slight opacity for that premium feel */}
-            <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-200 mb-6 md:mb-8 max-w-lg leading-relaxed">
               Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
             </p>
 
@@ -121,16 +163,16 @@ export default function LandingPage() {
 
 
       {/* Clarity Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-12 md:py-16 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl  font-semibold text-black leading-tight mb-2 text-center sub-heading line-height-5">
-            Here’s the clarity you’ll have after your<br /> second <span className='text-primary'>opinion.</span>
+            Here's the clarity you'll have after your<br /> second <span className='text-primary'>opinion.</span>
           </h1>
-          <p className="text-xl text-gray-600 text-center mb-12">
+          <p className="text-xl text-gray-600 text-center mb-8 md:mb-10">
             You will walk away with one of these three answers.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 md:gap-8 mt-8 md:mt-10">
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl  duration-300 hover:shadow-xl hover:-translate-y-[12px]">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center ">
@@ -181,16 +223,16 @@ export default function LandingPage() {
       </section>
 
       {/* Board-Certified Specialists Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-12 md:py-16 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl sub-heading font-bold text-black text-center mb-4">
             Reviewed by Board-Certified Specialists
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 text-center mb-8 md:mb-10 max-w-3xl mx-auto">
             Our platform uses an AI/MD team to provide a prompt, unbiased, accurate, and comprehensive healthcare opinion. There are important reasons to choose our specialists.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-8 md:mt-10">
             <div className="bg-white rounded-xl p-6  transition shadow-lg  cursor-pointer border duration-300 hover:shadow-xl hover:-translate-y-[12px]">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-20 border h-20  rounded full mx-auto rounded-lg flex items-center justify-center p-2">
@@ -249,111 +291,178 @@ export default function LandingPage() {
 
 
       {/* Meet the Surgeons Section */}
-      <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        <div className="absolute inset-0 bg-primary"></div>
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <h2 className="text-4xl  font-bold text-white text-center mb-8 sub-heading line-height-5">
-            Meet the Specialists Behind Your <br /> Second Opinion
-          </h2>
-
-          <div className="z-100 relative mt-12">
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-               autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-              pagination={{
-                clickable: true,
-              }}
-              breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                  spaceBetween: 10,
-                },
-                 548: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 10,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 10,
-                },
-              }}
-            modules={[Autoplay, Pagination]}
-              className="mySwiper"
-            >
-              <SwiperSlide>
-                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
-                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover object-top' />
-                  <div className="doctor-name">
-                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
-                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
-                  <img src="/images/doctor-img2.jpg" alt="" className='w-full cover object-top' />
-                  <div className="doctor-name">
-                    <h3 className='text-md font-normal text-gray-900  text-center'>Samuel Rosas, MD, PhD, MBA</h3>
-                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
-                  <img src="/images/doctor-img3.jpg" alt="" className='w-full cover object-top' />
-                  <div className="doctor-name">
-                    <h3 className='text-md font-normal text-gray-900  text-center'>T. David Luo, MD PhD</h3>
-                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
-                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover object-top' />
-                  <div className="doctor-name">
-                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
-                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="swiper-box  p-4 shadow bg-white rounded-md duration-300 hover:shadow-xl hover:-translate-y-[12px] shadow">
-                  <img src="/images/doctor-img.jpg" alt="" className='w-full cover' />
-                  <div className="doctor-name">
-                    <h3 className='text-md font-normal text-gray-900  text-center'>Anthony Romeo, MD</h3>
-                    <p className="text-black text-center text-sm">Orthopedic Surgery</p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-            </Swiper>
+      <section className="relative py-16 md:py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+              Meet the Specialists Behind Your <br className="hidden md:block" />
+              <span className="text-blue-300">Second Opinion</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+              Our board-certified orthopedic specialists are here to provide expert guidance and comprehensive care.
+            </p>
           </div>
 
+          {/* Doctors Grid/Swiper */}
+          <div className="relative">
+            {loadingDoctors ? (
+              <div className="flex items-center justify-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+              </div>
+            ) : featuredDoctors.length > 0 ? (
+              <>
+                {/* Debug info - shows count of doctors */}
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-white/70 text-sm mb-4 text-center">
+                    Displaying {featuredDoctors.length} doctor{featuredDoctors.length !== 1 ? 's' : ''}
+                  </div>
+                )}
+                
+                {/* Desktop Grid View - Shows all doctors */}
+                <div className={`hidden md:grid gap-6 lg:gap-8 ${
+                  featuredDoctors.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                  featuredDoctors.length === 2 ? 'grid-cols-2' :
+                  'md:grid-cols-2 lg:grid-cols-3'
+                }`}>
+                  {featuredDoctors.map((doctor, index) => {
+                    const uniqueKey = doctor.id || doctor.email || `doctor-${index}`;
+                    return (
+                      <Link 
+                        key={uniqueKey}
+                        href={doctor.slug ? `/doctors/${doctor.slug}` : `/doctors/${doctor.id}`}
+                        className="group"
+                      >
+                        <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                          {/* Image Container */}
+                          <div className="relative h-72 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                            <img 
+                              src={doctor.image || '/images/doctor-placeholder.jpg'} 
+                              alt={doctor.name}
+                              className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/images/doctor-placeholder.jpg';
+                              }}
+                            />
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                          
+                          {/* Content */}
+                          <div className="p-6">
+                            <h3 className='text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors'>
+                              {doctor.name}
+                            </h3>
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                              <p className="text-gray-600 font-medium">
+                                {doctor.specialty || doctor.specialties?.[0] || 'Orthopedic Surgery'}
+                              </p>
+                            </div>
+                            {doctor.location && (
+                              <p className="text-sm text-gray-500 mt-3 flex items-center gap-1">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {doctor.location.city}, {doctor.location.state}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
 
+                {/* Mobile Swiper View */}
+                <div className="md:hidden">
+                  <Swiper
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    autoplay={featuredDoctors.length > 1 ? {
+                      delay: 3000,
+                      disableOnInteraction: false,
+                    } : false}
+                    pagination={featuredDoctors.length > 1 ? {
+                      clickable: true,
+                    } : false}
+                    loop={featuredDoctors.length > 1}
+                    modules={[Autoplay, Pagination]}
+                    className="mySwiper"
+                  >
+                    {featuredDoctors.map((doctor, index) => {
+                      const uniqueKey = doctor.id || doctor.email || `doctor-${index}`;
+                      return (
+                        <SwiperSlide key={uniqueKey}>
+                          <Link href={doctor.slug ? `/doctors/${doctor.slug}` : `/doctors/${doctor.id}`}>
+                            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                              <div className="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200">
+                                <img 
+                                  src={doctor.image || '/images/doctor-placeholder.jpg'} 
+                                  alt={doctor.name}
+                                  className='w-full h-full object-cover'
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = '/images/doctor-placeholder.jpg';
+                                  }}
+                                />
+                              </div>
+                              <div className="p-6">
+                                <h3 className='text-xl font-bold text-gray-900 mb-2'>
+                                  {doctor.name}
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                                  <p className="text-gray-600 font-medium">
+                                    {doctor.specialty || doctor.specialties?.[0] || 'Orthopedic Surgery'}
+                                  </p>
+                                </div>
+                                {doctor.location && (
+                                  <p className="text-sm text-gray-500 mt-3 flex items-center gap-1">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    {doctor.location.city}, {doctor.location.state}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-12">
+                <svg className="mx-auto h-16 w-16 text-white/50 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <p className="text-white text-lg">No doctors available at the moment.</p>
+              </div>
+            )}
+          </div>
 
-          <div className="text-center mt-8">
+          {/* CTA Button */}
+          <div className="text-center mt-12 md:mt-16">
             <ProtectedLink
               href="/dashboard"
-              className="w-full bg-white text-primary px-8 py-4 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px] mt-8"
+              className="inline-flex items-center gap-2 bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl duration-300 transition-all hover:-translate-y-1 hover:bg-gray-50"
             >
               View All Specialists
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </ProtectedLink>
           </div>
         </div>
@@ -361,13 +470,13 @@ export default function LandingPage() {
 
 
       {/* Why Specialists Believe Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
 
           <h2 className="text-4xl  font-bold text-black text-center mb-4 sub-heading line-height-5">
             Why Our Specialists Believe Every Patient<br /> Deserves a <span className='text-primary'>Second Opinion</span>
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
+          <p className="text-xl text-gray-600 text-center mb-8 md:mb-10">
             Because nobody has the right to make a life-altering decision without understanding all of their options.
           </p>
 
@@ -396,10 +505,10 @@ export default function LandingPage() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="mt-12">
+          <div className="mt-8 md:mt-10">
             <Link
               href="/get-started"
-              className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto mt-5  duration-300 hover:-translate-y-[8px]"
+              className="px-8  py-4 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center  shadow-lg  mx-auto duration-300 hover:-translate-y-[8px]"
             >
               Get A Second Opinion
             </Link>
@@ -412,12 +521,12 @@ export default function LandingPage() {
 
 
       {/* Platform Functionality Section */}
-      <section className="py-20 px-6 ">
+      <section className="py-12 md:py-16 px-6 ">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl  font-bold text-black text-center mb-4 sub-heading line-height-5">
             Platform Functionality
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 text-center mb-8 md:mb-10 max-w-3xl mx-auto">
             Comprehensive features to manage your doctor directory and optimize your online presence.
           </p>
 
@@ -484,7 +593,7 @@ export default function LandingPage() {
               </li>
             </ul>
           </div>
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-8 md:mt-10">
             <ProtectedLink
               href="/dashboard"
               className=" bg-[#8b5cf6] text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]"
@@ -528,7 +637,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* <Footer/> */}
-    </div>
+    </PublicLayout>
   );
 }

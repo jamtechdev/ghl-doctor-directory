@@ -88,7 +88,23 @@ export function createUser(user: Omit<BaseUser, 'id' | 'createdAt'> & Partial<Om
 // Doctors database functions (using users.json with role='doctor')
 export function getAllDoctors(): Doctor[] {
   const users = getUsers();
-  return users.filter((user): user is DoctorUser => user.role === 'doctor').map(doctorUserToDoctor);
+  const doctorUsers = users.filter((user): user is DoctorUser => user.role === 'doctor');
+  
+  // Debug logging
+  console.log('=== getAllDoctors DEBUG ===');
+  console.log('Total users:', users.length);
+  console.log('Users by role:', {
+    admin: users.filter(u => u.role === 'admin').length,
+    doctor: users.filter(u => u.role === 'doctor').length,
+  });
+  console.log('Doctor users found:', doctorUsers.length);
+  console.log('Doctor names:', doctorUsers.map(u => u.name));
+  
+  const doctors = doctorUsers.map(doctorUserToDoctor);
+  console.log('Converted doctors:', doctors.length);
+  console.log('=== END getAllDoctors DEBUG ===');
+  
+  return doctors;
 }
 
 export function getDoctorsByUserId(userId: string): Doctor[] {

@@ -3,11 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Doctor } from '@/types/doctor';
-import Navbar from '@/components/navbar/Navbar';
-import FAQ from '@/components/faq/faq';
+import PublicLayout from '@/components/PublicLayout';
 import ProtectedLink from '@/components/ProtectedLink';
 
-export default function LandingPage() {
+export default function AboutPage() {
   const [featuredDoctors, setFeaturedDoctors] = useState<Doctor[]>([]);
 
   useEffect(() => {
@@ -16,7 +15,6 @@ export default function LandingPage() {
         const response = await fetch('/api/doctors/public');
         if (response.ok) {
           const data = await response.json();
-          // Get all doctors (should be 3) for featured section
           setFeaturedDoctors(data.doctors || []);
         }
       } catch (error) {
@@ -26,69 +24,53 @@ export default function LandingPage() {
     fetchFeaturedDoctors();
   }, []);
 
-    return (
-    <div className="min-h-screen bg-white">
-      <Navbar/>
-
-       <div className="relative min-h-[100vh] flex items-center overflow-hidden mt-24">
-          {/* Background Image with Overlay */}
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: 'url("/images/bg.png")',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            {/* Dark Gradient Overlay to make text pop */}
-            <div className="absolute inset-0 bg-black/50 lg:bg-gradient-to-r lg:from-black/70 lg:to-transparent"></div>
-          </div>
-
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
-            <div className="max-w-2xl">
-              {/* Heading - Increased weight and line-height */}
-             <h1 className="text-3xl md:text-5xl font-semibold text-white leading-snug md:leading-relaxed mb-6">
-               About Us Thinking About Surgery but Need
-                <span className="text-blue-400 text-primary"> Clarity?</span>
-              </h1>
-
-              {/* Description - Added a slight opacity for that premium feel */}
-              <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed">
-                Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
+  return (
+    <PublicLayout>
+      {/* Hero Section */}
+      <div className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900">
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+              About Us: Thinking About Surgery but Need <span className="text-blue-400">Clarity?</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Get a <span className="font-semibold text-white">trusted second opinion</span> from a board-certified orthopedic specialist so you understand your options before making a decision.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/auth/login"
+                className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-semibold text-center transition-all shadow-lg hover:shadow-xl"
+              >
+                Login
+              </Link>
+              <Link
+                href="/doctors"
+                className="px-8 py-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-900 rounded-full font-semibold text-center transition-all"
+              >
+                View Directory
+              </Link>
+            </div>
+            <div className="mt-8 flex flex-col gap-2">
+              <p className="text-sm text-gray-300 flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Board certified orthopedic specialists
               </p>
-
-              {/* Buttons - Rounded & Distinctive */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/get-started"
-                  className="px-8 py-2 bg-primary hover:bg-purple-700 text-white rounded-full font-bold text-center transition-all shadow-lg duration-300 transition hover:-translate-y-[8px]"
-                >
-                 Login
-                </Link>
-                <Link
-                  href="/start-case"
-                  className="px-8 py-2 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black rounded-full font-bold text-center transition-all duration-300 transition hover:-translate-y-[8px]"
-                >
-                  Get Started
-                </Link>
-              </div>
-
-              {/* Trust Badges / Small Text */}
-              <div className="mt-8 flex flex-col gap-1">
-                <p className="text-sm text-gray-300 flex items-center gap-2">
-                  ✓ Board certified orthopedic specialists.
-                </p>
-                <p className="text-sm text-gray-300 flex items-center gap-2">
-                  ✓ Secure case review. Clear recommendations.
-                </p>
-              </div>
+              <p className="text-sm text-gray-300 flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Secure case review. Clear recommendations
+              </p>
             </div>
           </div>
         </div>
-
+      </div>
 
       {/* Clarity Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
             Here's the clarity you'll have after your second opinion.
@@ -99,7 +81,7 @@ export default function LandingPage() {
           
           <div className="grid md:grid-cols-3 gap-8">
             {/* YES Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-xl">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -112,7 +94,7 @@ export default function LandingPage() {
             </div>
 
             {/* NO Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-xl">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -125,7 +107,7 @@ export default function LandingPage() {
             </div>
 
             {/* WHAT ELSE Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-xl">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -141,7 +123,7 @@ export default function LandingPage() {
       </section>
 
       {/* Board-Certified Specialists Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
             Reviewed by Board-Certified Specialists
@@ -151,7 +133,7 @@ export default function LandingPage() {
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
+            <div className="bg-white rounded-xl p-6 shadow-md text-center hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -160,7 +142,7 @@ export default function LandingPage() {
               <p className="text-gray-700 font-medium">Board-certified specialists</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
+            <div className="bg-white rounded-xl p-6 shadow-md text-center hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
@@ -169,7 +151,7 @@ export default function LandingPage() {
               <p className="text-gray-700 font-medium">Certified in 10+ conditions</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
+            <div className="bg-white rounded-xl p-6 shadow-md text-center hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -178,7 +160,7 @@ export default function LandingPage() {
               <p className="text-gray-700 font-medium">Academics & private practice experience</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-md text-center">
+            <div className="bg-white rounded-xl p-6 shadow-md text-center hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -191,16 +173,16 @@ export default function LandingPage() {
       </section>
 
       {/* Meet the Surgeons Section */}
-      <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-8">
-            Meet the Specialists Behind Your Second Opinion
-          </h2>
-          
-          {featuredDoctors.length > 0 && (
+      {featuredDoctors.length > 0 && (
+        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="relative z-10 max-w-6xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-8">
+              Meet the Specialists Behind Your Second Opinion
+            </h2>
+            
             <div className="grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
-              {featuredDoctors.map((doctor) => (
+              {featuredDoctors.slice(0, 3).map((doctor) => (
                 <Link
                   key={doctor.id}
                   href={`/doctors/${doctor.slug}`}
@@ -220,21 +202,21 @@ export default function LandingPage() {
                 </Link>
               ))}
             </div>
-          )}
-          
-          <div className="text-center">
-            <ProtectedLink
-              href="/dashboard"
-              className="inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              View All Specialists
-            </ProtectedLink>
+            
+            <div className="text-center">
+              <ProtectedLink
+                href="/dashboard"
+                className="inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                View All Specialists
+              </ProtectedLink>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Why Specialists Believe Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
             Why Our Specialists Believe Every Patient Deserves a Second Opinion
@@ -265,7 +247,7 @@ export default function LandingPage() {
       </section>
 
       {/* Platform Functionality Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-purple-900 text-center mb-4">
             Platform Functionality
@@ -275,7 +257,7 @@ export default function LandingPage() {
           </p>
           
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Platform Functionality:</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Platform Features:</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
@@ -327,47 +309,16 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center">
-            <ProtectedLink
-              href="/dashboard"
-              className="px-10 py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Get a Second Opinion
-            </ProtectedLink>
-          </div>
+          <ProtectedLink
+            href="/dashboard"
+            className="inline-block px-10 py-5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Get a Second Opinion
+          </ProtectedLink>
         </div>
       </section>
-
-      {/* FAQ Section */}
-      <FAQ />
-
-      {/* Footer CTA */}
-      <section className="relative py-20 px-6 bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-            Clarity changes everything.
-          </h2>
-          <div className="flex justify-center mb-8">
-            <ProtectedLink
-              href="/dashboard"
-              className="px-10 py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Get a Second Opinion
-            </ProtectedLink>
-          </div>
-          <p className="text-white/80 text-sm">
-            Copyright {new Date().getFullYear()} Doctor Directory. All rights reserved.
-          </p>
-          <div className="flex justify-center gap-4 mt-4 text-white/80 text-sm">
-            <Link href="#" className="hover:text-white">Terms of Service</Link>
-            <span>|</span>
-            <Link href="#" className="hover:text-white">Privacy Policy</Link>
-          </div>
-        </div>
-      </section>
-      </div>
-    );
+    </PublicLayout>
+  );
 }

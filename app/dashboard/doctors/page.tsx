@@ -65,7 +65,7 @@ export default function DoctorsPage() {
   }, [allDoctors, searchQuery, activeFilters]);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this doctor?')) return;
+    if (!confirm('Are you sure you want to delete this doctor? This action cannot be undone.')) return;
 
     try {
       const response = await fetch(`/api/doctors/${id}`, {
@@ -76,17 +76,24 @@ export default function DoctorsPage() {
       });
 
       if (response.ok) {
+        // Remove from both allDoctors and filteredDoctors will update automatically
         setAllDoctors(allDoctors.filter(d => d.id !== id));
+        // Show success message
+        alert('Doctor deleted successfully');
       } else {
-        alert('Failed to delete doctor');
+        const data = await response.json();
+        alert(data.error || 'Failed to delete doctor');
       }
     } catch (error) {
-      alert('An error occurred');
+      console.error('Delete error:', error);
+      alert('An error occurred while deleting the doctor');
     }
   };
 
   const handleEdit = (doctor: Doctor) => {
-    router.push(`/dashboard/doctors/${doctor.id}/edit`);
+    if (user?.role === 'admin') {
+      router.push(`/dashboard/doctors/${doctor.id}/edit`);
+    }
   };
 
   if (authLoading || loading) {
@@ -111,12 +118,26 @@ export default function DoctorsPage() {
         {/* Header Section */}
         <div className="mb-6 bg">
           <div className="">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-[#4A3E7F] mb-4 text-center mt-12"  >
-                Before You Commit to Surgery, <br /> Get Expert Confirmation
-              </h1>
-              <p className="text-gray-600 text-lg text-center"> Search our network of board-certified orthopedic specialists who provide <br />
-                independent second opinions across 110+ conditions.</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-12">
+              <div className="flex-1">
+                <h1 className="text-4xl md:text-5xl font-bold text-[#4A3E7F] mb-4 text-center sm:text-left"  >
+                  Before You Commit to Surgery, <br /> Get Expert Confirmation
+                </h1>
+                <p className="text-gray-600 text-lg text-center sm:text-left"> Search our network of board-certified orthopedic specialists who provide <br />
+                  independent second opinions across 110+ conditions.</p>
+              </div>
+              {/* Add Doctor Button - Prominent at Top */}
+              {user?.role === 'admin' && (
+                <Link
+                  href="/dashboard/doctors/add"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all whitespace-nowrap self-center sm:self-auto"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Add New Doctor
+                </Link>
+              )}
             </div>
 
           </div>
@@ -317,19 +338,32 @@ export default function DoctorsPage() {
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No doctors found</h3>
             <p className="text-gray-600 mb-6 text-sm">Try adjusting your search or filters</p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setActiveFilters(resetFilters());
-                setShowFilters(false);
-              }}
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              Clear All Filters
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setActiveFilters(resetFilters());
+                  setShowFilters(false);
+                }}
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Clear All Filters
+              </button>
+              {user?.role === 'admin' && (
+                <Link
+                  href="/dashboard/doctors/add"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Add New Doctor
+                </Link>
+              )}
+            </div>
           </div>
 
 
@@ -352,22 +386,9 @@ export default function DoctorsPage() {
             {/* Main Content */}
             <div className="md:col-span-9 space-y-6">
 
-              <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
-                  <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
-                </div>
-                {user?.role === 'admin' && (
-                  <Link
-                    href="/dashboard/doctors/add"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all whitespace-nowrap"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Add New Doctor
-                  </Link>
-                )}
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Search Results</h2>
+                <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -377,7 +398,7 @@ export default function DoctorsPage() {
                     doctor={doctor}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    showActions={true}
+                    showActions={user?.role === 'admin'}
                   />
                 ))}
               </div>

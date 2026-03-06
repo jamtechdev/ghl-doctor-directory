@@ -25,6 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,6 +39,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // Intercept fetch to handle 401 errors globally
+  useEffect(() => {
+    if (!token) return; // Only intercept if we have a token
+    
+    const originalFetch = window.fetch;
+    window.fetch = async (...args) => {
+      const response = await originalFetch(...args);
+      
+      // Clone response to avoid "body already read" errors
+      const clonedResponse = response.clone();
+      
+      // If we get a 401 Unauthorized and we're not already logging out
+      if (response.status === 401 && !isLoggingOut && token) {
+        // Auto logout on 401 errors (except during logout/login/auth endpoints)
+        const url = typeof args[0] === 'string' ? args[0] : (args[0] as Request)?.url || '';
+        const isAuthEndpoint = url.includes('/api/auth/') || url.includes('/auth/login') || url.includes('/auth/register');
+        
+        if (!isAuthEndpoint) {
+          handleAutoLogout();
+        }
+      }
+      
+      return clonedResponse;
+    };
+
+    return () => {
+      window.fetch = originalFetch;
+    };
+  }, [isLoggingOut, token]);
+
+  const handleAutoLogout = () => {
+    if (isLoggingOut) return; // Prevent multiple logout calls
+    setIsLoggingOut(true);
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('token');
+    router.push('/auth/login');
+    setTimeout(() => setIsLoggingOut(false), 1000);
+  };
+
   const fetchUser = async (authToken: string) => {
     try {
       const response = await fetch('/api/auth/me', {
@@ -50,8 +91,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const data = await response.json();
         setUser(data.user);
       } else {
-        localStorage.removeItem('token');
-        setToken(null);
+        // Only auto-logout on 401, not on other errors
+        if (response.status === 401) {
+          handleAutoLogout();
+        } else {
+          localStorage.removeItem('token');
+          setToken(null);
+        }
       }
     } catch (error) {
       console.error('Error fetching user:', error);
@@ -88,10 +134,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
+    // Prevent logout from triggering auto-logout
+    setIsLoggingOut(true);
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');
     router.push('/');
+    setTimeout(() => setIsLoggingOut(false), 1000);
   };
 
   return (

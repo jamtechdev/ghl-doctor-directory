@@ -1,76 +1,193 @@
-import React, { useState } from 'react';
+'use client';
+
+'use client';
+
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const { user } = useAuth();
 
-    return (
-        <div className="fixed top-0 z-[100] w-full">
-            {/* <nav className='bg-primary border-b border-gray-100 font-sans py-4'>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <p className='text-gray-600  text-center text-white'>Because making the right decision starts with understanding all your options.</p>
-                </div>
-            </nav> */}
-            <header className='bg-white border-b border-gray-100 font-sans'>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-24">
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-                        {/* Logo - Bold, Gray, Spaced */}
-                        <div className="flex-shrink-0">
-                            <span className="text-3xl font-black text-gray-500 tracking-tighter uppercase">
-                                <img src="images/logo.png" alt="" className='w-40' />
-                            </span>
-                        </div>
+  const isActive = (path: string) => {
+    if (path === '/') return pathname === '/';
+    return pathname?.startsWith(path);
+  };
 
-                        {/* Desktop Menu */}
-                        <div className="hidden md:flex items-center space-x-8">
-                            <a href="#" className="text-gray-700 font-medium hover:text-purple-600 transition">
-                                About Us
-                            </a>
+  const isAuthPage = pathname?.startsWith('/auth') || pathname?.startsWith('/login') || pathname?.startsWith('/register');
+  const isDashboardPage = pathname?.startsWith('/dashboard');
+  const isEmbedPage = pathname?.startsWith('/embed');
 
-                            {/* Vertical Separator */}
-                            <div className="h-6 w-px bg-gray-300"></div>
+  // Don't show navbar on auth or dashboard pages
+  if (isAuthPage || isDashboardPage || isEmbedPage) {
+    return null;
+  }
 
-                            <a href="#" className="text-gray-700 font-medium hover:text-purple-600 transition">
-                                Meet Your Surgeons
-                            </a>
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'
+    }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 md:h-16">
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0 flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="Logo"
+              className="h-7 md:h-9 w-auto"
+            />
+          </Link>
 
-                            {/* Purple Button */}
-                            <a href="/auth/login" className="bg-primary cursor-pointer hover:bg-[#7c3aed] text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-sm">
-                                Login
-                            </a>
-                        </div>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link
+              href="/"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/') ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/about') ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+              }`}
+            >
+              About Us
+            </Link>
+            <Link
+              href="/meet-your-surgeons"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/meet-your-surgeons') ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+              }`}
+            >
+              Meet Your Surgeons
+            </Link>
+            <Link
+              href="/directory"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/directory') ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+              }`}
+            >
+              Directory
+            </Link>
 
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden flex items-center">
-                            <button
-                                onClick={() => setIsOpen(!isOpen)}
-                                className="text-gray-500 hover:text-gray-600 focus:outline-none"
-                            >
-                                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    {isOpen ? (
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    ) : (
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                                    )}
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            {/* Vertical Separator */}
+            <div className="h-5 w-px bg-gray-300"></div>
 
-                {/* Mobile Menu Content */}
-                {isOpen && (
-                    <div className="md:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-4">
-                        <a href="#" className="block text-gray-700 font-medium py-2">About Us</a>
-                        <a href="#" className="block text-gray-700 font-medium py-2">Meet Your Surgeons</a>
-                        <button className="w-full bg-primary text-white px-8 py-3 rounded-full font-semibold duration-300 transition hover:-translate-y-[12px]">
-                           <a href="auth/login">Login</a>
-                        </button>
-                    </div>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                Login
+              </Link>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-purple-600 focus:outline-none p-2"
+              aria-label="Toggle menu"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
-            </header>
+              </svg>
+            </button>
+          </div>
         </div>
-    );
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200 py-4 space-y-3 animate-in slide-in-from-top">
+            <Link
+              href="/"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-2 rounded-lg transition-colors ${
+                isActive('/') ? 'bg-purple-50 text-purple-600 font-medium' : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-2 rounded-lg transition-colors ${
+                isActive('/about') ? 'bg-purple-50 text-purple-600 font-medium' : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              About Us
+            </Link>
+            <Link
+              href="/meet-your-surgeons"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-2 rounded-lg transition-colors ${
+                isActive('/meet-your-surgeons') ? 'bg-purple-50 text-purple-600 font-medium' : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Meet Your Surgeons
+            </Link>
+            <Link
+              href="/directory"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-2 rounded-lg transition-colors ${
+                isActive('/directory') ? 'bg-purple-50 text-purple-600 font-medium' : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Directory
+            </Link>
+            <div className="pt-2 border-t border-gray-200">
+              {user ? (
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold text-center transition-all duration-200 shadow-md"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold text-center transition-all duration-200 shadow-md"
+                >
+                  Login
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

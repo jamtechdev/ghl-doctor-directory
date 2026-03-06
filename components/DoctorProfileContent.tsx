@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Doctor } from '@/types/doctor';
 import AppLayout from './AppLayout';
+import PublicLayout from './PublicLayout';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface DoctorProfileContentProps {
@@ -604,9 +605,11 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
           {content}
         </AppLayout>
       ) : (
-        <div className="min-h-screen bg-gray-50 px-4 py-8">
-          {content}
-        </div>
+        <PublicLayout>
+          <div className="px-4 py-8">
+            {content}
+          </div>
+        </PublicLayout>
       )}
     </>
   );
