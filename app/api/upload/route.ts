@@ -62,7 +62,12 @@ export async function POST(request: NextRequest) {
     const filepath = join(uploadDir, filename);
 
     try {
-      await writeFile(filepath, buffer);
+      // Write file and ensure it's flushed to disk
+      await writeFile(filepath, buffer, { flag: 'w' });
+
+      // Wait a small moment to ensure file system has written the file
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       console.log(`Image saved successfully: ${filepath}`);
       
       // Check if file actually exists (important for Render)
@@ -112,11 +117,30 @@ export async function POST(request: NextRequest) {
       fullUrl = relativeUrl;
     }
 
-    console.log(`Image upload successful. URL: ${fullUrl}, Relative: ${relativeUrl}`);
+    // Add cache-busting timestamp to URL to ensure fresh image load
+    const cacheBuster = `?t=${timestamp}`;
+    const fullUrlWithCache = `${fullUrl}${cacheBuster}`;
+    const relativeUrlWithCache = `${relativeUrl}${cacheBuster}`;
+
+    console.log(`Image upload successful. URL: ${fullUrlWithCache}, Relative: ${relativeUrlWithCache}`);
 
     return NextResponse.json(
-      { url: fullUrl, relativeUrl, filename },
-      { status: 200 }
+      {
+        url: fullUrlWithCache,
+        relativeUrl: relativeUrlWithCache,
+        filename,
+        // Also return without cache buster for backward compatibility
+        urlWithoutCache: fullUrl,
+        relativeUrlWithoutCache: relativeUrl
+      },
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      }
     );
   } catch (error: any) {
     console.error('Upload error:', error);
