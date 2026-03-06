@@ -55,6 +55,9 @@ export default function AddDoctorPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Clear previous errors
+    setError('');
+
     // Validate file type
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
@@ -63,21 +66,46 @@ export default function AddDoctorPage() {
     }
 
     // Validate file size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      setError('File size exceeds 5MB limit.');
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      setError(`File size (${(file.size / 1024 / 1024).toFixed(2)}MB) exceeds 5MB limit. Please use a smaller image or compress it.`);
+      return;
+    }
+
+    // Validate minimum size (optional - at least 10KB)
+    if (file.size < 10 * 1024) {
+      setError('File is too small. Please upload a valid image file.');
       return;
     }
 
     // Create preview
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImagePreview(reader.result as string);
+      const result = reader.result as string;
+      setImagePreview(result);
+      
+      // Validate image dimensions (optional check)
+      const img = new Image();
+      img.onload = () => {
+        if (img.width < 50 || img.height < 50) {
+          setError('Image dimensions are too small. Please use an image at least 50x50 pixels.');
+          setImagePreview(null);
+        }
+      };
+      img.onerror = () => {
+        setError('Invalid image file. Please check the file and try again.');
+        setImagePreview(null);
+      };
+      img.src = result;
+    };
+    reader.onerror = () => {
+      setError('Failed to read image file. Please try again.');
+      setImagePreview(null);
     };
     reader.readAsDataURL(file);
 
     // Upload file
     setUploadingImage(true);
-    setError('');
 
     try {
       const formData = new FormData();
@@ -99,20 +127,29 @@ export default function AddDoctorPage() {
         if (data.recommendation) {
           errorMsg += `. ${data.recommendation}`;
         }
+        if (data.details) {
+          errorMsg += ` Details: ${data.details}`;
+        }
         throw new Error(errorMsg);
       }
 
+      // Validate the returned URL
+      if (!data.url) {
+        throw new Error('Server did not return a valid image URL');
+      }
+
       setImageUrl(data.url);
+      setError(''); // Clear any previous errors
     } catch (err: any) {
       const errorMessage = err.message || 'Failed to upload image';
       setError(errorMessage);
       setImagePreview(null);
       
       // If upload fails, suggest using external URL
-      if (err.message?.includes('ephemeral') || err.message?.includes('Render')) {
+      if (err.message?.includes('ephemeral') || err.message?.includes('Render') || err.message?.includes('filesystem')) {
         setTimeout(() => {
-          setError('Please use the "Image URL" field above to enter an external image URL instead.');
-        }, 3000);
+          setError('Upload failed. Please use the "Image URL" field above to enter an external image URL instead (e.g., Cloudinary, Imgur, or other image hosting services).');
+        }, 2000);
       }
     } finally {
       setUploadingImage(false);
@@ -203,6 +240,17 @@ export default function AddDoctorPage() {
       setError('Name, specialty, city, state, bio, email, and password are required');
       setLoading(false);
       return;
+    }
+
+    // Validate image URL if provided
+    if (imageUrl) {
+      try {
+        new URL(imageUrl);
+      } catch {
+        setError('Please enter a valid image URL or remove it');
+        setLoading(false);
+        return;
+      }
     }
 
     try {
@@ -314,20 +362,32 @@ export default function AddDoctorPage() {
                   {/* Manual URL Input */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">
-                      Or Enter Image URL (Recommended for Render)
+                      Or Enter Image URL (Recommended for Production)
                     </label>
                     <input
                       type="url"
                       value={imageUrl}
                       onChange={(e) => {
-                        setImageUrl(e.target.value);
-                        setImagePreview(e.target.value);
+                        const url = e.target.value;
+                        setImageUrl(url);
+                        if (url) {
+                          // Validate URL format
+                          try {
+                            new URL(url);
+                            setImagePreview(url);
+                            setError(''); // Clear error when valid URL is entered
+                          } catch {
+                            setError('Please enter a valid image URL (e.g., https://example.com/image.jpg)');
+                          }
+                        } else {
+                          setImagePreview(null);
+                        }
                       }}
                       placeholder="https://example.com/image.jpg or https://res.cloudinary.com/..."
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
                     />
                     <p className="mt-1 text-xs text-gray-500">
-                      Use external image URLs from Cloudinary, Imgur, or other image hosting services
+                      Use external image URLs from Cloudinary, Imgur, AWS S3, or other image hosting services
                     </p>
                   </div>
 

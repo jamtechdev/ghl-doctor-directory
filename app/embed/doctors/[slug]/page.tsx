@@ -9,7 +9,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Doctor } from '@/types/doctor';
 
 export default function WidgetDoctorProfilePage() {
@@ -103,13 +102,25 @@ export default function WidgetDoctorProfilePage() {
             {/* Profile Image */}
             {doctor.image ? (
               <div className="relative w-full max-w-xs h-64 mb-6 rounded-lg overflow-hidden bg-gray-100 mx-auto md:mx-0 flex items-center justify-center">
-                <Image
+                <img
                   src={doctor.image}
                   alt={doctor.name}
-                  fill
-                  className="object-contain object-top"
-                  sizes="(max-width: 768px) 100vw, 320px"
-                  priority
+                  className="w-full h-full object-contain object-top"
+                  onError={(e) => {
+                    // Fallback to placeholder if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `
+                        <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                          <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                      `;
+                    }
+                  }}
                 />
               </div>
             ) : (

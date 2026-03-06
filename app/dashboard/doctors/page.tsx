@@ -352,7 +352,7 @@ export default function DoctorsPage() {
             {/* Main Content */}
             <div className="md:col-span-9 space-y-6">
 
-              <div className="mb-6 flex items-center justify-between">
+              <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
                   <p className="text-sm text-gray-500">Every surgeon carefully vetted by our advisory board • No referral required</p>
@@ -360,7 +360,7 @@ export default function DoctorsPage() {
                 {user?.role === 'admin' && (
                   <Link
                     href="/dashboard/doctors/add"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all whitespace-nowrap"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

@@ -158,12 +158,12 @@ export default function EmbedDirectoryPage() {
               {user?.role === 'admin' && (
                 <Link
                   href="/dashboard/doctors/add"
-                  className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all font-medium flex items-center gap-2 text-sm"
+                  className="px-4 sm:px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all font-semibold flex items-center gap-2 text-sm sm:text-base"
                 >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  <span className="hidden sm:inline">Add New</span>
+                  <span className="hidden sm:inline">Add New Doctor</span>
                   <span className="sm:hidden">Add</span>
                 </Link>
               )}
@@ -287,7 +287,7 @@ export default function EmbedDirectoryPage() {
             <div className="mb-4 sm:mb-6 bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-wrap">
                     <div className="flex-1">
                       <p className="text-base sm:text-lg font-bold text-gray-900">
                         {filteredDoctors.length === 0 ? (
@@ -304,6 +304,18 @@ export default function EmbedDirectoryPage() {
                         </p>
                       )}
                     </div>
+                    {/* Add Doctor Button in Results Header - Admin Only */}
+                    {user?.role === 'admin' && (
+                      <Link
+                        href="/dashboard/doctors/add"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all font-semibold text-sm whitespace-nowrap"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Add Doctor
+                      </Link>
+                    )}
                     {/* Active Filter Badges */}
                     {(activeFilters.specialties.length > 0 || activeFilters.states.length > 0) && (
                       <div className="flex flex-wrap gap-2">
