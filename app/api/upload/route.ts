@@ -65,15 +65,21 @@ export async function POST(request: NextRequest) {
       // Write file and ensure it's flushed to disk
       await writeFile(filepath, buffer, { flag: 'w' });
 
-      // Wait a small moment to ensure file system has written the file
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait and verify file exists (retry mechanism for file system sync)
+      let fileExists = false;
+      for (let i = 0; i < 5; i++) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        if (existsSync(filepath)) {
+          fileExists = true;
+          break;
+        }
+      }
 
-      console.log(`Image saved successfully: ${filepath}`);
-      
-      // Check if file actually exists (important for Render)
-      if (!existsSync(filepath)) {
+      if (!fileExists) {
         throw new Error('File was not saved. This may be due to ephemeral filesystem on Render. Please use external image URLs instead.');
       }
+
+      console.log(`Image saved successfully: ${filepath}`);
     } catch (writeError: any) {
       console.error('Error writing file:', writeError);
       // On Render and similar platforms, the filesystem is ephemeral
