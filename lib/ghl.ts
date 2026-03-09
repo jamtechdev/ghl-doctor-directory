@@ -64,24 +64,23 @@ export function saveGHLConfig(config: GHLConfig): void {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 }
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 /**
- * Create or update a contact in GoHighLevel
+ * Create or update a contact in GoHighLevel (with one retry on failure)
  */
 export async function syncDoctorToGHL(doctor: any): Promise<{ success: boolean; contactId?: string; error?: string }> {
   const config = getGHLConfig();
 
-  // Check if GHL integration is enabled
   if (!config.enabled || !config.apiKey || !config.locationId) {
     return { success: false, error: 'GHL integration not configured' };
   }
 
-  try {
-    // Parse doctor name into first and last name
+  const doSync = async (): Promise<{ success: boolean; contactId?: string; error?: string }> => {
     const nameParts = doctor.name.trim().split(/\s+/);
     const firstName = nameParts[0] || '';
     const lastName = nameParts.slice(1).join(' ') || '';
 
-    // Build contact data
     const contactData: GHLContact = {
       firstName,
       lastName,
@@ -103,28 +102,32 @@ export async function syncDoctorToGHL(doctor: any): Promise<{ success: boolean; 
       ].filter(field => field.value),
     };
 
-    // Check if contact already exists by email
     const existingContact = await findContactByEmail(config.apiKey!, config.locationId!, contactData.email || '');
-
     let contactId: string | undefined;
-
     if (existingContact) {
-      // Update existing contact
       contactId = await updateContact(config.apiKey!, config.locationId!, existingContact.id, contactData);
     } else {
-      // Create new contact
       contactId = await createContact(config.apiKey!, config.locationId!, contactData);
     }
-
     return { success: true, contactId };
+  };
+
+  try {
+    return await doSync();
   } catch (error: any) {
-    console.error('Error syncing doctor to GHL:', error);
-    return { success: false, error: error.message || 'Failed to sync to GHL' };
+    console.error('Error syncing doctor to GHL (attempt 1):', error);
+    try {
+      await delay(1000);
+      return await doSync();
+    } catch (retryError: any) {
+      console.error('Error syncing doctor to GHL (retry):', retryError);
+      return { success: false, error: retryError.message || 'Failed to sync to GHL' };
+    }
   }
 }
 
 /**
- * Delete a contact from GoHighLevel
+ * Delete a contact from GoHighLevel (with one retry on failure)
  */
 export async function deleteDoctorFromGHL(doctor: any): Promise<{ success: boolean; error?: string }> {
   const config = getGHLConfig();
@@ -133,21 +136,30 @@ export async function deleteDoctorFromGHL(doctor: any): Promise<{ success: boole
     return { success: false, error: 'GHL integration not configured' };
   }
 
-  try {
-    const email = doctor.contact?.email || doctor.email;
-    if (!email) {
-      return { success: false, error: 'No email found for doctor' };
-    }
+  const email = doctor.contact?.email || doctor.email;
+  if (!email) {
+    return { success: false, error: 'No email found for doctor' };
+  }
 
+  const doDelete = async (): Promise<{ success: boolean; error?: string }> => {
     const contact = await findContactByEmail(config.apiKey!, config.locationId!, email);
     if (contact) {
       await deleteContact(config.apiKey!, config.locationId!, contact.id);
     }
-
     return { success: true };
+  };
+
+  try {
+    return await doDelete();
   } catch (error: any) {
-    console.error('Error deleting doctor from GHL:', error);
-    return { success: false, error: error.message || 'Failed to delete from GHL' };
+    console.error('Error deleting doctor from GHL (attempt 1):', error);
+    try {
+      await delay(1000);
+      return await doDelete();
+    } catch (retryError: any) {
+      console.error('Error deleting doctor from GHL (retry):', retryError);
+      return { success: false, error: retryError.message || 'Failed to delete from GHL' };
+    }
   }
 }
 

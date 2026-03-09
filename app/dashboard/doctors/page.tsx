@@ -75,13 +75,14 @@ export default function DoctorsPage() {
         },
       });
 
+      const data = await response.json();
       if (response.ok) {
-        // Remove from both allDoctors and filteredDoctors will update automatically
         setAllDoctors(allDoctors.filter(d => d.id !== id));
-        // Show success message
-        alert('Doctor deleted successfully');
+        const ghlMsg = data.ghlSync
+          ? (data.ghlSync.success ? ' Synced to GoHighLevel.' : ` GHL sync failed: ${data.ghlSync.error}`)
+          : '';
+        alert(`Doctor deleted successfully.${ghlMsg}`);
       } else {
-        const data = await response.json();
         alert(data.error || 'Failed to delete doctor');
       }
     } catch (error) {

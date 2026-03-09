@@ -91,12 +91,8 @@ export async function POST(request: NextRequest) {
       password,
     });
 
-    // Sync to GoHighLevel (non-blocking)
-    syncDoctorToGHL({ ...doctor, email }).catch(error => {
-      console.error('Failed to sync doctor to GHL:', error);
-    });
-
-    return NextResponse.json({ doctor }, { status: 201 });
+    const ghlSync = await syncDoctorToGHL({ ...doctor, email });
+    return NextResponse.json({ doctor, ghlSync }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error' },

@@ -320,6 +320,10 @@ export default function EditDoctorPage() {
       if (!response.ok) {
         throw new Error(data.error || 'Failed to update doctor');
       }
+      const ghlMsg = data.ghlSync
+        ? (data.ghlSync.success ? ' Synced to GoHighLevel.' : ` GHL sync failed: ${data.ghlSync.error}`)
+        : '';
+      alert(`Doctor updated successfully.${ghlMsg}`);
       router.push('/dashboard/doctors');
     } catch (err: any) {
       setError(err.message || 'An error occurred');

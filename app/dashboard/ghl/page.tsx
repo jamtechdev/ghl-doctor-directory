@@ -27,9 +27,9 @@ export default function GHLIntegrationPage() {
     if (!authLoading && !user) {
       router.replace('/auth/login');
     }
-    // Get the current site URL
+    // Get the site URL: prefer env (production) so embed code is correct when deployed
     if (typeof window !== 'undefined') {
-      const url = window.location.origin;
+      const url = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
       setSiteUrl(url);
     }
     // Load GHL config if admin
@@ -139,110 +139,34 @@ export default function GHLIntegrationPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">GoHighLevel Integration</h1>
           <p className="text-gray-600">
-            Embed your doctor directory into GoHighLevel funnels and automatically sync doctors as contacts
+            Embed your doctor directory in GHL funnels and optionally sync doctors as contacts. Follow the two steps below.
           </p>
         </div>
 
-        {/* GHL API Settings - Admin Only */}
-        {user?.role === 'admin' && (
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              API Configuration
-            </h2>
-            <p className="text-sm text-gray-600 mb-4">
-              Configure your GoHighLevel API credentials to automatically sync doctors as contacts when they're created, updated, or deleted.
-            </p>
-            
-            {message && (
-              <div className={`mb-4 p-3 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-                {message.text}
-              </div>
-            )}
+        {/* Quick checklist */}
+        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-200 p-5 mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-sm font-bold">1</span>
+            Embed directory (required)
+          </h2>
+          <p className="text-sm text-gray-700 mb-2">Copy the responsive iframe below → In GHL funnel add Custom HTML block → Paste code → Save & preview.</p>
+          <h2 className="text-lg font-semibold text-gray-900 mb-3 mt-4 flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-600 text-white text-sm font-bold">2</span>
+            Sync doctors as contacts (optional)
+          </h2>
+          <p className="text-sm text-gray-700">Add your GHL API key and Location ID below and enable sync so create/update/delete here updates GHL contacts.</p>
+        </div>
 
-            <form onSubmit={handleSaveConfig} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  API Key
-                </label>
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder={ghlConfig.hasApiKey ? 'API key is set (leave blank to keep current)' : 'Enter your GHL API key'}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-                <p className="mt-1 text-xs text-gray-500">
-                  Get your API key from GoHighLevel Settings → Integrations → API Keys
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location ID
-                </label>
-                <input
-                  type="text"
-                  value={locationId}
-                  onChange={(e) => setLocationId(e.target.value)}
-                  placeholder="Enter your GHL Location ID"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-                <p className="mt-1 text-xs text-gray-500">
-                  Find your Location ID in GoHighLevel Settings → Locations
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="enabled"
-                  checked={enabled}
-                  onChange={(e) => setEnabled(e.target.checked)}
-                  className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                />
-                <label htmlFor="enabled" className="text-sm font-medium text-gray-700">
-                  Enable automatic syncing to GoHighLevel
-                </label>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {saving ? 'Saving...' : 'Save Configuration'}
-                </button>
-                {ghlConfig.enabled && (
-                  <span className="text-sm text-green-600 flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Syncing enabled
-                  </span>
-                )}
-              </div>
-            </form>
-
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h3 className="text-sm font-semibold text-blue-900 mb-2">How it works:</h3>
-              <ul className="text-xs text-blue-800 space-y-1 list-disc list-inside">
-                <li>When you create a new doctor, they'll be automatically added as a contact in GHL</li>
-                <li>When you update a doctor, their GHL contact will be updated automatically</li>
-                <li>When you delete a doctor, they'll be removed from GHL contacts</li>
-                <li>Doctors are tagged with their specialty and added to custom fields</li>
-              </ul>
-            </div>
-          </div>
-        )}
+        {/* Step 1: Embed */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-sm font-bold">1</span>
+            Embed the directory in your funnel
+          </h2>
 
         {/* Embed URL Section */}
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Embed URL</h2>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Embed URL</h3>
           <div className="flex items-center gap-2">
             <input
               type="text"
@@ -275,7 +199,7 @@ export default function GHLIntegrationPage() {
 
         {/* Basic Iframe Code */}
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Basic Iframe Code</h2>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Iframe Code</h3>
           <p className="text-gray-600 mb-4 text-sm">
             Use this code in GoHighLevel's Custom HTML block or iframe widget
           </p>
@@ -308,7 +232,7 @@ export default function GHLIntegrationPage() {
 
         {/* Responsive Iframe Code */}
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Responsive Iframe Code (Recommended)</h2>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Responsive Iframe Code (Recommended)</h3>
           <p className="text-gray-600 mb-4 text-sm">
             This code automatically adjusts to different screen sizes for better mobile experience
           </p>
@@ -341,12 +265,12 @@ export default function GHLIntegrationPage() {
 
         {/* Instructions */}
         <div className="bg-blue-50 rounded-lg border border-blue-200 p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            How to Embed in GoHighLevel
-          </h2>
+            How to add in GoHighLevel
+          </h3>
           <ol className="list-decimal list-inside space-y-3 text-gray-700">
             <li>
               <strong>In your GHL Funnel:</strong> Navigate to the page where you want to embed the directory
@@ -367,8 +291,8 @@ export default function GHLIntegrationPage() {
         </div>
 
         {/* Features */}
-        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Embed Features</h2>
+        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 mb-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">What visitors get in the embed</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-start gap-3">
               <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -423,6 +347,89 @@ export default function GHLIntegrationPage() {
             Preview Embed Page
           </a>
         </div>
+        </div>
+
+        {/* Step 2: Sync doctors as contacts - Admin Only */}
+        {user?.role === 'admin' && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-purple-600 text-white text-sm font-bold">2</span>
+              Sync doctors as GHL contacts (optional)
+            </h2>
+            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                When enabled, every doctor you create, update, or delete here will sync to GoHighLevel as a contact (same location). You need an API key and Location ID from GHL.
+              </p>
+              {message && (
+                <div className={`mb-4 p-3 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+                  {message.text}
+                </div>
+              )}
+              <form onSubmit={handleSaveConfig} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">API Key</label>
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder={ghlConfig.hasApiKey ? 'API key is set (leave blank to keep current)' : 'Enter your GHL API key'}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">GoHighLevel → Settings → Integrations → API Keys</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Location ID</label>
+                  <input
+                    type="text"
+                    value={locationId}
+                    onChange={(e) => setLocationId(e.target.value)}
+                    placeholder="Enter your GHL Location ID"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">GoHighLevel → Settings → Locations</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="enabled"
+                    checked={enabled}
+                    onChange={(e) => setEnabled(e.target.checked)}
+                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                  />
+                  <label htmlFor="enabled" className="text-sm font-medium text-gray-700">
+                    Enable automatic syncing to GoHighLevel
+                  </label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {saving ? 'Saving...' : 'Save configuration'}
+                  </button>
+                  {ghlConfig.enabled && (
+                    <span className="text-sm text-green-600 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Syncing enabled
+                    </span>
+                  )}
+                </div>
+              </form>
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-2">What syncs</h3>
+                <ul className="text-xs text-gray-700 space-y-1 list-disc list-inside">
+                  <li>New doctor → new contact in GHL</li>
+                  <li>Updated doctor → contact updated in GHL</li>
+                  <li>Deleted doctor → contact removed from GHL</li>
+                  <li>Specialty and custom fields are mapped to the contact</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

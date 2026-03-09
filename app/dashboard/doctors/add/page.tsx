@@ -283,6 +283,10 @@ export default function AddDoctorPage() {
       if (!response.ok) {
         throw new Error(data.error || 'Failed to create doctor');
       }
+      const ghlMsg = data.ghlSync
+        ? (data.ghlSync.success ? ' Synced to GoHighLevel.' : ` GHL sync failed: ${data.ghlSync.error}`)
+        : '';
+      alert(`Doctor created successfully.${ghlMsg}`);
       router.push('/dashboard/doctors');
     } catch (err: any) {
       setError(err.message || 'An error occurred');

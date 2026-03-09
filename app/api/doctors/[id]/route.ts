@@ -95,12 +95,8 @@ export async function PUT(
       );
     }
 
-    // Sync to GoHighLevel (non-blocking)
-    syncDoctorToGHL(updatedDoctor).catch(error => {
-      console.error('Failed to sync doctor to GHL:', error);
-    });
-
-    return NextResponse.json({ doctor: updatedDoctor }, { status: 200 });
+    const ghlSync = await syncDoctorToGHL(updatedDoctor);
+    return NextResponse.json({ doctor: updatedDoctor, ghlSync }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -142,10 +138,7 @@ export async function DELETE(
       );
     }
 
-    // Sync deletion to GoHighLevel (non-blocking)
-    deleteDoctorFromGHL(doctor).catch(error => {
-      console.error('Failed to delete doctor from GHL:', error);
-    });
+    const ghlSync = await deleteDoctorFromGHL(doctor);
 
     const success = deleteDoctor(resolvedParams.id);
     if (!success) {
@@ -155,7 +148,7 @@ export async function DELETE(
       );
     }
 
-    return NextResponse.json({ message: 'Doctor deleted successfully' }, { status: 200 });
+    return NextResponse.json({ message: 'Doctor deleted successfully', ghlSync }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error' },
