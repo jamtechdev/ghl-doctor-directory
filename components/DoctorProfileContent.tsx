@@ -188,7 +188,16 @@ export default function DoctorProfileContent({ doctor, doctorSchema }: DoctorPro
           </div>
 
           {/* Main Content */}
-          <article className="bg-white rounded-lg shadow-md border border-gray-200 p-6 md:p-8">
+          <article className="relative bg-white rounded-lg shadow-md border border-gray-200 p-6 md:p-8">
+            {/* Get A Second Opinion - top right */}
+            <a
+              href="https://dashboard.xprt2nd.com/auth/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute top-6 right-6 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+            >
+              Get A Second Opinion
+            </a>
             {/* Doctor Header */}
             <header className="mb-6 pb-6 border-b border-gray-200">
               {/* Profile Image */}
