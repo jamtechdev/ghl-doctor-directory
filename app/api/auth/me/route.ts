@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const user = getUserById(decoded.userId);
+    const user = await getUserById(decoded.userId);
     if (!user) {
       return NextResponse.json(
         { error: 'User not found' },

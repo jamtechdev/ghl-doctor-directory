@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createDoctor, getPublicDoctors, getDoctorsByUserId, getUserByEmail } from '@/lib/db';
+import { createDoctor, getPublicDoctors, getUserByEmail, getAllDoctors } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 import { syncDoctorToGHL } from '@/lib/ghl';
 
@@ -12,14 +12,13 @@ export async function GET(request: NextRequest) {
       const decoded = verifyToken(token);
       if (decoded) {
         // Admin can see all doctors, doctors can see all doctors too
-        const { getAllDoctors } = await import('@/lib/db');
-        const doctors = getAllDoctors();
+        const doctors = await getAllDoctors();
         return NextResponse.json({ doctors }, { status: 200 });
       }
     }
 
     // Public endpoint - return all public doctors
-    const doctors = getPublicDoctors();
+    const doctors = await getPublicDoctors();
     return NextResponse.json({ doctors }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -59,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if doctor with this email already exists
-    const existingUser = getUserByEmail(email);
+    const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return NextResponse.json(
         { error: 'A doctor with this email already exists' },
@@ -74,7 +73,7 @@ export async function POST(request: NextRequest) {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-    const doctor = createDoctor({
+    const doctor = await createDoctor({
       slug: `dr-${slug}`,
       name,
       specialty,

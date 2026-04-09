@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const patients = getPatientsByUserId(decoded.userId);
+    const patients = await getPatientsByUserId(decoded.userId);
     return NextResponse.json({ patients }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const patient = createPatient({
+    const patient = await createPatient({
       name,
       email,
       phone,

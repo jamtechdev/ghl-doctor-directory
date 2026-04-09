@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getPublicDoctors, getAllDoctors } from '@/lib/db';
+import { getPublicDoctors } from '@/lib/db';
 
 export async function GET() {
   try {
     // Get all doctors with role='doctor'
-    const doctors = getPublicDoctors();
+    const doctors = await getPublicDoctors();
     
     // Debug logging (remove in production if needed)
     console.log('=== PUBLIC DOCTORS API ===');

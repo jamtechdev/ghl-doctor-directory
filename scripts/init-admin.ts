@@ -18,7 +18,7 @@ async function initAdmin() {
 
   try {
     // Check if admin already exists
-    const existingAdmin = getUserByEmail(adminEmail);
+    const existingAdmin = await getUserByEmail(adminEmail);
     if (existingAdmin) {
       console.log(`Admin user with email ${adminEmail} already exists.`);
       return;
@@ -28,7 +28,7 @@ async function initAdmin() {
     const hashedPassword = await hashPassword(adminPassword);
 
     // Create admin user
-    const admin = createUser({
+    await createUser({
       name: adminName,
       email: adminEmail,
       password: hashedPassword,

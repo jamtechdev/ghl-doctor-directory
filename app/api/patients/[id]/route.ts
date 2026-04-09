@@ -19,7 +19,7 @@ export async function GET(
     }
 
     const resolvedParams = await Promise.resolve(params);
-    const patient = getPatientById(resolvedParams.id);
+    const patient = await getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -54,7 +54,7 @@ export async function PUT(
     }
 
     const resolvedParams = await Promise.resolve(params);
-    const patient = getPatientById(resolvedParams.id);
+    const patient = await getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -64,7 +64,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const updated = updatePatient(resolvedParams.id, body);
+    const updated = await updatePatient(resolvedParams.id, body);
 
     if (!updated) {
       return NextResponse.json({ error: 'Failed to update patient' }, { status: 500 });
@@ -96,7 +96,7 @@ export async function DELETE(
     }
 
     const resolvedParams = await Promise.resolve(params);
-    const patient = getPatientById(resolvedParams.id);
+    const patient = await getPatientById(resolvedParams.id);
     if (!patient) {
       return NextResponse.json({ error: 'Patient not found' }, { status: 404 });
     }
@@ -105,7 +105,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const deleted = deletePatient(resolvedParams.id);
+    const deleted = await deletePatient(resolvedParams.id);
     if (!deleted) {
       return NextResponse.json({ error: 'Failed to delete patient' }, { status: 500 });
     }

@@ -3,8 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import fs from 'fs';
-import path from 'path';
+import { getSEOSettings } from '@/lib/db';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,138 +15,139 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Get SEO settings from seo-settings.json
-const dataDir = path.join(process.cwd(), 'data');
-const seoSettingsPath = path.join(dataDir, 'seo-settings.json');
+const defaultSeoSettings = {
+  directory: {
+    title: "Doctor Directory - Find the Right Doctor for Your Needs",
+    description: "Search and filter through our comprehensive directory of qualified doctors. Find specialists by name, specialty, condition, or location.",
+    keywords: ["doctor directory", "find doctor", "medical professionals", "specialists", "healthcare", "physician search"],
+    organization: {
+      name: "Doctor Directory",
+      description: "Find qualified doctors and specialists by specialty, location, and condition.",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
+      logo: "",
+      phone: "",
+      email: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        country: "USA"
+      }
+    },
+    openGraph: {
+      enabled: true,
+      title: "Doctor Directory - Find the Right Doctor",
+      description: "Search and filter through our comprehensive directory of qualified doctors.",
+      type: "website",
+      image: "",
+      siteName: "Doctor Directory"
+    },
+    twitter: {
+      enabled: true,
+      card: "summary_large_image",
+      title: "Doctor Directory",
+      description: "Find the right doctor for your needs.",
+      image: "",
+      site: "",
+      creator: ""
+    },
+    robots: {
+      index: true,
+      follow: true,
+      noarchive: false,
+      nosnippet: false,
+      noimageindex: false,
+      maxSnippet: -1,
+      maxImagePreview: "large",
+      maxVideoPreview: -1
+    },
+    canonicalUrl: "",
+    alternateLanguages: [],
+    analytics: {
+      googleAnalyticsId: "",
+      googleTagManagerId: "",
+      facebookPixelId: "",
+      microsoftClarityId: ""
+    },
+    socialMedia: {
+      facebook: "",
+      twitter: "",
+      linkedin: "",
+      instagram: "",
+      youtube: ""
+    },
+    structuredData: {
+      enabled: true,
+      organizationSchema: true,
+      breadcrumbSchema: true,
+      websiteSchema: true
+    },
+    sitemap: {
+      enabled: true,
+      changefreq: "weekly",
+      priority: 0.8
+    }
+  },
+};
 
-function getSEOSettings() {
-  if (!fs.existsSync(seoSettingsPath)) {
-    return {
-      directory: {
-        title: "Doctor Directory - Find the Right Doctor for Your Needs",
-        description: "Search and filter through our comprehensive directory of qualified doctors. Find specialists by name, specialty, condition, or location.",
-        keywords: ["doctor directory", "find doctor", "medical professionals", "specialists", "healthcare", "physician search"],
-        organization: {
-          name: "Doctor Directory",
-          description: "Find qualified doctors and specialists by specialty, location, and condition.",
-          url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
-          logo: "",
-          phone: "",
-          email: "",
-          address: {
-            street: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            country: "USA"
-          }
-        },
-        openGraph: {
-          enabled: true,
-          title: "Doctor Directory - Find the Right Doctor",
-          description: "Search and filter through our comprehensive directory of qualified doctors.",
-          type: "website",
-          image: "",
-          siteName: "Doctor Directory"
-        },
-        twitter: {
-          enabled: true,
-          card: "summary_large_image",
-          title: "Doctor Directory",
-          description: "Find the right doctor for your needs.",
-          image: "",
-          site: "",
-          creator: ""
-        },
-        robots: {
-          index: true,
-          follow: true,
-          noarchive: false,
-          nosnippet: false,
-          noimageindex: false,
-          maxSnippet: -1,
-          maxImagePreview: "large",
-          maxVideoPreview: -1
-        },
-        canonicalUrl: "",
-        alternateLanguages: [],
-        analytics: {
-          googleAnalyticsId: "",
-          googleTagManagerId: "",
-          facebookPixelId: "",
-          microsoftClarityId: ""
-        },
-        socialMedia: {
-          facebook: "",
-          twitter: "",
-          linkedin: "",
-          instagram: "",
-          youtube: ""
-        },
-        structuredData: {
-          enabled: true,
-          organizationSchema: true,
-          breadcrumbSchema: true,
-          websiteSchema: true
-        },
-        sitemap: {
-          enabled: true,
-          changefreq: "weekly",
-          priority: 0.8
-        }
-      },
-    };
+async function getLayoutSeoSettings() {
+  try {
+    const settings = await getSEOSettings();
+    if (settings?.directory) {
+      return settings;
+    }
+    return defaultSeoSettings;
+  } catch {
+    return defaultSeoSettings;
   }
-  const data = fs.readFileSync(seoSettingsPath, 'utf-8');
-  return JSON.parse(data);
 }
 
-const seoSettings = getSEOSettings();
-const dirSettings = seoSettings.directory;
+export async function generateMetadata(): Promise<Metadata> {
+  const seoSettings = await getLayoutSeoSettings();
+  const dirSettings = seoSettings.directory;
 
-// Generate robots meta based on settings
-const robotsMeta: Metadata['robots'] = {
-  index: dirSettings.robots.index,
-  follow: dirSettings.robots.follow,
-  ...(dirSettings.robots.noarchive && { noarchive: true }),
-  ...(dirSettings.robots.nosnippet && { nosnippet: true }),
-  ...(dirSettings.robots.noimageindex && { noimageindex: true }),
-  ...(dirSettings.robots.maxSnippet !== -1 && { 'max-snippet': dirSettings.robots.maxSnippet }),
-  ...(dirSettings.robots.maxImagePreview && { 'max-image-preview': dirSettings.robots.maxImagePreview as 'none' | 'standard' | 'large' }),
-  ...(dirSettings.robots.maxVideoPreview !== -1 && { 'max-video-preview': dirSettings.robots.maxVideoPreview }),
-};
+  const robotsMeta: Metadata['robots'] = {
+    index: dirSettings.robots.index,
+    follow: dirSettings.robots.follow,
+    ...(dirSettings.robots.noarchive && { noarchive: true }),
+    ...(dirSettings.robots.nosnippet && { nosnippet: true }),
+    ...(dirSettings.robots.noimageindex && { noimageindex: true }),
+    ...(dirSettings.robots.maxSnippet !== -1 && { 'max-snippet': dirSettings.robots.maxSnippet }),
+    ...(dirSettings.robots.maxImagePreview && { 'max-image-preview': dirSettings.robots.maxImagePreview as 'none' | 'standard' | 'large' }),
+    ...(dirSettings.robots.maxVideoPreview !== -1 && { 'max-video-preview': dirSettings.robots.maxVideoPreview }),
+  };
 
-// Generate Open Graph metadata
-const openGraphMeta: Metadata['openGraph'] = dirSettings.openGraph.enabled ? {
-  title: dirSettings.openGraph.title || dirSettings.title,
-  description: dirSettings.openGraph.description || dirSettings.description,
-  type: dirSettings.openGraph.type as 'website' | 'article',
-  ...(dirSettings.openGraph.image && { images: [dirSettings.openGraph.image] }),
-  ...(dirSettings.openGraph.siteName && { siteName: dirSettings.openGraph.siteName }),
-} : undefined;
+  const openGraphMeta: Metadata['openGraph'] = dirSettings.openGraph.enabled ? {
+    title: dirSettings.openGraph.title || dirSettings.title,
+    description: dirSettings.openGraph.description || dirSettings.description,
+    type: dirSettings.openGraph.type as 'website' | 'article',
+    ...(dirSettings.openGraph.image && { images: [dirSettings.openGraph.image] }),
+    ...(dirSettings.openGraph.siteName && { siteName: dirSettings.openGraph.siteName }),
+  } : undefined;
 
-// Generate Twitter Card metadata
-const twitterMeta: Metadata['twitter'] = dirSettings.twitter.enabled ? {
-  card: dirSettings.twitter.card as 'summary' | 'summary_large_image' | 'app' | 'player',
-  title: dirSettings.twitter.title || dirSettings.title,
-  description: dirSettings.twitter.description || dirSettings.description,
-  ...(dirSettings.twitter.image && { images: [dirSettings.twitter.image] }),
-  ...(dirSettings.twitter.site && { site: dirSettings.twitter.site }),
-  ...(dirSettings.twitter.creator && { creator: dirSettings.twitter.creator }),
-} : undefined;
+  const twitterMeta: Metadata['twitter'] = dirSettings.twitter.enabled ? {
+    card: dirSettings.twitter.card as 'summary' | 'summary_large_image' | 'app' | 'player',
+    title: dirSettings.twitter.title || dirSettings.title,
+    description: dirSettings.twitter.description || dirSettings.description,
+    ...(dirSettings.twitter.image && { images: [dirSettings.twitter.image] }),
+    ...(dirSettings.twitter.site && { site: dirSettings.twitter.site }),
+    ...(dirSettings.twitter.creator && { creator: dirSettings.twitter.creator }),
+  } : undefined;
 
-export const metadata: Metadata = {
-  title: dirSettings.title,
-  description: dirSettings.description,
-  keywords: dirSettings.keywords,
-  openGraph: openGraphMeta,
-  twitter: twitterMeta,
-  robots: robotsMeta,
-  ...(dirSettings.canonicalUrl && { alternates: { canonical: dirSettings.canonicalUrl } }),
-};
+  return {
+    title: dirSettings.title,
+    description: dirSettings.description,
+    keywords: dirSettings.keywords,
+    openGraph: openGraphMeta,
+    twitter: twitterMeta,
+    robots: robotsMeta,
+    ...(dirSettings.canonicalUrl && { alternates: { canonical: dirSettings.canonicalUrl } }),
+  };
+}
 
 // Generate Organization schema for SEO
-function generateOrganizationSchema() {
+function generateOrganizationSchema(dirSettings: any) {
   const org = dirSettings.organization;
   const schema: any = {
     '@context': 'https://schema.org',
@@ -183,7 +183,7 @@ function generateOrganizationSchema() {
 }
 
 // Generate Website schema
-function generateWebsiteSchema() {
+function generateWebsiteSchema(dirSettings: any) {
   if (!dirSettings.structuredData.websiteSchema) return null;
   
   return {
@@ -195,15 +195,18 @@ function generateWebsiteSchema() {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const seoSettings = await getLayoutSeoSettings();
+  const dirSettings = seoSettings.directory;
+
   const organizationSchema = dirSettings.structuredData.organizationSchema 
-    ? generateOrganizationSchema() 
+    ? generateOrganizationSchema(dirSettings) 
     : null;
-  const websiteSchema = generateWebsiteSchema();
+  const websiteSchema = generateWebsiteSchema(dirSettings);
 
   return (
     <html lang="en">

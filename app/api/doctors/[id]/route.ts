@@ -10,7 +10,7 @@ export async function GET(
   try {
     // Public endpoint - anyone can view doctor details
     const resolvedParams = await Promise.resolve(params);
-    const doctor = getDoctorById(resolvedParams.id);
+    const doctor = await getDoctorById(resolvedParams.id);
     if (!doctor) {
       return NextResponse.json(
         { error: 'Doctor not found' },
@@ -44,7 +44,7 @@ export async function PUT(
     }
 
     const resolvedParams = await Promise.resolve(params);
-    const doctor = getDoctorById(resolvedParams.id);
+    const doctor = await getDoctorById(resolvedParams.id);
     if (!doctor) {
       return NextResponse.json(
         { error: 'Doctor not found' },
@@ -74,7 +74,7 @@ export async function PUT(
     // If image is provided, use it; otherwise keep existing image
     const imageUrl = image || doctor.image;
 
-    const updatedDoctor = updateDoctor(resolvedParams.id, {
+    const updatedDoctor = await updateDoctor(resolvedParams.id, {
       name,
       specialty,
       specialties: Array.isArray(specialties) ? specialties : [specialty],
@@ -122,7 +122,7 @@ export async function DELETE(
     }
 
     const resolvedParams = await Promise.resolve(params);
-    const doctor = getDoctorById(resolvedParams.id);
+    const doctor = await getDoctorById(resolvedParams.id);
     if (!doctor) {
       return NextResponse.json(
         { error: 'Doctor not found' },
@@ -140,7 +140,7 @@ export async function DELETE(
 
     const ghlSync = await deleteDoctorFromGHL(doctor);
 
-    const success = deleteDoctor(resolvedParams.id);
+    const success = await deleteDoctor(resolvedParams.id);
     if (!success) {
       return NextResponse.json(
         { error: 'Failed to delete doctor' },

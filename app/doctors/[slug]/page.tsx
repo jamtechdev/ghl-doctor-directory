@@ -23,7 +23,7 @@ import DoctorProfileContent from '@/components/DoctorProfileContent';
 
 // Generate static paths for all doctors
 export async function generateStaticParams() {
-  const slugs = getAllDoctorSlugs();
+  const slugs = await getAllDoctorSlugs();
   return slugs.map((slug) => ({
     slug: slug,
   }));
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 // Generate metadata for each doctor page
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
   const resolvedParams = await Promise.resolve(params);
-  const doctor = getDoctorBySlug(resolvedParams.slug);
+  const doctor = await getDoctorBySlug(resolvedParams.slug);
 
   if (!doctor) {
     return {
@@ -85,7 +85,7 @@ function generateDoctorSchema(doctor: Doctor) {
 
 export default async function DoctorProfilePage({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
   const resolvedParams = await Promise.resolve(params);
-  const doctor = getDoctorBySlug(resolvedParams.slug);
+  const doctor = await getDoctorBySlug(resolvedParams.slug);
 
   if (!doctor) {
     notFound();

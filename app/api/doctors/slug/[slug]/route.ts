@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const resolvedParams = await Promise.resolve(params);
-    const doctor = getDoctorBySlug(resolvedParams.slug);
+    const doctor = await getDoctorBySlug(resolvedParams.slug);
     
     if (!doctor) {
       return NextResponse.json(
