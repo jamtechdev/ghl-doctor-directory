@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const mysql = require('mysql2/promise');
 
 dotenv.config({ path: path.join(process.cwd(), '.env') });
-
-const dataDir = path.join(process.cwd(), 'data');
-const usersJsonPath = path.join(dataDir, 'users.json');
-const seoJsonPath = path.join(dataDir, 'seo-settings.json');
-const patientsJsonPath = path.join(dataDir, 'patients.json');
 
 function toInt(value, fallback) {
   const parsed = Number.parseInt(value, 10);
@@ -24,34 +18,107 @@ function safeIdentifier(name, fallback) {
   return finalName;
 }
 
-function toMySQLDateTime(value) {
-  if (!value) {
-    return new Date().toISOString().slice(0, 23).replace('T', ' ');
+function formatError(error) {
+  if (error instanceof Error) {
+    const details = {
+      name: error.name,
+      message: error.message || '(empty message)',
+      code: error.code || undefined,
+      errno: error.errno || undefined,
+      sqlState: error.sqlState || undefined,
+      sqlMessage: error.sqlMessage || undefined,
+      stack: error.stack || undefined,
+    };
+    return JSON.stringify(details, null, 2);
   }
 
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return new Date().toISOString().slice(0, 23).replace('T', ' ');
+  try {
+    return JSON.stringify(error, null, 2);
+  } catch {
+    return String(error);
   }
-
-  return date.toISOString().slice(0, 23).replace('T', ' ');
 }
 
-function parseJsonFile(filePath, fallback) {
-  if (!fs.existsSync(filePath)) {
-    return fallback;
-  }
-
-  const fileData = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(fileData);
-}
-
-function stringifyOrNull(value) {
-  if (value === undefined || value === null) {
-    return null;
-  }
-  return JSON.stringify(value);
-}
+const DEFAULT_DIRECTORY_SEO = {
+  title: 'Doctor Directory - Find the Right Doctor for Your Needs',
+  description: 'Search and filter through our comprehensive directory of qualified doctors. Find specialists by name, specialty, condition, or location.',
+  keywords: [
+    'doctor directory',
+    'find doctor',
+    'medical professionals',
+    'specialists',
+    'healthcare',
+    'physician search',
+  ],
+  organization: {
+    name: 'Doctor Directory',
+    description: 'Find qualified doctors and specialists by specialty, location, and condition.',
+    url: 'https://example.com',
+    logo: '',
+    phone: '',
+    email: '',
+    address: {
+      street: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      country: 'USA',
+    },
+  },
+  openGraph: {
+    enabled: true,
+    title: 'Doctor Directory - Find the Right Doctor',
+    description: 'Search and filter through our comprehensive directory of qualified doctors.',
+    type: 'website',
+    image: '',
+    siteName: 'Doctor Directory',
+  },
+  twitter: {
+    enabled: false,
+    card: 'summary_large_image',
+    title: 'Doctor Directory',
+    description: 'Find the right doctor for your needs.',
+    image: '',
+    site: '',
+    creator: '',
+  },
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: false,
+    nosnippet: false,
+    noimageindex: false,
+    maxSnippet: -1,
+    maxImagePreview: 'large',
+    maxVideoPreview: -1,
+  },
+  canonicalUrl: '',
+  alternateLanguages: [],
+  analytics: {
+    googleAnalyticsId: '',
+    googleTagManagerId: '',
+    facebookPixelId: '',
+    microsoftClarityId: '',
+  },
+  socialMedia: {
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    instagram: '',
+    youtube: '',
+  },
+  structuredData: {
+    enabled: true,
+    organizationSchema: true,
+    breadcrumbSchema: true,
+    websiteSchema: true,
+  },
+  sitemap: {
+    enabled: false,
+    changefreq: 'yearly',
+    priority: 0,
+  },
+};
 
 async function createTables(connection) {
   await connection.query(`
@@ -115,207 +182,44 @@ async function createTables(connection) {
   `);
 }
 
-async function seedUsers(connection, usersData) {
-  if (!Array.isArray(usersData) || usersData.length === 0) {
-    console.log('No users data found to seed.');
-    return 0;
-  }
-
-  const sql = `
-    INSERT INTO users (
-      id, email, password, name, role, slug, specialty, specialties, location,
-      conditions, bio, image, contact, education, certifications, brandColor,
-      createdAt, updatedAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON DUPLICATE KEY UPDATE
-      email = VALUES(email),
-      password = VALUES(password),
-      name = VALUES(name),
-      role = VALUES(role),
-      slug = VALUES(slug),
-      specialty = VALUES(specialty),
-      specialties = VALUES(specialties),
-      location = VALUES(location),
-      conditions = VALUES(conditions),
-      bio = VALUES(bio),
-      image = VALUES(image),
-      contact = VALUES(contact),
-      education = VALUES(education),
-      certifications = VALUES(certifications),
-      brandColor = VALUES(brandColor),
-      createdAt = VALUES(createdAt),
-      updatedAt = VALUES(updatedAt)
-  `;
-
-  let count = 0;
-  for (const user of usersData) {
-    await connection.query(sql, [
-      user.id,
-      user.email,
-      user.password,
-      user.name,
-      user.role,
-      user.slug || null,
-      user.specialty || null,
-      stringifyOrNull(user.specialties),
-      stringifyOrNull(user.location),
-      stringifyOrNull(user.conditions),
-      user.bio || null,
-      user.image || null,
-      stringifyOrNull(user.contact),
-      stringifyOrNull(user.education),
-      stringifyOrNull(user.certifications),
-      user.brandColor || null,
-      toMySQLDateTime(user.createdAt),
-      user.updatedAt ? toMySQLDateTime(user.updatedAt) : null,
-    ]);
-    count += 1;
-  }
-
-  return count;
+async function seedSEOSettings(connection) {
+  await connection.query(
+    `
+      INSERT INTO seo_settings (settings_key, settings_value)
+      VALUES (?, ?)
+      ON DUPLICATE KEY UPDATE
+        settings_value = VALUES(settings_value),
+        updatedAt = CURRENT_TIMESTAMP(3)
+    `,
+    ['directory', JSON.stringify(DEFAULT_DIRECTORY_SEO)]
+  );
 }
 
-async function seedSeoSettings(connection, seoData) {
-  if (!seoData || typeof seoData !== 'object') {
-    console.log('No SEO settings data found to seed.');
-    return 0;
-  }
-
-  const entries = Object.entries(seoData);
-  if (entries.length === 0) {
-    console.log('SEO settings JSON is empty.');
-    return 0;
-  }
-
-  const sql = `
-    INSERT INTO seo_settings (settings_key, settings_value)
-    VALUES (?, ?)
-    ON DUPLICATE KEY UPDATE
-      settings_value = VALUES(settings_value)
-  `;
-
-  let count = 0;
-  for (const [settingsKey, settingsValue] of entries) {
-    await connection.query(sql, [settingsKey, JSON.stringify(settingsValue)]);
-    count += 1;
-  }
-
-  return count;
-}
-
-async function seedPatients(connection, patientsData) {
-  if (!Array.isArray(patientsData) || patientsData.length === 0) {
-    console.log('No patients data found to seed.');
-    return 0;
-  }
-
-  const sql = `
-    INSERT INTO patients (
-      id, name, email, phone, dateOfBirth, gender, address, city, state, zipCode,
-      medicalHistory, allergies, medications, emergencyContact, doctorId, userId, createdAt, updatedAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON DUPLICATE KEY UPDATE
-      name = VALUES(name),
-      email = VALUES(email),
-      phone = VALUES(phone),
-      dateOfBirth = VALUES(dateOfBirth),
-      gender = VALUES(gender),
-      address = VALUES(address),
-      city = VALUES(city),
-      state = VALUES(state),
-      zipCode = VALUES(zipCode),
-      medicalHistory = VALUES(medicalHistory),
-      allergies = VALUES(allergies),
-      medications = VALUES(medications),
-      emergencyContact = VALUES(emergencyContact),
-      doctorId = VALUES(doctorId),
-      userId = VALUES(userId),
-      createdAt = VALUES(createdAt),
-      updatedAt = VALUES(updatedAt)
-  `;
-
-  let count = 0;
-  for (const patient of patientsData) {
-    await connection.query(sql, [
-      patient.id,
-      patient.name,
-      patient.email || null,
-      patient.phone || null,
-      patient.dateOfBirth || null,
-      patient.gender || null,
-      patient.address || null,
-      patient.city || null,
-      patient.state || null,
-      patient.zipCode || null,
-      patient.medicalHistory || null,
-      stringifyOrNull(patient.allergies),
-      stringifyOrNull(patient.medications),
-      stringifyOrNull(patient.emergencyContact),
-      patient.doctorId || null,
-      patient.userId,
-      toMySQLDateTime(patient.createdAt),
-      toMySQLDateTime(patient.updatedAt),
-    ]);
-    count += 1;
-  }
-
-  return count;
-}
-
-function deleteJsonFiles() {
-  if (fs.existsSync(usersJsonPath)) {
-    fs.unlinkSync(usersJsonPath);
-    console.log('Deleted: data/users.json');
-  }
-  if (fs.existsSync(seoJsonPath)) {
-    fs.unlinkSync(seoJsonPath);
-    console.log('Deleted: data/seo-settings.json');
-  }
-  if (fs.existsSync(patientsJsonPath)) {
-    fs.unlinkSync(patientsJsonPath);
-    console.log('Deleted: data/patients.json');
-  }
-}
-
-async function initMySQLTablesAndSeed() {
+async function initMySQLTables() {
   const host = process.env.DB_HOST || 'localhost';
   const port = toInt(process.env.DB_PORT, 3306);
   const user = process.env.DB_USER || 'root';
   const password = process.env.DB_PASSWORD || '';
   const database = safeIdentifier(process.env.DB_NAME, 'doctor_directory_mysql');
 
-  const usersData = parseJsonFile(usersJsonPath, []);
-  const seoData = parseJsonFile(seoJsonPath, {});
-  const patientsData = parseJsonFile(patientsJsonPath, []);
-
   let rootConnection;
   let dbConnection;
 
   try {
+    console.log(`Connecting to MySQL: ${user}@${host}:${port}`);
     rootConnection = await mysql.createConnection({ host, port, user, password });
     await rootConnection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\``);
     console.log(`Database ready: ${database}`);
 
     dbConnection = await mysql.createConnection({ host, port, user, password, database });
-    await dbConnection.beginTransaction();
-
     await createTables(dbConnection);
+    await seedSEOSettings(dbConnection);
     console.log('Tables ready: users, seo_settings, patients');
-
-    const usersSeeded = await seedUsers(dbConnection, usersData);
-    const seoSeeded = await seedSeoSettings(dbConnection, seoData);
-    const patientsSeeded = await seedPatients(dbConnection, patientsData);
-
-    await dbConnection.commit();
-    console.log(`Seed complete: users=${usersSeeded}, seo_settings=${seoSeeded}, patients=${patientsSeeded}`);
-
-    deleteJsonFiles();
-    console.log('Migration done: JSON data moved to MySQL and JSON files removed.');
+    console.log('Seed ready: seo_settings.directory');
+    console.log('Done: JSON functionality removed. App uses MySQL only.');
   } catch (error) {
-    if (dbConnection) {
-      await dbConnection.rollback();
-    }
-    console.error('Failed to initialize/seed MySQL:', error.message);
+    console.error('Failed to initialize MySQL tables:');
+    console.error(formatError(error));
     process.exitCode = 1;
   } finally {
     if (dbConnection) {
@@ -327,4 +231,4 @@ async function initMySQLTablesAndSeed() {
   }
 }
 
-initMySQLTablesAndSeed();
+initMySQLTables();
